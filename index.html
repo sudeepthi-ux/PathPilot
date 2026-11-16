@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth antialiased" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#FAF9F5" />
+    <!--
+      Apply the saved theme BEFORE first paint so the page never flashes the
+      wrong palette. Saved choice wins; otherwise follow the visitor's system
+      preference (light for everyone who has no dark-mode preference).
+      Keep the storage key in sync with src/context/ThemeContext.jsx.
+    -->
+    <script>
+      (function () {
+        try {
+          var saved = null;
+          try { saved = window.localStorage.getItem('pathpilot_theme_preference'); } catch (e) {}
+          var theme = (saved === 'dark' || saved === 'light')
+            ? saved
+            : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          var root = document.documentElement;
+          root.setAttribute('data-theme', theme);
+          root.classList.toggle('dark', theme === 'dark');
+          root.style.colorScheme = theme;
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#0F1512' : '#FAF9F5');
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%231D4D38'/><path d='M16 7L20 14L27 16L20 18L16 25L12 18L5 16L12 14Z' fill='%23FAF9F5'/></svg>" />
+    <title>PathPilot — AI-Powered Career Discovery & Precision Guidance</title>
+    <meta name="description" content="PathPilot helps ambitious students discover their high-conviction career trajectories through intelligent skill synthesis, live industry intelligence, and personalized roadmaps." />
+    <!-- Google Fonts: Plus Jakarta Sans & Newsreader -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-ivory-50 text-charcoal-900 font-sans selection:bg-forest-100 selection:text-forest-900 min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

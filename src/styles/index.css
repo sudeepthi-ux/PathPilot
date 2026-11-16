@@ -1,0 +1,358 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   PathPilot theme tokens
+   --------------------------------------------------------------------------
+   Two intentionally designed palettes (not an inversion):
+
+   LIGHT  – warm ivory & cream surfaces, soft-white cards, forest-green accent.
+   DARK   – deep charcoal / dark-forest surfaces, slightly lifted cards,
+            muted green accent, soft off-white type.
+
+   Values are space-separated RGB channels so Tailwind opacity modifiers work.
+   The active theme is set on <html data-theme="light|dark"> by the inline
+   script in index.html (before first paint) and ThemeContext afterwards.
+   ========================================================================== */
+
+@layer base {
+  :root,
+  :root[data-theme='light'] {
+    color-scheme: light;
+
+    /* Surfaces & borders (ivory = page background → borders) */
+    --c-ivory-50: 250 249 245;   /* page background        #FAF9F5 */
+    --c-ivory-100: 245 243 236;  /* subtle section fill    #F5F3EC */
+    --c-ivory-200: 234 230 219;  /* default border         #EAE6DB */
+    --c-ivory-300: 222 216 201;  /* strong border          #DED8C9 */
+    --c-ivory-400: 206 198 178;  /*                        #CEC6B2 */
+    --c-ivory-500: 186 175 152;  /*                        #BAAF98 */
+
+    --c-card: 255 255 255;       /* raised surface         #FFFFFF */
+    --c-muted: 242 239 230;      /* hover / quiet fill     #F2EFE6 */
+    --c-overlay: 12 14 13;       /* modal scrim            #0C0E0D */
+
+    /* Typography (charcoal = text scale, 900 strongest → 100 faintest) */
+    --c-charcoal-950: 12 14 13;
+    --c-charcoal-900: 19 22 21;
+    --c-charcoal-800: 29 34 32;
+    --c-charcoal-700: 42 48 45;
+    --c-charcoal-600: 61 69 65;
+    --c-charcoal-500: 87 97 91;
+    --c-charcoal-400: 123 135 128;
+    --c-charcoal-300: 164 176 169;
+    --c-charcoal-200: 209 217 212;
+    --c-charcoal-100: 232 236 233;
+
+    /* Brand greens */
+    --c-forest-950: 7 22 14;
+    --c-forest-900: 14 40 28;
+    --c-forest-800: 21 58 42;
+    --c-forest-700: 29 77 56;
+    --c-forest-600: 42 107 78;
+    --c-forest-500: 61 140 104;
+    --c-forest-400: 94 172 136;
+    --c-forest-300: 139 201 172;
+    --c-forest-200: 191 228 209;
+    --c-forest-100: 228 244 236;
+    --c-forest-50: 242 250 245;
+
+    --c-sage-50: 245 247 246;
+    --c-sage-100: 231 236 233;
+    --c-sage-200: 209 221 214;
+    --c-sage-300: 180 198 188;
+
+    --c-sand-50: 253 252 247;
+    --c-sand-100: 247 245 238;
+    --c-sand-200: 239 236 224;
+
+    /* Accent (primary buttons, selected states, progress fills) */
+    --c-accent: 21 58 42;
+    --c-accent-hover: 14 40 28;
+    --c-accent-soft: 191 228 209;
+    --c-on-accent: 250 249 245;
+
+    /* High-contrast chips (user avatar, active toggles) */
+    --c-inverse: 29 34 32;
+    --c-on-inverse: 250 249 245;
+
+    --c-danger: 220 38 38;
+    --c-danger-hover: 185 28 28;
+
+    /* Status colours */
+    --c-red-50: 254 242 242;
+    --c-red-100: 254 226 226;
+    --c-red-200: 254 202 202;
+    --c-red-300: 252 165 165;
+    --c-red-400: 248 113 113;
+    --c-red-500: 239 68 68;
+    --c-red-600: 220 38 38;
+    --c-red-700: 185 28 28;
+    --c-red-800: 153 27 27;
+    --c-red-900: 127 29 29;
+    --c-red-950: 69 10 10;
+
+    --c-amber-50: 255 251 235;
+    --c-amber-100: 254 243 199;
+    --c-amber-200: 253 230 138;
+    --c-amber-300: 252 211 77;
+    --c-amber-400: 251 191 36;
+    --c-amber-500: 245 158 11;
+    --c-amber-600: 217 119 6;
+    --c-amber-700: 180 83 9;
+    --c-amber-800: 146 64 14;
+    --c-amber-900: 120 53 15;
+    --c-amber-950: 69 26 3;
+
+    /* Depth */
+    --shadow-rgb: 19 22 21;
+    --shadow-k: 1;
+    --highlight-rgb: 255 255 255;
+    --highlight-a: 0.8;
+    --glow-rgb: 42 107 78;
+    --glow-a: 0.25;
+
+    /* Decorative */
+    --pattern-rgb: 29 77 56;
+    --halo-core: 61 140 104;
+    --halo-edge: 29 77 56;
+    --halo-opacity: 0.45;
+    --selection-bg: 228 244 236;
+    --selection-fg: 14 40 28;
+
+    /* Legacy aliases kept for any external references */
+    --color-ivory: #FAF9F5;
+    --color-charcoal: #131615;
+    --color-forest: #1D4D38;
+  }
+
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+
+    /* Deep charcoal / dark-forest surfaces – never pure black */
+    --c-ivory-50: 15 21 18;      /* page background        #0F1512 */
+    --c-ivory-100: 19 26 22;     /* subtle section fill    #131A16 */
+    --c-ivory-200: 38 50 43;     /* default border         #26322B */
+    --c-ivory-300: 51 66 58;     /* strong border          #33423A */
+    --c-ivory-400: 67 85 75;     /*                        #43554B */
+    --c-ivory-500: 92 112 102;   /*                        #5C7066 */
+
+    --c-card: 23 31 27;          /* raised surface         #171F1B */
+    --c-muted: 30 40 35;         /* hover / quiet fill     #1E2823 */
+    --c-overlay: 0 0 0;
+
+    /* Soft off-white type, carefully stepped for contrast (AA on page & card) */
+    --c-charcoal-950: 244 247 244;
+    --c-charcoal-900: 237 240 236;  /* headings   #EDF0EC */
+    --c-charcoal-800: 222 228 223;
+    --c-charcoal-700: 203 211 205;
+    --c-charcoal-600: 179 190 182;
+    --c-charcoal-500: 152 165 157;  /* secondary  #98A59D */
+    --c-charcoal-400: 124 137 127;  /* muted      #7C897F */
+    --c-charcoal-300: 88 102 94;
+    --c-charcoal-200: 52 64 58;
+    --c-charcoal-100: 36 45 40;
+
+    /* Greens invert meaning: dark shades become readable light text,
+       light shades become deep tinted surfaces. */
+    --c-forest-950: 234 246 239;
+    --c-forest-900: 213 235 223;
+    --c-forest-800: 143 207 174;
+    --c-forest-700: 121 190 154;
+    --c-forest-600: 95 176 138;
+    --c-forest-500: 74 154 116;
+    --c-forest-400: 59 126 93;
+    --c-forest-300: 47 98 73;
+    --c-forest-200: 38 74 57;
+    --c-forest-100: 29 58 45;
+    --c-forest-50: 21 39 31;
+
+    --c-sage-50: 20 28 24;
+    --c-sage-100: 25 35 30;
+    --c-sage-200: 37 51 43;
+    --c-sage-300: 52 70 59;
+
+    --c-sand-50: 21 28 24;
+    --c-sand-100: 25 33 29;
+    --c-sand-200: 31 41 36;
+
+    /* Muted green accent with soft off-white label */
+    --c-accent: 52 120 90;           /* #34785A */
+    --c-accent-hover: 44 106 78;     /* #2C6A4E */
+    --c-accent-soft: 196 230 211;
+    --c-on-accent: 242 247 243;
+
+    --c-inverse: 227 233 228;
+    --c-on-inverse: 15 21 18;
+
+    --c-danger: 185 71 63;
+    --c-danger-hover: 166 61 54;
+
+    --c-red-50: 44 24 24;
+    --c-red-100: 56 28 28;
+    --c-red-200: 91 43 43;
+    --c-red-300: 126 58 58;
+    --c-red-400: 200 90 90;
+    --c-red-500: 217 107 107;
+    --c-red-600: 229 127 127;
+    --c-red-700: 238 148 148;
+    --c-red-800: 244 171 171;
+    --c-red-900: 248 195 195;
+    --c-red-950: 252 220 220;
+
+    --c-amber-50: 42 33 19;
+    --c-amber-100: 53 41 21;
+    --c-amber-200: 84 64 28;
+    --c-amber-300: 122 90 34;
+    --c-amber-400: 176 128 46;
+    --c-amber-500: 196 129 26;
+    --c-amber-600: 165 100 14;
+    --c-amber-700: 226 180 98;
+    --c-amber-800: 234 195 125;
+    --c-amber-900: 241 212 158;
+    --c-amber-950: 248 230 195;
+
+    /* Deeper, pure-black shadows + a faint top highlight give cards lift */
+    --shadow-rgb: 0 0 0;
+    --shadow-k: 3.2;
+    --highlight-rgb: 255 255 255;
+    --highlight-a: 0.05;
+    --glow-rgb: 95 176 138;
+    --glow-a: 0.16;
+
+    --pattern-rgb: 143 207 174;
+    --halo-core: 95 176 138;
+    --halo-edge: 52 120 90;
+    --halo-opacity: 0.28;
+    --selection-bg: 52 120 90;
+    --selection-fg: 242 247 243;
+  }
+
+  html {
+    background-color: rgb(var(--c-ivory-50));
+  }
+
+  body {
+    background-color: rgb(var(--c-ivory-50));
+    color: rgb(var(--c-charcoal-900));
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: rgb(var(--selection-bg));
+    color: rgb(var(--selection-fg));
+  }
+
+  /* Focus-ring offset must follow the surface, not default to white */
+  *,
+  ::before,
+  ::after {
+    --tw-ring-offset-color: rgb(var(--c-ivory-50));
+  }
+
+  /* Keep browser autofill from painting a bright block over dark inputs */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  select:-webkit-autofill {
+    -webkit-text-fill-color: rgb(var(--c-charcoal-900));
+    caret-color: rgb(var(--c-charcoal-900));
+    -webkit-box-shadow: 0 0 0 1000px rgb(var(--c-ivory-50)) inset;
+    transition: background-color 9999s ease-out 0s;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Smooth theme switching
+   The class is added for ~400ms by ThemeContext only while toggling, so the
+   permanent hover/active transitions of components are never affected.
+   -------------------------------------------------------------------------- */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    fill 0.35s ease,
+    stroke 0.35s ease,
+    box-shadow 0.35s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transitioning,
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    transition: none !important;
+  }
+}
+
+/* Glassmorphism & Apple-inspired surface treatments */
+.glass-nav {
+  background: rgb(var(--c-ivory-50) / 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgb(var(--c-ivory-300) / 0.6);
+}
+
+.glass-card {
+  background: rgb(var(--c-card) / 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgb(var(--c-ivory-200) / 0.8);
+}
+
+.glass-card-elevated {
+  background: rgb(var(--c-card));
+  border: 1px solid rgb(var(--c-ivory-300) / 0.85);
+  box-shadow: 0 4px 20px -2px rgb(var(--shadow-rgb) / calc(0.04 * var(--shadow-k))), 0 2px 6px -1px rgb(var(--shadow-rgb) / calc(0.02 * var(--shadow-k)));
+}
+
+/* Custom delicate scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--c-ivory-50));
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--c-ivory-300));
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--c-sage-300));
+}
+
+/* Subtle grid texture overlay for premium editorial feel */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image:
+    linear-gradient(to right, rgb(var(--pattern-rgb) / 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--pattern-rgb) / 0.03) 1px, transparent 1px);
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(rgb(var(--pattern-rgb) / 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Apple & Gemini style subtle glow effect */
+.gemini-halo {
+  position: absolute;
+  filter: blur(70px);
+  opacity: var(--halo-opacity);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(var(--halo-core) / 0.22) 0%, rgb(var(--halo-edge) / 0.08) 60%, transparent 100%);
+}
