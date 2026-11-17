@@ -119,6 +119,7 @@ export function buildStudentContext(user, studentProfile) {
       : [],
     completedExperiments: completedIds,
     completedExperimentTitles: completedExperimentDetails.map((e) => e.title),
+    careerDiscoveryResult: studentProfile?.careerDiscoveryResult || null,
     discoveredSkills,
     savedCareers,
     exploredCareers,
@@ -136,6 +137,18 @@ export function buildPersonalizedGreeting(user, studentProfile) {
   const archetype = studentProfile?.personalityResult?.archetype?.title;
   const topInterest = studentProfile?.interestResult?.topThree?.[0];
   const saved = studentProfile?.savedCareers?.[0]?.title;
+  const discoveryMatches = studentProfile?.careerDiscoveryResult?.matches || [];
+  const topDiscovery = discoveryMatches[0];
+
+  if (topDiscovery && archetype) {
+    const careerTitle = topDiscovery.career?.title || topDiscovery.careerId;
+    return `${greetingPrefix} I'm AIRA, your personal career companion. Based on your Career Discovery submission, ${careerTitle} emerged as your top match (${topDiscovery.score}%), paired with your "${archetype}" thinking style. What career questions or doubts would you like to explore today?`;
+  }
+
+  if (topDiscovery) {
+    const careerTitle = topDiscovery.career?.title || topDiscovery.careerId;
+    return `${greetingPrefix} I'm AIRA, your career companion. I noticed your Career Discovery assessment matched you strongly with ${careerTitle} (${topDiscovery.score}%). What would you like to explore about that or any other paths today?`;
+  }
 
   if (archetype && topInterest) {
     return `${greetingPrefix} I'm AIRA, your career companion. Looking at your real PathPilot results, your strongest interest is ${topInterest.name} (${topInterest.percentage}%) with a "${archetype}" style. What career question is on your mind today—you can talk to me in English or Telugu.`;

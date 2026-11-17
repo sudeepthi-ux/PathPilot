@@ -1,15 +1,14 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { DashboardSidebar } from '../components/dashboard/DashboardSidebar';
-import { QuoteCard } from '../components/dashboard/QuoteCard';
-import { ProgressTracker } from '../components/dashboard/ProgressTracker';
 import { ProfileSettingsModal } from '../components/dashboard/ProfileSettingsModal';
 import { RoleDetailModal } from '../components/common/RoleDetailModal';
 import { calculateRuleBasedRecommendations } from '../services/geminiRecommendations';
 import { careerExperiments } from '../data/careerExperimentsData';
 import { allCareers } from '../data/careerLibraryData';
 import { generateRoadmapForCareer } from '../data/roadmapTemplates';
+import { inspirationalQuotes } from '../data/inspirationalQuotes';
 import { 
   Sparkles, 
   Brain, 
@@ -34,6 +33,21 @@ export const DashboardPage = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [selectedRoleForDetail, setSelectedRoleForDetail] = useState(null);
+  const [quoteIdx, setQuoteIdx] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setQuoteIdx((prev) => (prev + 1) % inspirationalQuotes.length);
+    }, 12000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const currentQuote = inspirationalQuotes[quoteIdx] || inspirationalQuotes[0];
+  const academicParts = [
+    user?.university,
+    user?.major,
+    user?.gradYear ? `Class of ${user.gradYear}` : ''
+  ].filter(Boolean);
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -106,8 +120,30 @@ export const DashboardPage = () => {
       .filter(Boolean);
   }, [studentProfile.learningRoadmaps]);
 
+  // Normalize savedCareers safely (handles both string IDs and career objects)
+  const normalizedSavedCareers = useMemo(() => {
+    return (Array.isArray(studentProfile?.savedCareers) ? studentProfile.savedCareers : [])
+      .map((c) => {
+        if (typeof c === 'string') {
+          const found = allCareers.find((item) => item.id === c);
+          return found
+            ? { id: found.id, title: found.title, category: found.categoryName }
+            : { id: c, title: c, category: 'Saved Career' };
+        }
+        if (c && typeof c === 'object') {
+          return {
+            id: c.id || 'product-designer',
+            title: c.title || c.id || 'Career Role',
+            category: c.category || c.categoryName || 'Saved Career'
+          };
+        }
+        return null;
+      })
+      .filter(Boolean);
+  }, [studentProfile?.savedCareers]);
+
   return (
-    <div className="pt-16 min-h-screen bg-ivory-50 flex">
+    <div className="pt-16 min-h-screen bg-ivory-50 flex flex-col lg:flex-row items-start w-full">
       
       {/* Sidebar */}
       <DashboardSidebar
@@ -117,47 +153,69 @@ export const DashboardPage = () => {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 p-6 sm:p-8 lg:p-10 max-w-5xl mx-auto space-y-8">
+      <main className="flex-1 min-w-0 w-full p-6 sm:p-8 lg:p-10 pb-20 max-w-5xl mx-auto space-y-8">
         
-        {/* Top Greeting Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-ivory-200">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setMobileSidebarOpen(true)}
-              className="p-2 rounded-xl border border-ivory-200 lg:hidden text-charcoal-700 hover:bg-card"
-            >
-              <Menu className="w-4 h-4" />
-            </button>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-charcoal-900">
-                {getGreeting()}, {studentName}
-              </h1>
-              <p className="text-xs text-charcoal-500 mt-0.5">
-                {user?.university || 'Student'} • {user?.major || 'Exploring Paths'}
-              </p>
+        {/* Top Greeting Header with Academic Info & Minimal Motivational Quote */}
+        <div className="pb-6 border-b border-ivory-200 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setMobileSidebarOpen(true)}
+                className="p-2 rounded-xl border border-ivory-200 lg:hidden text-charcoal-700 hover:bg-card"
+              >
+                <Menu className="w-4 h-4" />
+              </button>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-charcoal-900">
+                  {getGreeting()}, {studentName}
+                </h1>
+                {academicParts.length > 0 ? (
+                  <p className="text-xs sm:text-sm text-charcoal-500 mt-0.5">
+                    {academicParts.join(' • ')}
+                  </p>
+                ) : (
+                  <p className="text-xs text-charcoal-500 mt-0.5">
+                    Add your university &amp; major in{' '}
+                    <button
+                      type="button"
+                      onClick={() => setSettingsOpen(true)}
+                      className="font-semibold text-forest-800 hover:underline"
+                    >
+                      Profile Settings
+                    </button>
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span className="text-[11px] font-semibold text-forest-800 bg-forest-50 px-2.5 py-1 rounded-full border border-forest-200">
+                {profileCompletionPercentage}% profile ready
+              </span>
+              <button
+                type="button"
+                onClick={() => setSettingsOpen(true)}
+                className="text-xs text-charcoal-600 hover:text-charcoal-900 font-medium"
+              >
+                Edit Profile
+              </button>
+              <Link to="/advisor">
+                <Button variant="primary" size="sm" icon={Sparkles} iconPosition="left">
+                  Ask AI Guide
+                </Button>
+              </Link>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setSettingsOpen(true)}
-              className="text-xs text-charcoal-600 hover:text-charcoal-900 font-medium"
-            >
-              Edit Profile
-            </button>
-            <Link to="/advisor">
-              <Button variant="primary" size="sm" icon={Sparkles} iconPosition="left">
-                Ask AI Guide
-              </Button>
-            </Link>
+          <div className="pt-2">
+            <blockquote className="font-serif italic text-sm sm:text-base text-charcoal-700 leading-relaxed">
+              “{currentQuote.quote}”
+            </blockquote>
+            <p className="text-[11px] text-charcoal-400 mt-0.5">
+              — {currentQuote.author}
+            </p>
           </div>
         </div>
-
-        {/* Daily Quote Card */}
-        <QuoteCard />
-
-        {/* Progress & Milestone Tracking */}
-        <ProgressTracker />
 
         {/* 3 Self-Discovery Assessment Modules Status Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -422,13 +480,13 @@ export const DashboardPage = () => {
                   <span>Saved Careers</span>
                 </h3>
                 <span className="text-xs font-mono font-bold text-forest-800">
-                  {(studentProfile.savedCareers || []).length}
+                  {normalizedSavedCareers.length}
                 </span>
               </div>
 
-              {(studentProfile.savedCareers || []).length > 0 ? (
+              {normalizedSavedCareers.length > 0 ? (
                 <div className="space-y-2">
-                  {(studentProfile.savedCareers || []).slice(0, 4).map((c) => (
+                  {normalizedSavedCareers.slice(0, 4).map((c) => (
                     <Link
                       key={c.id}
                       to={`/careers/${c.id}`}

@@ -2,9 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Compass, Sparkles, Heart } from 'lucide-react';
 
-export const HeroSection = () => {
+export const HeroSection = ({ compactTop = false }) => {
   return (
-    <section className="pt-32 pb-20 md:pt-40 md:pb-28 bg-ivory-50 relative overflow-hidden">
+    <section
+      className={`${
+        compactTop ? 'pt-10 pb-16 md:pt-14 md:pb-24' : 'pt-32 pb-20 md:pt-40 md:pb-28'
+      } bg-ivory-50 relative overflow-hidden`}
+    >
       <div className="max-w-4xl mx-auto px-6 text-center space-y-8">
         
         {/* Soft, friendly intro pill */}

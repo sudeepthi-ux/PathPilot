@@ -79,11 +79,11 @@ export const DashboardSidebar = ({ onOpenSettings, isMobileOpen, setIsMobileOpen
   ];
 
   const content = (
-    <div className="flex flex-col h-full justify-between p-6 bg-card border-r border-ivory-200">
-      <div className="space-y-6">
+    <div className="flex flex-col h-full justify-between p-6 bg-card border-r border-ivory-200 overflow-y-auto">
+      <div className="space-y-6 flex-1 min-h-0 flex flex-col">
         
         {/* Student Profile Card */}
-        <div className="space-y-1 pb-4 border-b border-ivory-200">
+        <div className="space-y-1 pb-4 border-b border-ivory-200 shrink-0">
           <h4 className="font-bold text-sm text-charcoal-900 truncate">
             {user?.name || 'Student'}
           </h4>
@@ -98,7 +98,7 @@ export const DashboardSidebar = ({ onOpenSettings, isMobileOpen, setIsMobileOpen
         </div>
 
         {/* Navigation list */}
-        <nav className="space-y-1">
+        <nav className="space-y-1 flex-1 min-h-0 overflow-y-auto pr-1">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -124,7 +124,7 @@ export const DashboardSidebar = ({ onOpenSettings, isMobileOpen, setIsMobileOpen
       </div>
 
       {/* Footer controls: Theme, Settings & Logout */}
-      <div className="pt-4 border-t border-ivory-200 space-y-2">
+      <div className="pt-4 border-t border-ivory-200 space-y-2 shrink-0">
         <div className="pb-1">
           <ThemeToggle variant="labeled" />
         </div>
@@ -151,7 +151,7 @@ export const DashboardSidebar = ({ onOpenSettings, isMobileOpen, setIsMobileOpen
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:block w-64 h-[calc(100vh-64px)] sticky top-16 shrink-0">
+      <aside className="hidden lg:block w-64 h-[calc(100vh-64px)] sticky top-16 shrink-0 overflow-y-auto">
         {content}
       </aside>
 
@@ -159,7 +159,7 @@ export const DashboardSidebar = ({ onOpenSettings, isMobileOpen, setIsMobileOpen
       {isMobileOpen && (
         <div className="fixed inset-0 top-16 z-40 lg:hidden flex">
           <div className="fixed inset-0 bg-overlay/20 backdrop-blur-xs" onClick={() => setIsMobileOpen(false)} />
-          <div className="relative w-64 max-w-[80vw] h-full bg-card z-10 animate-fadeIn">
+          <div className="relative w-64 max-w-[80vw] h-full bg-card z-10 animate-fadeIn overflow-y-auto">
             {content}
           </div>
         </div>

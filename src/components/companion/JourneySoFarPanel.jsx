@@ -15,6 +15,7 @@ export const JourneySoFarPanel = ({ user, studentProfile }) => {
   const topInterests = studentProfile?.interestResult?.topThree || [];
   const savedCareers = studentProfile?.savedCareers || [];
   const completedExperiments = studentProfile?.completedExperiments || [];
+  const careerDiscoveryMatches = studentProfile?.careerDiscoveryResult?.matches || [];
 
   return (
     <aside className="bg-card rounded-3xl p-6 border border-ivory-200 shadow-sm space-y-5">
@@ -85,6 +86,40 @@ export const JourneySoFarPanel = ({ user, studentProfile }) => {
           </div>
         )}
       </div>
+
+      {/* 2b. Career Discovery Matches */}
+      {careerDiscoveryMatches.length > 0 && (
+        <div className="p-3.5 rounded-2xl bg-forest-50/70 border border-forest-200/80 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-forest-800 flex items-center gap-1">
+              <Sparkles className="w-3 h-3 text-forest-700" />
+              Career Discovery Matches
+            </span>
+            <Link
+              to="/discover"
+              className="text-[10px] font-semibold text-forest-800 hover:underline inline-flex items-center gap-0.5"
+            >
+              <span>View</span>
+              <ArrowRight className="w-2.5 h-2.5" />
+            </Link>
+          </div>
+          <div className="space-y-1.5">
+            {careerDiscoveryMatches.slice(0, 3).map((match, i) => (
+              <div key={match.careerId || i} className="flex items-center justify-between text-xs">
+                <Link
+                  to={`/careers/${match.careerId}`}
+                  className="text-forest-950 font-medium hover:underline truncate pr-2"
+                >
+                  {match.career?.title || match.careerId}
+                </Link>
+                <span className="font-mono text-[11px] font-bold text-forest-700 shrink-0">
+                  {match.score}%
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* 3. Identified Strengths */}
       <div className="p-3.5 rounded-2xl bg-ivory-50 border border-ivory-200 space-y-2">

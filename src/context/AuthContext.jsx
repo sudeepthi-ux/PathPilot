@@ -14,10 +14,66 @@ const STORAGE_KEY_USER = 'pathpilot_user_session';
 const STORAGE_KEY_PROFILE = 'pathpilot_student_profile';
 const getProfileStorageKey = (userId) => (userId ? `${STORAGE_KEY_PROFILE}_${userId}` : STORAGE_KEY_PROFILE);
 
+const PLACEHOLDER_UNIVERSITIES = new Set([
+  'university student',
+  'student',
+  'your university',
+  'n/a',
+  'none'
+]);
+const PLACEHOLDER_MAJORS = new Set([
+  'interdisciplinary studies',
+  'exploring paths',
+  'career discovery',
+  'undeclared',
+  'n/a',
+  'none'
+]);
+
+/**
+ * Strips legacy auto-generated placeholder profile values so an unfilled profile
+ * never reports artificial progress or placeholder fields.
+ */
+export function sanitizeUserRecord(rawUser) {
+  if (!rawUser || typeof rawUser !== 'object') return null;
+  const rawUni = String(rawUser.university || '').trim();
+  const rawMajor = String(rawUser.major || '').trim();
+  const rawGrad = String(rawUser.gradYear || '').trim();
+  const rawTarget = String(rawUser.targetIndustry || '').trim();
+  const rawBio = String(rawUser.bio || '').trim();
+
+  const isLegacyPlaceholderUni = PLACEHOLDER_UNIVERSITIES.has(rawUni.toLowerCase());
+  const isLegacyPlaceholderMajor = PLACEHOLDER_MAJORS.has(rawMajor.toLowerCase());
+  const isLegacyAutoGrad =
+    rawGrad === '2026' && isLegacyPlaceholderUni && isLegacyPlaceholderMajor && !rawTarget && !rawBio;
+
+  return {
+    ...rawUser,
+    university: isLegacyPlaceholderUni ? '' : rawUni,
+    major: isLegacyPlaceholderMajor ? '' : rawMajor,
+    gradYear: isLegacyAutoGrad ? '' : rawGrad,
+    targetIndustry: rawTarget,
+    bio: rawBio
+  };
+}
+
+/**
+ * Calculates genuine student profile completion from user-entered fields only.
+ * Empty profiles return 0%.
+ */
+export function calculateProfileCompletion(user) {
+  if (!user) return 0;
+  const clean = sanitizeUserRecord(user);
+  const fields = [clean.university, clean.major, clean.gradYear, clean.targetIndustry, clean.bio];
+  const filledCount = fields.filter((val) => Boolean(val && String(val).trim().length > 0)).length;
+  return Math.round((filledCount / fields.length) * 100);
+}
+
 const emptyUnauthenticatedProfile = {
   personalityResult: null,
   interestResult: null,
   strengthResult: null,
+  careerDiscoveryResult: null,
   assessmentResponses: {
     personality: {},
     interests: {},
@@ -39,11 +95,11 @@ const defaultDemoUser = {
   id: 'demo-student-001',
   name: 'Elena Rostova',
   email: 'elena.rostova@berkeley.edu',
-  university: 'UC Berkeley',
-  major: 'Cognitive Science & Computer Science',
-  gradYear: '2026',
-  bio: 'Dual-degree student exploring the synthesis of cognitive psychology, spatial interfaces, and multimodal AI copilots.',
-  targetIndustry: 'Autonomous Systems & Human-AI Interaction',
+  university: '',
+  major: '',
+  gradYear: '',
+  bio: '',
+  targetIndustry: '',
   avatarUrl: null,
   isDemo: true,
   createdAt: '2026-01-15T08:00:00Z'
@@ -113,7 +169,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY_USER);
-      return saved ? JSON.parse(saved) : null;
+      return saved ? sanitizeUserRecord(JSON.parse(saved)) : null;
     } catch (e) {
       return null;
     }
@@ -180,15 +236,19 @@ export const AuthProvider = ({ children }) => {
           const sessionUser = data?.session?.user;
           if (!active) return;
           if (sessionUser) {
-            setUser({
-              id: sessionUser.id,
-              name: sessionUser.user_metadata?.full_name || sessionUser.email?.split('@')[0] || 'Student',
-              email: sessionUser.email,
-              university: sessionUser.user_metadata?.university || 'University Student',
-              major: sessionUser.user_metadata?.major || 'Interdisciplinary Studies',
-              gradYear: '2026',
-              createdAt: sessionUser.created_at
-            });
+            setUser(
+              sanitizeUserRecord({
+                id: sessionUser.id,
+                name: sessionUser.user_metadata?.full_name || sessionUser.email?.split('@')[0] || 'Student',
+                email: sessionUser.email,
+                university: sessionUser.user_metadata?.university || '',
+                major: sessionUser.user_metadata?.major || '',
+                gradYear: sessionUser.user_metadata?.gradYear || '',
+                targetIndustry: sessionUser.user_metadata?.targetIndustry || '',
+                bio: sessionUser.user_metadata?.bio || '',
+                createdAt: sessionUser.created_at
+              })
+            );
           } else {
             setUser(null);
             setStudentProfile(emptyUnauthenticatedProfile);
@@ -208,7 +268,7 @@ export const AuthProvider = ({ children }) => {
       const verified = await authService.verifyBackendSession();
       if (!active) return;
       if (verified?.authenticated && verified.user) {
-        setUser(verified.user);
+        setUser(sanitizeUserRecord(verified.user));
         if (verified.profile) {
           setStudentProfile({
             ...emptyUnauthenticatedProfile,
@@ -312,22 +372,8 @@ export const AuthProvider = ({ children }) => {
     }));
   };
 
-  // Profile completion percentage
-  const profileCompletionPercentage = useMemo(() => {
-    if (!user) return 0;
-    let score = 20; // Basic user account created
-
-    if (user.major && user.university) score += 10;
-    if (studentProfile.personalityResult) score += 10;
-    if (studentProfile.interestResult) score += 10;
-    if (studentProfile.strengthResult) score += 10;
-    if (studentProfile.completedExperiments && studentProfile.completedExperiments.length > 0) score += 15;
-    if (studentProfile.savedCareers && studentProfile.savedCareers.length > 0) score += 10;
-    if (Object.keys(studentProfile.skillGapResults || {}).length > 0) score += 10;
-    if (Object.keys(studentProfile.learningRoadmaps || {}).length > 0) score += 5;
-
-    return Math.min(100, score);
-  }, [user, studentProfile]);
+  // Profile completion percentage derived strictly from genuine user-entered profile attributes
+  const profileCompletionPercentage = useMemo(() => calculateProfileCompletion(user), [user]);
 
   // Comprehensive progress metrics for Module 3
   const progressMetrics = useMemo(() => {
@@ -543,7 +589,7 @@ export const AuthProvider = ({ children }) => {
         ]
       };
       setStudentProfile(result.profile ? { ...emptyUnauthenticatedProfile, ...result.profile } : starterProfile);
-      setUser(newUser);
+      setUser(sanitizeUserRecord(newUser));
       return newUser;
     } finally {
       setLoading(false);
@@ -559,7 +605,7 @@ export const AuthProvider = ({ children }) => {
         email: normalizedEmail,
         password
       });
-      const loggedInUser = result.user;
+      const loggedInUser = sanitizeUserRecord(result.user);
       const baseProfile = result.profile
         ? { ...emptyUnauthenticatedProfile, ...result.profile }
         : emptyUnauthenticatedProfile;
@@ -656,12 +702,17 @@ export const AuthProvider = ({ children }) => {
 
   // Update profile details & persist to backend user record
   const updateProfile = (updates) => {
-    setUser((prev) => ({
-      ...prev,
-      ...updates
-    }));
+    const cleanUpdates = {
+      ...(updates.name !== undefined ? { name: String(updates.name).trim() } : {}),
+      ...(updates.university !== undefined ? { university: String(updates.university).trim() } : {}),
+      ...(updates.major !== undefined ? { major: String(updates.major).trim() } : {}),
+      ...(updates.gradYear !== undefined ? { gradYear: String(updates.gradYear).trim() } : {}),
+      ...(updates.targetIndustry !== undefined ? { targetIndustry: String(updates.targetIndustry).trim() } : {}),
+      ...(updates.bio !== undefined ? { bio: String(updates.bio).trim() } : {})
+    };
+    setUser((prev) => sanitizeUserRecord({ ...prev, ...cleanUpdates }));
     if (user?.id && !user.isDemo) {
-      dbService.syncStudentProfile(user.id, studentProfile, updates);
+      dbService.syncStudentProfile(user.id, studentProfile, cleanUpdates);
     }
     addActivity('Profile Updated', 'Student educational attributes updated');
   };
@@ -681,6 +732,26 @@ export const AuthProvider = ({ children }) => {
       `Diagnosed Archetype: ${result.archetype?.title || 'Systems Architect'}`,
       'assessment'
     );
+  };
+
+  // Save submitted Career Discovery answers (results are recomputed deterministically from these answers)
+  const saveCareerDiscoveryResult = (answers = {}) => {
+    setStudentProfile((prev) => ({
+      ...prev,
+      careerDiscoveryResult: {
+        answers: { ...answers },
+        submittedAt: new Date().toISOString()
+      }
+    }));
+    addActivity('Completed Career Discovery', 'Generated careers matching your 5 discovery answers', 'assessment');
+  };
+
+  // Clear submitted Career Discovery results
+  const clearCareerDiscoveryResult = () => {
+    setStudentProfile((prev) => ({
+      ...prev,
+      careerDiscoveryResult: null
+    }));
   };
 
   // Clear personality assessment results
@@ -912,6 +983,8 @@ export const AuthProvider = ({ children }) => {
         updateProfile,
         savePersonalityResult,
         clearPersonalityResult,
+        saveCareerDiscoveryResult,
+        clearCareerDiscoveryResult,
         saveInterestResult,
         clearInterestResult,
         saveStrengthResult,

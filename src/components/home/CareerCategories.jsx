@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { careerCategories } from '../../data/careersData';
+import { careerLibraryCategories } from '../../data/careerLibraryData';
 import { ArrowRight, Cpu, Palette, HeartPulse, Leaf, Briefcase, Users } from 'lucide-react';
 
 export const CareerCategories = () => {
@@ -35,7 +36,7 @@ export const CareerCategories = () => {
             to="/careers"
             className="text-xs font-semibold text-forest-800 hover:text-forest-900 inline-flex items-center gap-1 group self-start md:self-end"
           >
-            <span>View All 15 Fields</span>
+            <span>View All {careerLibraryCategories.length} Fields</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>

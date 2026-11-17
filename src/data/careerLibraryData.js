@@ -1,19 +1,22 @@
 export const careerLibraryCategories = [
-  { id: "design", name: "Design & Creativity", icon: "Palette", count: 4, desc: "Craft visual experiences, apps, products, and physical spaces." },
-  { id: "technology", name: "Technology", icon: "Cpu", count: 4, desc: "Build software, intelligent algorithms, and computer systems." },
-  { id: "business", name: "Business & Management", icon: "Briefcase", count: 3, desc: "Lead teams, guide product strategy, and launch ventures." },
-  { id: "finance", name: "Finance", icon: "TrendingUp", count: 3, desc: "Analyze markets, allocate capital, and manage economic assets." },
-  { id: "healthcare", name: "Healthcare", icon: "HeartPulse", count: 3, desc: "Care for patients, advance clinical tools, and improve wellbeing." },
-  { id: "psychology", name: "Psychology", icon: "Brain", count: 3, desc: "Understand human behavior, cognition, mental health, and research." },
-  { id: "education", name: "Education", icon: "GraduationCap", count: 3, desc: "Teach, design learning experiences, and democratize knowledge." },
-  { id: "media", name: "Media & Communication", icon: "MessageSquare", count: 3, desc: "Tell stories, report news, write copy, and create digital media." },
-  { id: "marketing", name: "Marketing", icon: "Target", count: 3, desc: "Connect audiences with products, run campaigns, and build brands." },
-  { id: "architecture", name: "Architecture & Construction", icon: "Building", count: 3, desc: "Design buildings, urban spaces, and sustainable physical structures." },
-  { id: "law", name: "Law", icon: "Scale", count: 3, desc: "Advocate for justice, interpret regulations, and advise organizations." },
-  { id: "science", name: "Science & Research", icon: "Atom", count: 3, desc: "Investigate the natural universe, chemistry, physics, and biology." },
-  { id: "government", name: "Government Services", icon: "Landmark", count: 3, desc: "Shape public policy, diplomacy, civil service, and civic systems." },
-  { id: "hospitality", name: "Hospitality & Tourism", icon: "Utensils", count: 3, desc: "Curate travel, culinary arts, cultural events, and guest experiences." },
-  { id: "impact", name: "Social Impact & Environment", icon: "Globe", count: 3, desc: "Tackle climate change, champion conservation, and support communities." }
+  { id: "design", name: "Design & Creativity", icon: "Palette", count: 4, desc: "Craft visual experiences, physical products, apps, and spaces." },
+  { id: "technology", name: "Technology", icon: "Cpu", count: 3, desc: "Build software, intelligent algorithms, and computer systems." },
+  { id: "robotics", name: "Robotics & Intelligent Systems", icon: "Bot", count: 10, desc: "Design autonomous robots, mechatronic machines, drones, and intelligent physical systems." },
+  { id: "engineering", name: "Engineering", icon: "Wrench", count: 7, desc: "Design and build mechanical, electrical, electronics, civil, aerospace, biomedical, and chemical systems." },
+  { id: "emerging-tech", name: "Emerging Technology", icon: "Sparkles", count: 5, desc: "Pioneer quantum computing, IoT networks, spatial AR/VR, cloud architecture, and decentralized systems." },
+  { id: "science", name: "Science & Research", icon: "Atom", count: 7, desc: "Investigate astrophysics, genetics, neuroscience, materials, chemistry, and biology." },
+  { id: "business", name: "Business & Management", icon: "Briefcase", count: 3, desc: "Lead teams, guide product & innovation strategy, and launch ventures." },
+  { id: "finance", name: "Finance", icon: "TrendingUp", count: 2, desc: "Analyze markets, model economic trends, and guide strategic decisions." },
+  { id: "healthcare", name: "Healthcare", icon: "HeartPulse", count: 2, desc: "Care for patients, advance clinical tools, and improve wellbeing." },
+  { id: "psychology", name: "Psychology", icon: "Brain", count: 2, desc: "Understand human behavior, cognition, mental health, and research." },
+  { id: "education", name: "Education", icon: "GraduationCap", count: 1, desc: "Teach, design learning experiences, and democratize knowledge." },
+  { id: "media", name: "Media & Communication", icon: "MessageSquare", count: 1, desc: "Tell stories, report news, write copy, and create digital media." },
+  { id: "marketing", name: "Marketing", icon: "Target", count: 1, desc: "Connect audiences with products, run campaigns, and build brands." },
+  { id: "architecture", name: "Architecture & Construction", icon: "Building", count: 1, desc: "Design buildings, urban spaces, and sustainable physical structures." },
+  { id: "law", name: "Law", icon: "Scale", count: 1, desc: "Advocate for justice, interpret regulations, and advise organizations." },
+  { id: "government", name: "Government Services", icon: "Landmark", count: 1, desc: "Shape public policy, diplomacy, civil service, and civic systems." },
+  { id: "hospitality", name: "Hospitality & Tourism", icon: "Utensils", count: 1, desc: "Curate travel, culinary arts, cultural events, and guest experiences." },
+  { id: "impact", name: "Social Impact & Environment", icon: "Globe", count: 1, desc: "Tackle climate change, champion conservation, and support communities." }
 ];
 
 export const allCareers = [
@@ -717,5 +720,1039 @@ export const allCareers = [
         "Build a spreadsheet calculating how much energy and money a building saves by replacing 100 old bulbs with efficient LEDs."
     ],
     relatedCareers: ["sustainable-architect", "policy-analyst", "computational-biologist"]
+  },
+
+  // 16. Robotics & Intelligent Systems
+  {
+    id: "robotics-engineer",
+    categoryId: "robotics",
+    categoryName: "Robotics & Intelligent Systems",
+    title: "Robotics Engineer",
+    tagline: "Design, build, and test intelligent machines that move in the real world",
+    overview: "Robotics engineers bring mechanical bodies, electronic sensors, actuators, and smart control logic together so machines can safely navigate workshops, hospitals, farms, warehouses, and even other planets.",
+    whatTheyDo: "They prototype robotic arms and mobile rovers, select motors and sensors, test physical prototypes, and refine motion control so robots perform useful tasks reliably.",
+    dailyResponsibilities: [
+      "Design robotic joints, grippers, and mobile chassis mechanisms in 3D CAD",
+      "Connect ultrasonic, depth camera, or force sensors with motors and power boards",
+      "Test robot movement accuracy and safety limits on physical lab testbeds",
+      "Debug mechanical friction, wiring harnesses, and control loops alongside hardware teams"
+    ],
+    education: "Degrees or diplomas in Robotics, Mechanical Engineering, Mechatronics, Electrical Engineering, or hands-on robotics club portfolios.",
+    technicalSkills: ["Robot Kinematics", "Sensors & Actuators", "3D CAD Prototyping", "Control Systems", "ROS 2 Fundamentals"],
+    softSkills: ["Spatial Reasoning", "Patient Troubleshooting", "Cross-Team Collaboration", "Safety Mindset"],
+    tools: ["SolidWorks / Fusion 360", "ROS 2", "Gazebo Simulator", "Arduino / STM32", "Multimeter & Oscilloscope"],
+    growthOpportunities: "High global demand across medical surgical bots, warehouse logistics, agricultural automation, space rovers, and humanoid robotics labs.",
+    learningResources: [
+      "Modern Robotics Specialization by Northwestern University (Coursera / Free video lectures)",
+      "ROS 2 Official Humble/Jazzy Beginner Tutorials",
+      "James Bruton & Kevin Lynch Robotics Engineering channels (YouTube)"
+    ],
+    beginnerProject: "Build a tabletop line-following or obstacle-avoiding 2-wheel rover using an ultrasonic sensor, DC motors, and a simple servo gripper.",
+    howToGetStarted: [
+      "Sketch a 3-joint articulated robotic arm on paper and trace how each motor rotates the gripper to pick up a cup.",
+      "Use Tinkercad Circuits (free in browser) to wire an ultrasonic distance sensor to two servo motors virtually.",
+      "Join a local robotics club, maker space, or simulate a mobile robot inside Webots or Gazebo free tutorials."
+    ],
+    relatedCareers: ["mechatronics-engineer", "automation-engineer", "drone-systems-engineer"]
+  },
+  {
+    id: "automation-engineer",
+    categoryId: "robotics",
+    categoryName: "Robotics & Intelligent Systems",
+    title: "Automation Engineer",
+    tagline: "Automate real-world factories, solar grids, and smart infrastructure",
+    overview: "Automation engineers turn repetitive, hazardous, or ultra-precise physical processes into reliable automated systems using industrial controllers, sensors, and electromechanical equipment.",
+    whatTheyDo: "They wire control panels, configure Programmable Logic Controllers (PLCs), tune conveyor speeds, and monitor real-time safety sensors in manufacturing, clean energy, and logistics facilities.",
+    dailyResponsibilities: [
+      "Design electrical schematics and pneumatic/hydraulic control diagrams for machinery",
+      "Configure industrial sensors, optical scanners, and safety light curtains",
+      "Commission automated packaging, water treatment, or solar tracking equipment",
+      "Inspect uptime telemetry and troubleshoot physical valve or motor faults"
+    ],
+    education: "Automation Engineering, Electrical/Mechanical Engineering, Industrial Technology, or PLC certification programs.",
+    technicalSkills: ["PLC Ladder Logic", "SCADA & HMI Panels", "Industrial Sensors", "Pneumatics & Hydraulics", "Process Control"],
+    softSkills: ["Systems Reliability Thinking", "Field Calmness", "Clear Documentation", "Safety Compliance"],
+    tools: ["Siemens TIA Portal", "Allen-Bradley Studio 5000", "AutoCAD Electrical", "Ignition SCADA", "PLC Simulator"],
+    growthOpportunities: "Critical across electric vehicle gigafactories, semiconductor fabs, food processing, smart warehouses, and water/energy utilities.",
+    learningResources: [
+      "RealPars Plain-English PLC & Automation Guides (YouTube / Free articles)",
+      "AutomationDirect Free Video Library",
+      "Inductive University Free Ignition SCADA Training"
+    ],
+    beginnerProject: "Design a ladder-logic state machine in a free PLC simulator that automatically fills, caps, and counts bottles on a conveyor belt with an emergency stop.",
+    howToGetStarted: [
+      "Watch a 15-minute beginner walkthrough on how a traffic light or elevator works using relay/ladder logic.",
+      "Open a free online PLC ladder simulator (like PLC Fiddle) and wire a start button, sensor input, and conveyor motor.",
+      "Visit a local manufacturing workshop or virtual factory tour to map 5 sensors used on a real production line."
+    ],
+    relatedCareers: ["industrial-robotics-specialist", "mechatronics-engineer", "electrical-engineer"]
+  },
+  {
+    id: "mechatronics-engineer",
+    categoryId: "robotics",
+    categoryName: "Robotics & Intelligent Systems",
+    title: "Mechatronics Engineer",
+    tagline: "Unite mechanical design, electronics, and smart control in physical devices",
+    overview: "Mechatronics engineers work at the sweet spot where gears, circuits, and control systems meet—creating smart prosthetics, electric camera gimbals, medical pumps, and intelligent consumer hardware without sitting in pure web code.",
+    whatTheyDo: "They co-design 3D-printed housings, solder custom sensor boards, tune PID motor stabilization, and integrate mechanical hardware with reliable embedded control.",
+    dailyResponsibilities: [
+      "Model brackets, gearboxes, and enclosures in 3D CAD for rapid fabrication",
+      "Select stepper motors, encoders, batteries, and power regulators for tight spaces",
+      "Tune PID closed-loop feedback so mechanical actuators move smoothly without jitter",
+      "Run stress, thermal, and endurance tests on physical benchtop prototypes"
+    ],
+    education: "Mechatronics Engineering, Mechanical or Electrical Engineering, or maker hardware portfolios.",
+    technicalSkills: ["3D CAD & 3D Printing", "PCB Circuit Design", "PID Motor Control", "Actuators & Gearboxes", "Benchtop Testing"],
+    softSkills: ["Hands-on Craftsmanship", "Iterative Testing", "Interdisciplinary Fluency", "Visual-Spatial Thinking"],
+    tools: ["Fusion 360", "KiCad", "MATLAB / Simulink", "3D Printer / Laser Cutter", "Saleae Logic Analyzer"],
+    growthOpportunities: "High demand in surgical device startups, consumer electronics (cameras, appliances, EVs), precision agriculture, and robotics hardware firms.",
+    learningResources: [
+      "Jeremy Fielding Mechatronics & Motor Projects (YouTube)",
+      "KiCad Official Getting Started Guide (Free)",
+      "Brian Douglas Control Systems & PID Lectures (Free)"
+    ],
+    beginnerProject: "Design and prototype a self-leveling 1-axis camera gimbal using an IMU tilt sensor, micro-servo, and custom cardboard or 3D-printed bracket.",
+    howToGetStarted: [
+      "Download Fusion 360 (free for students) or Onshape and model a simple interlocking hinge bracket.",
+      "Take apart an old broken printer or toy RC car safely to identify its gears, DC motors, and optical limit switches.",
+      "Draw a block diagram showing how a sensor feeds position updates into a controller to move a motor."
+    ],
+    relatedCareers: ["robotics-engineer", "electronics-engineer", "mechanical-engineer"]
+  },
+  {
+    id: "autonomous-systems-engineer",
+    categoryId: "robotics",
+    categoryName: "Robotics & Intelligent Systems",
+    title: "Autonomous Systems Engineer",
+    tagline: "Help self-driving vehicles, rovers, and ships perceive and navigate safely",
+    overview: "Autonomous systems engineers build the perception, localization, and motion-planning stacks that let vehicles and field robots understand unpredictable environments and navigate safely without remote pilots.",
+    whatTheyDo: "They fuse radar, LiDAR, camera, and GPS measurements, estimate obstacles and trajectories, and validate autonomous navigation in realistic 3D physics simulators and closed test tracks.",
+    dailyResponsibilities: [
+      "Calibrate LiDAR, stereo camera, and IMU sensors on test vehicles or field rovers",
+      "Develop Simultaneous Localization and Mapping (SLAM) and path-planning pipelines",
+      "Evaluate edge-case scenarios in rain, night, or crowded environments using simulation",
+      "Verify strict fail-safe braking and redundant safety maneuvers"
+    ],
+    education: "Robotics, Computer Engineering, Aerospace, or Applied Mathematics with perception/controls coursework.",
+    technicalSkills: ["Sensor Fusion (Kalman Filters)", "SLAM & Localization", "Path Planning", "LiDAR & Computer Vision", "Simulation Testing"],
+    softSkills: ["Safety-First Rigor", "Statistical Reasoning", "Edge-Case Anticipation", "Systems Integration"],
+    tools: ["ROS 2", "C++ / Python", "CARLA / Isaac Sim", "OpenCV", "Foxglove Studio"],
+    growthOpportunities: "Rapidly expanding in autonomous delivery rovers, mining/farming machinery, maritime vessels, aerospace docking, and mobility startups.",
+    learningResources: [
+      "Cyrill Stachniss Photogrammetry & SLAM Lectures (YouTube / Free)",
+      "Underactuated Robotics by Russ Tedrake (MIT OpenCourseWare)",
+      "CARLA Autonomous Driving Simulator Docs"
+    ],
+    beginnerProject: "Program a simulated mobile robot in a maze to build a 2D map from virtual laser-scan readings and plan the shortest collision-free route.",
+    howToGetStarted: [
+      "Explore how sonar or LiDAR measures distance by bouncing light or sound waves off surrounding walls.",
+      "Trace a grid map of your room on graph paper and design rules for a vacuum robot to cover every tile without hitting chairs.",
+      "Try a free browser A* pathfinding visualizer to watch how shortest-path planners navigate around moving obstacles."
+    ],
+    relatedCareers: ["robotics-engineer", "ai-robotics-specialist", "drone-systems-engineer"]
+  },
+  {
+    id: "embedded-systems-engineer",
+    categoryId: "robotics",
+    categoryName: "Robotics & Intelligent Systems",
+    title: "Embedded Systems Engineer",
+    tagline: "Build the compact computer brains inside robots, satellites, and medical gear",
+    overview: "Embedded systems engineers write ultra-reliable hardware-level firmware and design microcontroller architectures that power everything from pacemakers and smartwatches to Mars rover wheels.",
+    whatTheyDo: "They interface directly with memory registers, communication buses, timers, and real-time operating systems so hardware responds within microseconds while sipping minimal battery power.",
+    dailyResponsibilities: [
+      "Bring up new custom circuit boards using oscilloscopes and logic analyzers",
+      "Write deterministic firmware in C/Rust for microcontrollers and Real-Time OS (RTOS)",
+      "Implement hardware communication protocols such as I2C, SPI, UART, and CAN bus",
+      "Optimize battery sleep modes and hardware interrupts for mission-critical uptime"
+    ],
+    education: "Computer Engineering, Electrical Engineering, Electronics, or embedded hardware project portfolios.",
+    technicalSkills: ["Microcontrollers (ESP32 / STM32)", "C / Embedded Rust", "Real-Time OS (FreeRTOS)", "Hardware Protocols (SPI / I2C / CAN)", "Debugging with Oscilloscopes"],
+    softSkills: ["Low-Level Curiosity", "Precision Debugging", "Patience Reading Datasheets", "Hardware Empathy"],
+    tools: ["PlatformIO", "STM32CubeIDE", "KiCad", "Oscilloscope / Logic Analyzer", "JTAG Debugger"],
+    growthOpportunities: "Backbone roles in consumer wearables, EV battery management systems, robotics actuators, aerospace avionics, and smart energy devices.",
+    learningResources: [
+      "Miro Samek Modern Embedded Systems Programming Course (Free YouTube)",
+      "Random Nerd Tutorials (Free ESP32 & Arduino practical guides)",
+      "Wokwi Free Online Microcontroller Simulator"
+    ],
+    beginnerProject: "Build a virtual temperature-controlled fan and alert buzzer on Wokwi simulator that reads a digital sensor via I2C and logs status.",
+    howToGetStarted: [
+      "Open Wokwi.com (free browser simulator) and blink an LED with a push-button interrupt using an ESP32.",
+      "Learn how binary inputs (HIGH/LOW voltage) and PWM signals control servo angles or LED brightness.",
+      "Read a 2-page component datasheet for an ultrasonic or temperature sensor to see how engineers wire pins."
+    ],
+    relatedCareers: ["electronics-engineer", "iot-systems-engineer", "mechatronics-engineer"]
+  },
+  {
+    id: "ai-robotics-specialist",
+    categoryId: "robotics",
+    categoryName: "Robotics & Intelligent Systems",
+    title: "AI & Robotics Specialist",
+    tagline: "Give physical robots vision, adaptability, and dexterous learning",
+    overview: "AI & Robotics specialists apply computer vision, imitation learning, and reinforcement learning so robots can pick up unfamiliar objects, fold clothes, or collaborate naturally around humans instead of only repeating rigid pre-programmed paths.",
+    whatTheyDo: "They collect robot demonstration datasets, train vision-action models in 3D physics sandboxes, and deploy quantized inference safely onto onboard edge processors.",
+    dailyResponsibilities: [
+      "Train object detection and 6D grasp-pose estimation models from depth cameras",
+      "Simulate thousands of virtual robot arm trials in parallel using GPU physics engines",
+      "Fine-tune imitation learning policies from teleoperated human demonstrations",
+      "Benchmark real-world grasping reliability on cluttered tabletop scenes"
+    ],
+    education: "Robotics, Artificial Intelligence, Computer Science, or Mechatronics with ML projects.",
+    technicalSkills: ["Robot Vision & 3D Perception", "Reinforcement & Imitation Learning", "Physics Simulation", "Edge AI Deployment", "ROS 2 Integration"],
+    softSkills: ["Experimental Hypothesis Testing", "Cross-Domain Synthesis", "Analytical Skepticism", "Adaptability"],
+    tools: ["PyTorch", "NVIDIA Isaac Sim / MuJoCo", "ROS 2", "OpenCV", "Jetson Orin"],
+    growthOpportunities: "At the forefront of humanoid robotics, warehouse piece-picking, lab automation, and assistive eldercare machines.",
+    learningResources: [
+      "LeRobot Open-Source Embodied AI Tutorials (Hugging Face)",
+      "MuJoCo Free Physics Simulation Playground",
+      "DeepMind & Stanford Embodied AI Lecture Notes"
+    ],
+    beginnerProject: "Use a webcam and a free browser pose/object detector to count recycling items vs. paper and trigger a virtual sorting bin indicator.",
+    howToGetStarted: [
+      "Explore Google Teachable Machine (no-code) to train a camera model that recognizes 3 everyday objects in real time.",
+      "Learn why rigid factory robots fail when an object moves 2 inches left, and how depth cameras solve this.",
+      "Browse Hugging Face LeRobot videos to see how modern low-cost arms learn tasks from 50 human demonstrations."
+    ],
+    relatedCareers: ["ai-engineer", "autonomous-systems-engineer", "robotics-research-scientist"]
+  },
+  {
+    id: "drone-systems-engineer",
+    categoryId: "robotics",
+    categoryName: "Robotics & Intelligent Systems",
+    title: "Drone Systems Engineer",
+    tagline: "Engineer autonomous aerial robots for mapping, rescue, and clean delivery",
+    overview: "Drone systems engineers design unmanned aerial vehicles (UAVs), balancing lightweight aerodynamics, battery energy budgets, flight-controller stabilization, and specialized payloads for wildfire detection, search-and-rescue, farming, and bridge inspections.",
+    whatTheyDo: "They select propellers and carbon airframes, tune flight controllers like PX4 or ArduPilot, plan automated waypoint missions, and run tethered wind-and-range flight tests.",
+    dailyResponsibilities: [
+      "Calculate thrust-to-weight ratios, battery endurance, and center-of-gravity balance",
+      "Configure flight controllers (PX4 / ArduPilot), telemetry radios, and GPS failsafes",
+      "Integrate thermal cameras, agricultural multispectral sensors, or delivery winches",
+      "Conduct pre-flight checklists, log analysis, and autonomous waypoint flight trials"
+    ],
+    education: "Aerospace Engineering, Robotics, Electrical/Mechanical Engineering, and aviation safety certification.",
+    technicalSkills: ["Flight Dynamics & Propellers", "PX4 / ArduPilot Controllers", "RF Telemetry & GPS", "Carbon Airframe Design", "Autonomous Waypoint Planning"],
+    softSkills: ["Safety Discipline", "Quick Field Diagnostics", "Weather & Risk Awareness", "Systems Trade-off Thinking"],
+    tools: ["QGroundControl", "PX4 Autopilot", "eCalc Thrust Calculator", "SolidWorks / CAD", "Gazebo / jMAVSim"],
+    growthOpportunities: "Growing roles in emergency disaster mapping, offshore wind-turbine inspection, reforestation seeding drones, and aerial logistics.",
+    learningResources: [
+      "PX4 Autopilot User Guide & Free Gazebo Flight Simulator",
+      "Joshua Bardwell Plain-English Drone & Flight Controller Tutorials",
+      "FAA TRUST Free Recreational Drone Safety Course"
+    ],
+    beginnerProject: "Simulate an autonomous search-and-rescue lawnmower flight grid over a park in QGroundControl & PX4 simulator with low-battery return-to-home rules.",
+    howToGetStarted: [
+      "Learn how quadcopters steer by spinning two propellers clockwise and two counter-clockwise.",
+      "Download QGroundControl (free) and map a mock solar-farm inspection flight path over a satellite map.",
+      "Use a free online thrust calculator to see how heavier batteries both increase energy capacity and require bigger motors."
+    ],
+    relatedCareers: ["aerospace-engineer", "autonomous-systems-engineer", "robotics-engineer"]
+  },
+  {
+    id: "human-robot-interaction-designer",
+    categoryId: "robotics",
+    categoryName: "Robotics & Intelligent Systems",
+    title: "Human-Robot Interaction Designer",
+    tagline: "Make collaborative, medical, and social robots natural and safe for people",
+    overview: "Human-Robot Interaction (HRI) designers shape how everyday people understand, trust, and collaborate with physical robots—designing expressive lights, sound cues, ergonomics, voice prompts, and safe physical motion paths.",
+    whatTheyDo: "They observe how hospital nurses, factory teammates, children, or older adults react to moving machines, prototype robot behaviors, and prevent confusion or discomfort.",
+    dailyResponsibilities: [
+      "Design intuitive light, sound, screen, and motion cues that signal what a robot will do next",
+      "Conduct usability and comfort studies with volunteers interacting alongside physical robots",
+      "Partner with mechanical and controls engineers on safe speed zones and ergonomic reach",
+      "Craft onboarding guides and voice interactions for home, classroom, or clinic robots"
+    ],
+    education: "Human-Computer Interaction, Industrial Design, Cognitive Psychology, Design, or Robotics.",
+    technicalSkills: ["HRI Prototyping", "Ergonomics & Safety Cues", "User Observation Studies", "Multimodal Feedback Design", "Wizard-of-Oz Testing"],
+    softSkills: ["Deep Human Empathy", "Social Observation", "Ethical Sensitivity", "Bridge-Building Between Design & Engineering"],
+    tools: ["Figma", "Wizard-of-Oz Remote Consoles", "Unity / Spatial Prototyping", "Motion Capture / Video Tagging", "Miro"],
+    growthOpportunities: "Sought after by healthcare companion startups, warehouse collaborative robot ('cobot') makers, hospitality robots, and autonomous vehicle UX teams.",
+    learningResources: [
+      "HRI Book ('Human-Robot Interaction: An Introduction' by Bartneck et al. — Free PDF)",
+      "MIT Media Lab Personal Robots Group talks",
+      "Nielsen Norman Group UX Research Fundamentals"
+    ],
+    beginnerProject: "Design a storyboard and color-light signaling guide for a campus library book-delivery robot so students always know when it is waiting, turning, or passing.",
+    howToGetStarted: [
+      "Watch a video of a sidewalk delivery robot or warehouse arm and list 3 moments where bystanders looked confused about its next move.",
+      "Design a simple 4-state light/chirp language (Idle, Moving, Asking Help, Complete) using Figma or paper cards.",
+      "Test your robot interaction rules using 'Wizard-of-Oz' roleplay with a friend carrying a box through a hallway."
+    ],
+    relatedCareers: ["product-designer", "user-researcher", "industrial-designer"]
+  },
+  {
+    id: "industrial-robotics-specialist",
+    categoryId: "robotics",
+    categoryName: "Robotics & Intelligent Systems",
+    title: "Industrial Robotics Specialist",
+    tagline: "Commission and orchestrate precision robotic arms on modern factory lines",
+    overview: "Industrial robotics specialists deploy multi-axis robotic arms, custom end-of-arm vacuum or pinch grippers, and automated safety cells that weld EV battery packs, assemble solar panels, and lift heavy loads safely.",
+    whatTheyDo: "They lay out robotic workcells in 3D, teach arm waypoints with handheld teach pendants, design custom grippers, and validate cycle times and worker safety barriers.",
+    dailyResponsibilities: [
+      "Simulate multi-arm workcells in 3D to check reach limits and avoid collisions",
+      "Select or customize end-of-arm tooling (vacuum cups, parallel jaws, vision grippers)",
+      "Program and calibrate 6-axis industrial arms using teach pendants or offline tools",
+      "Perform risk assessments, safety-zone fencing checks, and preventive maintenance"
+    ],
+    education: "Robotics Technology, Mechatronics, Industrial/Manufacturing Engineering, or OEM certifications (FANUC, KUKA, ABB).",
+    technicalSkills: ["6-Axis Workcell Layout", "End-of-Arm Tooling Design", "Offline Robot Simulation", "Teach Pendant Operation", "Machine Safety Standards"],
+    softSkills: ["Practical Problem Solving", "Production Floor Awareness", "Systematic Checklists", "Reliability Focus"],
+    tools: ["RoboDK", "ABB RobotStudio", "FANUC ROBOGUIDE", "SolidWorks", "Vision Inspection Sensors"],
+    growthOpportunities: "High demand across EV manufacturing, aerospace composite layup, pharmaceutical cleanrooms, and automated logistics centers.",
+    learningResources: [
+      "RoboDK Free Educational Simulation Tutorials",
+      "ABB RobotStudio Free Trial & Pick-and-Place Guides",
+      "Universal Robots Academy (Free interactive online modules)"
+    ],
+    beginnerProject: "Complete the free Universal Robots Academy online modules and simulate a pick-and-place palletizing routine in RoboDK.",
+    howToGetStarted: [
+      "Enroll in Universal Robots Academy (100% free interactive browser training on collaborative robotic arms).",
+      "Notice 5 everyday objects around you (water bottle, phone box, mug) and sketch what kind of gripper fingers could hold each safely.",
+      "Explore pick-and-place cycle time basics: why smoothing sharp robot arm corners cuts wear and speeds up production."
+    ],
+    relatedCareers: ["automation-engineer", "mechatronics-engineer", "mechanical-engineer"]
+  },
+  {
+    id: "robotics-research-scientist",
+    categoryId: "robotics",
+    categoryName: "Robotics & Intelligent Systems",
+    title: "Robotics Research Scientist",
+    tagline: "Invent next-generation soft robots, legged walkers, and bio-inspired machines",
+    overview: "Robotics research scientists push the frontier of what machines can physically be—creating compliant origami/silicone soft robots for delicate surgery, agile quadrupeds for disaster rubble, and coordinated drone/ant-like swarms.",
+    whatTheyDo: "They formulate mathematical hypotheses, fabricate novel compliant materials or bio-inspired joints, run controlled lab benchmarks, and publish breakthroughs for medicine, space, and industry.",
+    dailyResponsibilities: [
+      "Fabricate soft pneumatic actuators, tendon mechanisms, or bio-inspired legs",
+      "Design controlled benchtop experiments to measure force, speed, and resilience",
+      "Synthesize findings into academic papers, patents, and open-source benchmarks",
+      "Mentor undergraduate researchers and collaborate across biology, AI, and materials labs"
+    ],
+    education: "Robotics, Mechanical/Electrical Engineering, Physics, or Applied Math (often pursuing M.S./Ph.D. research tracks).",
+    technicalSkills: ["Bio-Inspired & Soft Robotics", "Experimental Benchmarking", "Nonlinear Dynamics", "Rapid Composite Fabrication", "Technical Paper Writing"],
+    softSkills: ["Deep Scientific Curiosity", "Perseverance After Failed Prototypes", "Critical Reasoning", "Mentorship"],
+    tools: ["MATLAB / Python", "MuJoCo / PyBullet", "Silicone Casting & 3D Printing", "Vicon Motion Capture", "LaTeX"],
+    growthOpportunities: "Leads to frontier R&D labs (Boston Dynamics, deep-tech spinouts, space agencies, surgical robotics pioneers) or university faculty labs.",
+    learningResources: [
+      "Soft Robotics Toolkit by Harvard Biodesign Lab (Open-source free guides)",
+      "IEEE Spectrum Robotics News & Video Archives",
+      "MIT / ETH Zurich Legged & Soft Robotics Lab seminars"
+    ],
+    beginnerProject: "Follow the free Harvard Soft Robotics Toolkit origami/paper actuator tutorial to build a flexible pneumatic or cable-driven finger.",
+    howToGetStarted: [
+      "Browse the Soft Robotics Toolkit (softroboticstoolkit.com) to see how silicone, paper, and air pressure create muscle-like motion.",
+      "Watch animals move (octopuses, goats, birds) and sketch one biological trick robots have not mastered yet.",
+      "Try building a 1-finger cardboard mechanical hand pulled by string tendons and rubber bands."
+    ],
+    relatedCareers: ["robotics-engineer", "ai-robotics-specialist", "materials-scientist"]
+  },
+
+  // 17. Engineering (Core Domains)
+  {
+    id: "mechanical-engineer",
+    categoryId: "engineering",
+    categoryName: "Engineering",
+    title: "Mechanical Engineer",
+    tagline: "Design physical machines, thermal systems, vehicles, and durable products",
+    overview: "Mechanical engineers turn physics into tangible hardware—creating everything from wind turbine gearboxes and electric bike frames to quiet cooling fans, medical pumps, and spacecraft structures.",
+    whatTheyDo: "They model 3D parts in CAD, simulate stress and heat transfer, choose aluminum, steel, or polymer materials, and work with machinists to prototype and test physical hardware.",
+    dailyResponsibilities: [
+      "Create parametric 3D assemblies and manufacturing tolerance drawings in CAD",
+      "Run Finite Element Analysis (FEA) to test strength, vibration, and thermal safety",
+      "Select bearings, seals, fasteners, and manufacturing methods (CNC, injection molding, 3D printing)",
+      "Conduct physical tear-downs, drop tests, and load validation in hardware labs"
+    ],
+    education: "B.S./B.E. in Mechanical Engineering or Applied Physics/Engineering Technology.",
+    technicalSkills: ["3D CAD Modeling", "Mechanics & Strength of Materials", "Thermodynamics & Fluid Flow", "DFM (Design for Manufacturing)", "Tolerance & Fit Analysis"],
+    softSkills: ["Spatial Intuition", "Practical Material Sense", "Root-Cause Rigor", "Collaboration with Machinists"],
+    tools: ["SolidWorks / Onshape", "ANSYS / SimScale", "3D Printers & CNC", "Digital Calipers", "Excel / MATLAB"],
+    growthOpportunities: "Versatile foundation leading into robotics, automotive/EVs, clean energy, aerospace, consumer hardware, or R&D leadership.",
+    learningResources: [
+      "Onshape Free Student CAD & Learning Center",
+      "The Efficient Engineer Clear Mechanics Videos (YouTube)",
+      "MIT OpenCourseWare Design & Manufacturing"
+    ],
+    beginnerProject: "Design a snap-fit phone stand or custom desk cable organizer in free Onshape CAD that prints cleanly without support waste.",
+    howToGetStarted: [
+      "Sign up for a free Onshape or Fusion 360 account and finish the first 3D sketching & extrusion tutorial.",
+      "Take a pair of scissors or a bike brake and identify the simple machines (levers, pivots, springs) inside.",
+      "Learn why rounded fillets at sharp inside corners make plastic and metal brackets dramatically stronger."
+    ],
+    relatedCareers: ["mechatronics-engineer", "aerospace-engineer", "industrial-designer"]
+  },
+  {
+    id: "electrical-engineer",
+    categoryId: "engineering",
+    categoryName: "Engineering",
+    title: "Electrical Engineer",
+    tagline: "Power clean energy grids, electric vehicles, and high-efficiency motor systems",
+    overview: "Electrical engineers harness electricity, electromagnetism, and power electronics to build solar/wind microgrids, fast EV chargers, electric motors, and resilient city power networks.",
+    whatTheyDo: "They design power distribution circuits, calculate transformer and battery sizing, test electromagnetic interference, and protect electrical grids from surges or outages.",
+    dailyResponsibilities: [
+      "Design AC/DC power conversion schematics, motor drives, and battery packs",
+      "Model electrical load flows, short-circuit protection, and renewable grid integration",
+      "Test prototypes with high-precision multimeters, thermal cameras, and power analyzers",
+      "Ensure electrical hardware meets strict safety, insulation, and efficiency codes"
+    ],
+    education: "B.S./B.E. in Electrical Engineering, Power Systems, or Renewable Energy Engineering.",
+    technicalSkills: ["Circuit & Power Analysis", "Motor Drives & Inverters", "Battery Management Systems", "Grid & Microgrid Modeling", "Electrical Safety Standards"],
+    softSkills: ["Safety Discipline", "Quantitative Precision", "Calm Field Troubleshooting", "Clear Schematic Documentation"],
+    tools: ["LTspice", "MATLAB / Simulink", "AutoCAD Electrical", "Oscilloscope & Multimeter", "ETAP / OpenDSS"],
+    growthOpportunities: "Massive hiring wave driven by grid modernization, solar/battery storage, EV powertrains, data center cooling/power, and aerospace electrification.",
+    learningResources: [
+      "Falstad Free Browser Circuit Simulator",
+      "All About Circuits Free Online Textbook",
+      "NREL Microgrid & Clean Power Education Portal"
+    ],
+    beginnerProject: "Simulate a bridge rectifier and voltage regulator circuit in Falstad browser simulator to turn noisy AC power into steady 5V DC.",
+    howToGetStarted: [
+      "Open falstad.com/circuit (free interactive simulator) and watch current flow through resistors, capacitors, and diodes.",
+      "Check the charger brick of your laptop to read its input/output Volts and Amps and calculate total Watts.",
+      "Learn how regenerative braking on electric scooters and cars turns wheel motion back into battery charge."
+    ],
+    relatedCareers: ["electronics-engineer", "clean-energy-analyst", "automation-engineer"]
+  },
+  {
+    id: "electronics-engineer",
+    categoryId: "engineering",
+    categoryName: "Engineering",
+    title: "Electronics Engineer",
+    tagline: "Craft custom circuit boards, sensors, and tiny silicon hardware",
+    overview: "Electronics engineers design the printed circuit boards (PCBs), analog amplifiers, radio antennas, and microchip blocks inside smartphones, hearing aids, satellites, and robots.",
+    whatTheyDo: "They select transistors, op-amps, and microchips from datasheets, lay out multi-layer copper traces on PCBs, and bring up physical boards at the soldering workbench.",
+    dailyResponsibilities: [
+      "Draw circuit schematics and design multi-layer Printed Circuit Boards (PCBs)",
+      "Design clean sensor-conditioning and low-noise analog signal circuits",
+      "Solder surface-mount components and inspect waveforms on an oscilloscope",
+      "Verify wireless RF signals, thermal limits, and electromagnetic compliance"
+    ],
+    education: "Electronics & Communication Engineering, Electrical Engineering, or hardware maker portfolios.",
+    technicalSkills: ["Analog & Digital Circuit Design", "PCB Layout & Routing", "Sensor Signal Conditioning", "Soldering & Bench Testing", "Datasheet Analysis"],
+    softSkills: ["Microscopic Attention to Detail", "Methodical Debugging", "Patience", "Curiosity About How Hardware Works"],
+    tools: ["KiCad", "Altium Designer", "LTspice", "Oscilloscope", "Hot-Air Rework & Soldering Station"],
+    growthOpportunities: "Essential in robotics sensors, semiconductor startups, medical wearables, audio gear, consumer electronics, and satellite communications.",
+    learningResources: [
+      "EEVblog Beginner Electronics & Oscilloscope Videos (Free)",
+      "Phil's Lab KiCad PCB Design Tutorials (YouTube)",
+      "Tinkercad Circuits Free Electronics Sandbox"
+    ],
+    beginnerProject: "Lay out a clean 2-layer USB-powered night-light PCB with a light sensor and potentiometer dimmer in free KiCad software.",
+    howToGetStarted: [
+      "Open Tinkercad Circuits (free) and wire a photoresistor that dims an LED when room light drops.",
+      "Download KiCad (free, open-source) and trace how schematics turn into green copper PCB layouts.",
+      "Learn Ohm's Law and see how resistors protect tiny LEDs from burning out."
+    ],
+    relatedCareers: ["embedded-systems-engineer", "mechatronics-engineer", "electrical-engineer"]
+  },
+  {
+    id: "civil-engineer",
+    categoryId: "engineering",
+    categoryName: "Engineering",
+    title: "Civil & Infrastructure Engineer",
+    tagline: "Design resilient bridges, clean transit systems, and climate-ready cities",
+    overview: "Civil engineers plan and engineer the foundational physical infrastructure societies depend on—safe bridges, clean drinking-water networks, flood barriers, metro rail lines, and sustainable foundations.",
+    whatTheyDo: "They calculate structural loads, analyze soil stability and stormwater drainage, design concrete/steel reinforcement, and inspect real construction sites for safety and longevity.",
+    dailyResponsibilities: [
+      "Analyze structural forces on bridges, retaining walls, and building frames",
+      "Design stormwater drainage, permeable streets, and clean-water piping systems",
+      "Review geotechnical soil reports and construction site quality tests",
+      "Collaborate with urban planners, environmental scientists, and contractors"
+    ],
+    education: "B.S./B.E. in Civil Engineering, Structural Engineering, or Environmental Infrastructure.",
+    technicalSkills: ["Structural Load Analysis", "Civil CAD & BIM", "Hydrology & Drainage", "Concrete & Steel Design", "Geotechnical Basics"],
+    softSkills: ["Public Safety Responsibility", "Civic Teamwork", "Long-Term Planning", "Field Communication"],
+    tools: ["AutoCAD Civil 3D", "Revit", "SAP2000 / STAAD.Pro", "QGIS", "HEC-RAS Flood Modeling"],
+    growthOpportunities: "Sustained demand globally for climate-resilient coastlines, high-speed rail, earthquake retrofitting, green cities, and water infrastructure.",
+    learningResources: [
+      "Practical Engineering with Grady Hillhouse (Free plain-English videos)",
+      "MIT OpenCourseWare Mechanics & Structures",
+      "Autodesk Student Free Civil 3D Learning Hub"
+    ],
+    beginnerProject: "Design and load-test a lightweight popsicle-stick or spaghetti truss bridge, measuring how many kilograms triangular bracing supports compared to squares.",
+    howToGetStarted: [
+      "Watch Practical Engineering videos on why triangles make bridges strong and how underground water mains work.",
+      "Walk across a nearby pedestrian bridge and sketch where compression (pushing) and tension (pulling) act.",
+      "Try a free online bridge-builder physics simulator to test truss vs. arch designs under heavy truck loads."
+    ],
+    relatedCareers: ["sustainable-architect", "environmental-scientist", "mechanical-engineer"]
+  },
+  {
+    id: "aerospace-engineer",
+    categoryId: "engineering",
+    categoryName: "Engineering",
+    title: "Aerospace & Spacecraft Engineer",
+    tagline: "Design efficient aircraft, reusable rockets, and Earth-observing satellites",
+    overview: "Aerospace engineers solve extreme physics challenges in thin air and vacuum—shaping quiet electric aircraft wings, satellite attitude thrusters, thermal shields, and lightweight spacecraft structures.",
+    whatTheyDo: "They run aerodynamic airflow simulations, model orbital trajectories, test composite carbon materials, and validate guidance hardware for aviation and space exploration.",
+    dailyResponsibilities: [
+      "Model wing, fuselage, or rocket nozzle aerodynamics with Computational Fluid Dynamics",
+      "Calculate propulsion thrust, structural weight budgets, and thermal protection",
+      "Simulate orbital paths, satellite attitude control, and re-entry stability",
+      "Run wind-tunnel, vibration, and thermal-vacuum tests on flight hardware"
+    ],
+    education: "B.S./B.E. in Aerospace Engineering, Mechanical Engineering, or Physics.",
+    technicalSkills: ["Aerodynamics & Propulsion", "Orbital Mechanics", "Lightweight Structures", "Flight Stability & Control", "CFD Simulation"],
+    softSkills: ["Extreme Safety Discipline", "Systems Mass-Budget Thinking", "Calm Precision", "Team Coordination"],
+    tools: ["ANSYS Fluent / OpenFOAM", "MATLAB / Simulink", "SolidWorks / CATIA", "GMAT Orbital Simulator", "XFLR5 Airfoil Tool"],
+    growthOpportunities: "Exciting careers in commercial Earth-observation satellites, sustainable electric/hydrogen aviation, reusable launch systems, and space habitats.",
+    learningResources: [
+      "NASA Glenn Beginner's Guide to Aeronautics (Free)",
+      "OpenRocket Free Model Rocket Design Simulator",
+      "MIT OpenCourseWare Aerospace Flight Engineering"
+    ],
+    beginnerProject: "Design and simulate a 2-stage model rocket in free OpenRocket software, optimizing fin stability and parachute altitude.",
+    howToGetStarted: [
+      "Download OpenRocket (free) or test airfoil shapes in NASA's free FoilSim online applet to watch lift vs. drag change.",
+      "Fold 3 paper airplane designs (dart, glider, stubby) and track how wing surface area changes flight time.",
+      "Explore NASA's Eyes on the Solar System to see real orbital mechanics and CubeSat trajectories live."
+    ],
+    relatedCareers: ["drone-systems-engineer", "astrophysicist", "mechanical-engineer"]
+  },
+  {
+    id: "biomedical-engineer",
+    categoryId: "engineering",
+    categoryName: "Engineering",
+    title: "Biomedical & Bionics Engineer",
+    tagline: "Engineer bionic prosthetics, wearable health sensors, and life-saving devices",
+    overview: "Biomedical engineers blend engineering with human biology to create prosthetic limbs that respond to muscle signals, portable ultrasound scanners, insulin pumps, and scaffolds for regenerating tissue.",
+    whatTheyDo: "They prototype medical hardware with biocompatible materials, measure bioelectric signals like ECG/EMG, run clinical safety tests, and partner directly with doctors and patients.",
+    dailyResponsibilities: [
+      "Design ergonomic medical instruments, wearable patches, or bionic prosthetic joints",
+      "Process human biosignals (heartbeat ECG, muscle EMG, oxygen SpO2) cleanly",
+      "Verify sterilization, biocompatibility, and FDA/ISO medical safety standards",
+      "Shadow clinicians and patients to uncover unmet bedside device needs"
+    ],
+    education: "Biomedical Engineering, Mechanical/Electrical Engineering with Biology minors, or Medical Device Technology.",
+    technicalSkills: ["Biosignal Acquisition (EMG / ECG)", "Biocompatible Materials", "Medical Device CAD Prototyping", "Clinical Safety Testing", "Physiology Integration"],
+    softSkills: ["Patient Compassion", "Strict Ethical & Safety Care", "Doctor-Engineer Translation", "Detail Orientation"],
+    tools: ["SolidWorks / CAD", "MATLAB / Python", "Arduino + MyoWare EMG Sensors", "LabVIEW", "3D Bioprinters / SLA Printers"],
+    growthOpportunities: "Fast growth across assistive bionics, wearable diagnostics, minimally invasive surgical robotics, and accessible point-of-care medical tools.",
+    learningResources: [
+      "e-NABLE Open-Source 3D-Printed Prosthetics Community",
+      "Backyard Brains Free Neuroscience & EMG Guides",
+      "Johns Hopkins Center for Bioengineering Innovation Talks"
+    ],
+    beginnerProject: "Research open-source e-NABLE mechanical prosthetic hand designs and map how wrist flexion pulls tendon cables to close the fingers.",
+    howToGetStarted: [
+      "Explore enablingthefuture.org (e-NABLE) to inspect open-source mechanical hand files built by students worldwide.",
+      "Sketch a wearable fall-detection bracelet for grandparents and list what 3 sensors and alerts it needs.",
+      "Read how pulse oximeters shine red and infrared light through a fingertip to measure blood oxygen safely."
+    ],
+    relatedCareers: ["biomedical-scientist", "human-robot-interaction-designer", "mechatronics-engineer"]
+  },
+  {
+    id: "chemical-engineer",
+    categoryId: "engineering",
+    categoryName: "Engineering",
+    title: "Chemical & Process Engineer",
+    tagline: "Scale up clean fuels, next-gen batteries, and eco-friendly materials",
+    overview: "Chemical engineers transform laboratory chemistry into safe, large-scale processes—producing solid-state EV battery cells, green hydrogen, biodegradable plastics, carbon-capture membranes, and accessible medicines.",
+    whatTheyDo: "They model heat and chemical reaction rates, size reactors and filtration columns, replace toxic solvents with green chemistry, and optimize plant energy efficiency.",
+    dailyResponsibilities: [
+      "Scale laboratory reactions into safe pilot-scale manufacturing reactors",
+      "Optimize catalysis, filtration, water recycling, and heat recovery loops",
+      "Select corrosion-resistant piping, valves, and safety pressure-relief systems",
+      "Monitor product purity, yield, and environmental emissions across batches"
+    ],
+    education: "B.S./B.E. in Chemical Engineering, Process Engineering, or Materials Chemistry.",
+    technicalSkills: ["Reaction & Process Modeling", "Thermodynamics & Heat Transfer", "Green Chemistry Scaling", "Separation & Filtration Systems", "Process Safety Analysis"],
+    softSkills: ["Big-Picture Systems Thinking", "Safety Stewardship", "Quantitative Rigor", "Lab-to-Factory Teamwork"],
+    tools: ["Aspen Plus / DWSIM (Free)", "MATLAB / Python", "Process Flow Diagrams (PFD)", "Mass & Energy Balance Sheets", "Spectroscopy Analyzers"],
+    growthOpportunities: "Vital across green hydrogen, battery recycling, sustainable bioplastics, clean water desalination, and biopharmaceutical manufacturing.",
+    learningResources: [
+      "LearnChemE by University of Colorado Boulder (Free YouTube & simulations)",
+      "DWSIM Free Open-Source Chemical Process Simulator",
+      "ACS Green Chemistry Institute Student Resources"
+    ],
+    beginnerProject: "Create a mass-and-energy balance flowsheet for filtering and desalinating ocean water vs. recycling greywater for campus irrigation.",
+    howToGetStarted: [
+      "Visit LearnChemE.com to explore visual interactive simulations of heat exchangers and distillation.",
+      "Track the inputs, heat used, and waste outputs of brewing coffee or making compost as a real chemical process.",
+      "Compare biodegradable mycelium or seaweed packaging with petroleum plastic in lifecycle energy terms."
+    ],
+    relatedCareers: ["materials-scientist", "biotechnologist", "clean-energy-analyst"]
+  },
+
+  // 18. Emerging Technology
+  {
+    id: "quantum-computing-engineer",
+    categoryId: "emerging-tech",
+    categoryName: "Emerging Technology",
+    title: "Quantum Computing Scientist & Engineer",
+    tagline: "Harness quantum mechanics to model molecules, materials, and breakthroughs",
+    overview: "Quantum computing engineers build algorithms, error-correction schemes, and cryogenically cooled hardware using qubits—tackle problems in drug discovery, fertilizer chemistry, and post-quantum security that classical supercomputers cannot.",
+    whatTheyDo: "They construct quantum gate circuits, test noisy intermediate-scale quantum processors over cloud labs, tune microwave control pulses, and study real chemistry or optimization use cases.",
+    dailyResponsibilities: [
+      "Design and simulate quantum circuits using superposition and entanglement gates",
+      "Benchmark quantum error mitigation techniques on cloud superconducting or trapped-ion chips",
+      "Partner with chemists and materials scientists to map molecular simulations onto qubits",
+      "Document algorithm speedup boundaries honestly against classical supercomputers"
+    ],
+    education: "Physics, Computer Science, Applied Mathematics, or Electrical Engineering with quantum electives.",
+    technicalSkills: ["Quantum Gates & Circuits", "Linear Algebra & Qubit Math", "Qiskit / Cirq Frameworks", "Quantum Error Mitigation", "Microwave / Cryogenic Hardware Basics"],
+    softSkills: ["Abstract Conceptual Comfort", "Scientific Honesty", "Cross-Discipline Curiosity", "Persistence"],
+    tools: ["IBM Qiskit", "Google Cirq", "Quirk Browser Simulator", "Python / NumPy", "PennyLane"],
+    growthOpportunities: "Emerging R&D roles at quantum hardware pioneers, national labs, pharmaceutical molecular simulation teams, and cryptography organizations.",
+    learningResources: [
+      "IBM Quantum Learning (Free interactive Qiskit courses)",
+      "Quirk Free Drag-and-Drop Quantum Circuit Simulator",
+      "Qubit by Qubit / Andy Matuschak & Michael Nielsen 'Quantum Country' (Free essay)"
+    ],
+    beginnerProject: "Build a quantum random number generator and entangled Bell-state pair in Quirk's free drag-and-drop browser simulator.",
+    howToGetStarted: [
+      "Read 'Quantum Computing for the Very Curious' (quantum.country — free interactive memory essays).",
+      "Open Quirk (algassert.com/quirk) and drop a Hadamard gate + CNOT gate to watch two qubits become entangled.",
+      "Learn why quantum computers excel specifically at chemistry simulation and factoring rather than replacing your laptop."
+    ],
+    relatedCareers: ["astrophysicist", "ai-engineer", "materials-scientist"]
+  },
+  {
+    id: "iot-systems-engineer",
+    categoryId: "emerging-tech",
+    categoryName: "Emerging Technology",
+    title: "Internet of Things (IoT) Systems Engineer",
+    tagline: "Connect smart environmental sensors across cities, farms, and clean buildings",
+    overview: "IoT Systems Engineers weave low-power physical sensors, wireless networks (LoRaWAN, BLE, Wi-Fi), and edge dashboards together so soil moisture monitors, smart classrooms, and wildlife collars report live insights for years on tiny batteries.",
+    whatTheyDo: "They choose wireless protocols, mount rugged weatherproof sensor nodes, build secure MQTT data pipelines, and turn raw readings into clear alerts for farmers, city engineers, and families.",
+    dailyResponsibilities: [
+      "Pair physical sensors (soil moisture, air quality, water leak) with low-power radios",
+      "Design secure telemetry pipelines using MQTT, LoRaWAN, and edge gateways",
+      "Verify outdoor battery life, weatherproofing, and zero-touch device security updates",
+      "Build simple anomaly alerts when temperatures, leaks, or power usage spike"
+    ],
+    education: "Computer/Electrical Engineering, IoT Systems, IT Infrastructure, or maker sensor projects.",
+    technicalSkills: ["Edge Microcontrollers", "Wireless Networks (LoRaWAN / BLE / MQTT)", "Sensor Calibration", "Low-Power Battery Design", "Device Security"],
+    softSkills: ["Practical Systems Thinking", "Field Reliability", "Plain-English Dashboards", "Security Mindfulness"],
+    tools: ["ESP32 / Raspberry Pi", "MQTT / Node-RED", "LoRaWAN Gateways", "Grafana / InfluxDB", "Wokwi Simulator"],
+    growthOpportunities: "Widely applied in precision water-saving agriculture, wildfire early-warning meshes, smart buildings, logistics cold-chain monitoring, and home health.",
+    learningResources: [
+      "Node-RED Free Low-Code IoT Flow Tutorials",
+      "The Things Network Free LoRaWAN Academy",
+      "Random Nerd Tutorials Free Weather-Station Builds"
+    ],
+    beginnerProject: "Prototype a virtual classroom air-quality monitor in Wokwi + Node-RED that triggers an open-window alert when simulated CO2 rises.",
+    howToGetStarted: [
+      "Draw how a soil moisture sensor in a farm field sends a 10-byte message miles away using LoRa radio instead of power-hungry 5G.",
+      "Try Node-RED (free visual flow editor) to wire a mock temperature feed into a clean gauge and threshold warning.",
+      "List 3 everyday community problems (bus arrival timing, flood-prone underpasses, campus energy leaks) sensors could solve."
+    ],
+    relatedCareers: ["embedded-systems-engineer", "cloud-architect", "environmental-scientist"]
+  },
+  {
+    id: "ar-vr-developer",
+    categoryId: "emerging-tech",
+    categoryName: "Emerging Technology",
+    title: "Spatial Computing & AR/VR Developer",
+    tagline: "Build interactive 3D worlds for surgery training, design, and learning",
+    overview: "Spatial Computing and AR/VR developers create immersive augmented overlays and virtual 3D environments where medical students practice surgery safely, architects walk clients through solar-lit rooms, and remote learners inspect molecules in mid-air.",
+    whatTheyDo: "They sculpt 3D scenes, implement natural hand-tracking and spatial audio, keep frame rates smooth so users stay comfortable, and test real ergonomics inside headsets and phones.",
+    dailyResponsibilities: [
+      "Assemble interactive 3D scenes, lighting, physics, and spatial UI panels",
+      "Implement natural hand-pinch, controller, or eye-gaze interactions",
+      "Profile graphics rendering so frame rates stay buttery smooth without motion discomfort",
+      "Collaborate with 3D artists, sound designers, and educators on spatial storytelling"
+    ],
+    education: "Computer Science, Interactive Media, Game/3D Design, Architecture, or Unity/Unreal portfolios.",
+    technicalSkills: ["3D Engines (Unity / Unreal)", "Spatial UI & Ergonomics", "Shader & Lighting Basics", "Hand / Head Tracking (OpenXR)", "3D Performance Tuning"],
+    softSkills: ["Spatial Empathy", "User Comfort First", "Visual Storytelling", "Iterative Prototyping"],
+    tools: ["Unity / Unreal Engine", "Blender (Free 3D)", "WebXR / Three.js", "OpenXR SDK", "Figma Spatial Grids"],
+    growthOpportunities: "Expanding across surgical training simulators, architectural visualization, museum exhibitions, industrial maintenance AR overlays, and interactive learning.",
+    learningResources: [
+      "Unity Learn Free VR & AR Development Pathways",
+      "Blender Guru Donut & Beginner 3D Tutorials (Free)",
+      "WebXR Immersive Web Emulator Tutorials"
+    ],
+    beginnerProject: "Model a simple solar system or campus pavilion in free Blender or WebXR that visitors can orbit and inspect with clickable labels.",
+    howToGetStarted: [
+      "Download Blender (100% free) or open a free Three.js web demo to learn 3D X/Y/Z axes, cameras, and lighting.",
+      "Try AR placement in a free mobile museum or furniture app and note what made floating labels easy vs. hard to read.",
+      "Sketch a 3D science classroom lesson—what physical object would be safer or clearer to explore in AR/VR?"
+    ],
+    relatedCareers: ["creative-technologist", "product-designer", "industrial-designer"]
+  },
+  {
+    id: "cloud-architect",
+    categoryId: "emerging-tech",
+    categoryName: "Emerging Technology",
+    title: "Cloud Infrastructure & Distributed Systems Architect",
+    tagline: "Keep global apps fast, resilient, and green across cloud data centers",
+    overview: "Cloud architects design the invisible distributed server backbones, automated deployments, and resilient databases that allow hospitals, universities, climate models, and mobile apps to serve millions reliably without crashing.",
+    whatTheyDo: "They blueprint multi-region architectures, automate infrastructure templates, balance compute costs and energy footprint, and drill failure recovery plans.",
+    dailyResponsibilities: [
+      "Design fault-tolerant cloud topologies across compute clusters, storage, and CDNs",
+      "Automate infrastructure deployments as reproducible configuration blueprints",
+      "Configure observability dashboards, automated scaling, and zero-downtime backups",
+      "Audit cloud carbon footprint, right-sizing workloads to run in cleaner energy regions"
+    ],
+    education: "Computer Science, Information Systems, DevOps certifications (AWS/GCP/Azure), or sysadmin experience.",
+    technicalSkills: ["Cloud Architecture (AWS / GCP)", "Containers & Kubernetes", "Infrastructure as Code (Terraform)", "Observability & Monitoring", "Reliability & Disaster Recovery"],
+    softSkills: ["Calm Under Outages", "Cost & Trade-off Judgment", "Clear Diagramming", "Cross-Team Enablement"],
+    tools: ["Terraform", "Docker & Kubernetes", "AWS / Google Cloud", "Prometheus & Grafana", "GitHub Actions"],
+    growthOpportunities: "High leadership compensation path into Principal Infrastructure Architect, Site Reliability Lead, Platform Engineering Director, or FinOps Lead.",
+    learningResources: [
+      "Docker & Kubernetes Official Free Playgrounds",
+      "AWS Cloud Practitioner & Google Cloud Skills Boost Free Labs",
+      "Excalidraw System Architecture Practice Templates"
+    ],
+    beginnerProject: "Draw a fault-tolerant architecture diagram showing how a student exam portal handles 10,000 students submitting at once without losing data.",
+    howToGetStarted: [
+      "Think about what happens behind the scenes when 5,000 classmates log into the campus registration portal at 8:00 AM.",
+      "Draw how a Load Balancer spreads traffic across 3 backup servers instead of 1 overloaded machine.",
+      "Run a tiny 1-page website inside a free Docker container locally to experience reproducible packaging."
+    ],
+    relatedCareers: ["software-engineer", "cybersecurity-analyst", "iot-systems-engineer"]
+  },
+  {
+    id: "blockchain-developer",
+    categoryId: "emerging-tech",
+    categoryName: "Emerging Technology",
+    title: "Decentralized Systems & Cryptography Engineer",
+    tagline: "Build verifiable, tamper-proof digital credentials and trustless infrastructure",
+    overview: "Decentralized systems and cryptography engineers apply zero-knowledge proofs and distributed ledgers to verify university diplomas, trace ethical fair-trade supply chains, preserve privacy, and secure open financial rails.",
+    whatTheyDo: "They design cryptographic verification rules, write formally audited smart contracts, build privacy-preserving zero-knowledge proofs, and eliminate single-point security vulnerabilities.",
+    dailyResponsibilities: [
+      "Design tamper-resistant smart contracts and verifiable credential schemas",
+      "Write exhaustive edge-case tests and formal security audits before deployment",
+      "Implement zero-knowledge proofs so users can prove eligibility without revealing private data",
+      "Collaborate with security auditors and legal counsel on user-safe key recovery"
+    ],
+    education: "Computer Science, Cryptography/Mathematics, Software Security, or open-source security portfolios.",
+    technicalSkills: ["Applied Cryptography & Hashing", "Zero-Knowledge Basics", "Smart Contract Auditing", "Distributed Consensus", "Adversarial Security Testing"],
+    softSkills: ["Adversarial Skepticism", "Precision Thinking", "Open-Source Rigor", "Ethical Responsibility"],
+    tools: ["Foundry / Hardhat", "Solidity / Rust", "Circom ZK Playground", "OpenZeppelin Audits", "Git"],
+    growthOpportunities: "Applied in verifiable digital identity, open scientific data provenance, cross-border remittances, and privacy-preserving authentication.",
+    learningResources: [
+      "Cyfrin Updraft Free Smart Contract & Security Curriculum",
+      "Anders Brownworth Free Visual Blockchain & Hash Demo",
+      "MIT OpenCourseWare Blockchain & Money Lectures"
+    ],
+    beginnerProject: "Experiment with Anders Brownworth's free browser hash visualizer to see how changing a single letter alters cryptographic fingerprints.",
+    howToGetStarted: [
+      "Open tools like andersbrownworth.com/blockchain/hash to watch SHA-256 cryptographic hashing work interactively.",
+      "Design a university transcript verification concept where an employer confirms your graduation without seeing private grades.",
+      "Read why formal security testing matters infinitely more when code cannot be hot-patched casually."
+    ],
+    relatedCareers: ["cybersecurity-analyst", "cloud-architect", "tech-policy-counsel"]
+  },
+
+  // 19. Science & Research (Expanded Domains)
+  {
+    id: "astrophysicist",
+    categoryId: "science",
+    categoryName: "Science & Research",
+    title: "Astrophysicist & Space Scientist",
+    tagline: "Decode starlight, exoplanets, gravitational waves, and cosmic origins",
+    overview: "Astrophysicists analyze light, radio signals, and gravitational ripples from space telescopes and ground observatories to discover habitable exoplanets, map dark matter, and understand how stars and galaxies evolve.",
+    whatTheyDo: "They process telescope spectra, run physics simulations of stellar collisions, propose observation windows on global observatories, and share discoveries about our universe.",
+    dailyResponsibilities: [
+      "Analyze telescope brightness curves to spot distant exoplanets crossing stars",
+      "Clean instrument noise from optical, infrared, or radio astronomy datasets",
+      "Run gravitational or plasma simulations to test astrophysical theories",
+      "Write observing proposals and collaborate across international observatory consortia"
+    ],
+    education: "Physics, Astrophysics, Astronomy, or Planetary Science (often advancing to M.S./Ph.D. research).",
+    technicalSkills: ["Astronomical Spectroscopy", "Orbital & Stellar Physics", "Statistical Signal Analysis", "Telescope Data Calibration", "Scientific Computing"],
+    softSkills: ["Infinite Cosmic Curiosity", "Patient Analytical Rigor", "Clear Science Storytelling", "Global Collaboration"],
+    tools: ["Astropy / Python", "DS9 FITS Image Viewer", "Stellarium (Free)", "TOPCAT Star Catalogs", "NASA Exoplanet Archive"],
+    growthOpportunities: "Paths at space agencies (NASA/ESA/ISRO), observatories, satellite imaging startups, orbital debris tracking, and data-intensive physics institutes.",
+    learningResources: [
+      "Zooniverse 'Planet Hunters TESS' (Find real exoplanets in NASA telescope data!)",
+      "Stellarium Free Open-Source Planetarium",
+      "Crash Course Astronomy by Phil Plait (Free series)"
+    ],
+    beginnerProject: "Log into Zooniverse Planet Hunters TESS and inspect real NASA star-brightness graphs to help astronomers flag potential exoplanet transits.",
+    howToGetStarted: [
+      "Join Planet Hunters TESS on Zooniverse.org right now—citizen students regularly help discover real exoplanets.",
+      "Download Stellarium (free) to map tonight's visible planets, star colors (hot blue vs. cool red), and ISS passes.",
+      "Learn how Doppler wobbles and tiny brightness dips reveal planets light-years away."
+    ],
+    relatedCareers: ["aerospace-engineer", "quantum-computing-engineer", "computational-biologist"]
+  },
+  {
+    id: "biotechnologist",
+    categoryId: "science",
+    categoryName: "Science & Research",
+    title: "Biotechnology Research Specialist",
+    tagline: "Engineer living cells to brew sustainable materials, foods, and medicines",
+    overview: "Biotechnologists harness benign microbes, enzymes, and cellular pathways like microscopic factories—producing insulin, biodegradable spider-silk textiles, plant-saving biofertilizers, and plastic-eating enzymes.",
+    whatTheyDo: "They culture cell strains safely in sterile biosafety cabinets, optimize fermentation nutrients, assay protein yields, and partner with engineers to scale biological discoveries sustainably.",
+    dailyResponsibilities: [
+      "Maintain sterile microbial or cell cultures and record growth-curve assays",
+      "Optimize temperature, pH, and nutrient mixes inside benchtop bioreactors",
+      "Purify and test target enzymes, antibodies, or sustainable biopolymers",
+      "Follow strict biosafety documentation and lab reproducibility protocols"
+    ],
+    education: "Biotechnology, Molecular Biology, Biochemistry, Biochemical Engineering, or Bio-manufacturing degrees.",
+    technicalSkills: ["Sterile Cell Culturing", "Fermentation Bioprocessing", "Protein & Enzyme Assays", "Spectrophotometry", "Biosafety Lab Protocols"],
+    softSkills: ["Sterile Lab Discipline", "Experimental Patience", "Ecological Ethics", "Team Precision"],
+    tools: ["Micropipettes & Centrifuges", "Benchtop Bioreactors", "ELISA & Plate Readers", "Benchling Lab Notebook", "BioRender"],
+    growthOpportunities: "Transforming pharmaceuticals, alternative sustainable packaging, cultivated proteins, precision fermentation, and agricultural biologics.",
+    learningResources: [
+      "iGEM Synthetic Biology Competition Project Archives (Free inspiration)",
+      "LabXchange Free Virtual Pipetting & Biotech Lab Simulations (Harvard)",
+      "Khan Academy & MITx Intro Biology Resources"
+    ],
+    beginnerProject: "Complete Harvard's free LabXchange virtual lab on micropipetting and yeast fermentation without stepping into a physical lab.",
+    howToGetStarted: [
+      "Create a free account on LabXchange.org and try interactive browser simulations of gel electrophoresis and sterile culture.",
+      "Browse past iGEM student team wikis to see creative climate and medical problems students tackled with engineered microbes.",
+      "Notice 3 everyday products (laundry detergent enzymes, insulin, bio-plastics) already powered by biotechnology."
+    ],
+    relatedCareers: ["geneticist", "biomedical-scientist", "chemical-engineer"]
+  },
+  {
+    id: "geneticist",
+    categoryId: "science",
+    categoryName: "Science & Research",
+    title: "Genetics & Genomics Scientist",
+    tagline: "Read and repair the genetic code behind human health and biodiversity",
+    overview: "Geneticists study DNA inheritance, gene expression, and CRISPR repair tools to diagnose rare hereditary conditions earlier, protect endangered species' diversity, and breed drought-tolerant food crops.",
+    whatTheyDo: "They design PCR primers and CRISPR guide sequences, inspect genome variation tracks, interpret hereditary risk markers, and uphold strict bioethical safeguards.",
+    dailyResponsibilities: [
+      "Design PCR, sequencing, or CRISPR-Cas guide RNA laboratory protocols",
+      "Inspect genomic variant calls to distinguish harmless traits from disease mutations",
+      "Collaborate with genetic counselors, doctors, or agricultural breeders on findings",
+      "Maintain strict ethical consent and biological privacy stewardship"
+    ],
+    education: "Genetics, Genomics, Molecular Biology, Bioinformatics, or Genetic Counseling graduate tracks.",
+    technicalSkills: ["DNA Sequencing & PCR", "CRISPR-Cas Gene Design", "Genome Browser Analysis", "Inheritance & Pedigree Modeling", "Bioethics Compliance"],
+    softSkills: ["Ethical Integrity", "Careful Analytical Focus", "Empathetic Patient Translation", "Scientific Rigor"],
+    tools: ["Benchling (Free Student Version)", "NCBI BLAST & GenBank", "IGV Genome Viewer", "Thermal Cyclers", "R / Bioconductor"],
+    growthOpportunities: "High impact across precision oncology, rare-disease diagnosis, clinical genetic counseling, conservation genetics, and climate-resilient crops.",
+    learningResources: [
+      "Learn.Genetics by University of Utah (Free visual genetics labs)",
+      "NCBI & Benchling Free DNA Sequence Explorers",
+      "Cold Spring Harbor DNA Learning Center Animations"
+    ],
+    beginnerProject: "Use NCBI's free online BLAST tool to compare a mysterious DNA sequence segment against species across the tree of life.",
+    howToGetStarted: [
+      "Visit Learn.Genetics (learn.genetics.utah.edu) and run their interactive virtual DNA extraction and PCR simulations.",
+      "Try a free student Benchling account to view how a real circular plasmid DNA map looks.",
+      "Read a plain-English summary of how sickle-cell CRISPR therapy helps edit a single faulty genetic instruction."
+    ],
+    relatedCareers: ["computational-biologist", "biotechnologist", "biomedical-scientist"]
+  },
+  {
+    id: "environmental-scientist",
+    categoryId: "science",
+    categoryName: "Science & Research",
+    title: "Environmental & Earth Systems Scientist",
+    tagline: "Restore ecosystems, protect watersheds, and guide climate resilience",
+    overview: "Environmental scientists spend time outdoors in rivers, forests, wetlands, and labs—measuring soil health, tracking biodiversity recovery, testing groundwater purity, and advising cities on flood and wildfire resilience.",
+    whatTheyDo: "They gather field water and soil samples, map habitats with satellite GIS imagery, assess industrial cleanup sites, and translate ecological findings into community action.",
+    dailyResponsibilities: [
+      "Conduct field surveys testing stream quality, soil nutrients, air particulates, and species counts",
+      "Analyze satellite deforestation, drought, and urban heat-island maps in GIS",
+      "Model watershed runoff and wetland restoration plans for local towns",
+      "Write accessible environmental impact findings for parks, schools, and policymakers"
+    ],
+    education: "Environmental Science, Ecology, Earth Sciences, Hydrology, or Conservation Biology.",
+    technicalSkills: ["Field Soil & Water Sampling", "GIS & Satellite Mapping", "Ecological Biodiversity Surveying", "Environmental Impact Audits", "Watershed Modeling"],
+    softSkills: ["Love for Fieldwork", "Observation Patience", "Community Diplomacy", "Stewardship"],
+    tools: ["QGIS (Free GIS)", "Google Earth Engine", "iNaturalist Citizen Science", "Hanna Water Quality Meters", "Excel / R"],
+    growthOpportunities: "Roles across national parks, watershed conservation districts, renewable project siting, urban forestry, ESG environmental audits, and climate research.",
+    learningResources: [
+      "iNaturalist & Globe Observer Citizen Science Apps (Free)",
+      "QGIS Official Free Beginner Mapping Tutorials",
+      "NASA Earth Observatory Interactive Articles"
+    ],
+    beginnerProject: "Use iNaturalist or QGIS to map 15 native vs. invasive plants or heat-absorbing paved zones across your campus or neighborhood.",
+    howToGetStarted: [
+      "Download iNaturalist (free) and log 10 local plants, insects, or birds to contribute real biodiversity observations.",
+      "Look up your hometown on NASA Earth Observatory or Google Earth time-lapse to spot how green space changed over 20 years.",
+      "Learn how riparian tree buffers alongside creeks stop topsoil erosion and cool stream water naturally."
+    ],
+    relatedCareers: ["clean-energy-analyst", "civil-engineer", "sustainable-architect"]
+  },
+  {
+    id: "neuroscientist",
+    categoryId: "science",
+    categoryName: "Science & Research",
+    title: "Cognitive & Brain-Computer Interface Neuroscientist",
+    tagline: "Explore memory, perception, and neural signals that reconnect movement",
+    overview: "Neuroscientists study how billions of neurons create memory, emotion, attention, and movement—driving breakthroughs in Alzheimer's prevention, mental health therapies, and non-invasive brain-computer interfaces that restore speech or prosthetic control.",
+    whatTheyDo: "They record electrical EEG or MRI brain activity during cognitive tasks, design behavioral memory experiments, test neural-decoding patterns, and work with neurologists and biomedical engineers.",
+    dailyResponsibilities: [
+      "Design behavioral reaction, memory, or visual perception experiments for volunteers",
+      "Clean and analyze EEG brainwave or functional MRI imaging datasets",
+      "Study neural plasticity, sleep consolidation, or assistive brain-interface decoding",
+      "Present findings clearly to clinicians, educators, and assistive technology builders"
+    ],
+    education: "Neuroscience, Cognitive Science, Psychology, Biology, or Biomedical Engineering.",
+    technicalSkills: ["EEG / Neural Signal Recording", "Experimental Cognitive Design", "Brain Imaging Concepts", "Statistical Hypothesis Testing", "Ethics in Human Research"],
+    softSkills: ["Deep Curiosity About Consciousness", "Methodical Experimental Control", "Empathy for Patients", "Scientific Writing"],
+    tools: ["MNE-Python / EEGLAB", "PsychoPy Experiment Builder", "Allen Brain Atlas (Free)", "R / JASP Statistics", "Muse / OpenBCI Headsets"],
+    growthOpportunities: "Expanding in clinical neurology research, assistive neurotechnology, neuro-rehabilitation clinics, human-factors ergonomics, and pharmaceutical R&D.",
+    learningResources: [
+      "Neuroscience Online by UTHealth (Free open digital textbook)",
+      "Allen Brain Map Interactive 3D Explorer (Free)",
+      "Backyard Brains DIY Neurophysiology Videos"
+    ],
+    beginnerProject: "Design a 3-minute reaction-time or Stroop color-word attention experiment in free PsychoPy and compare distracted vs. quiet test scores with friends.",
+    howToGetStarted: [
+      "Explore the free 3D Allen Brain Atlas (brain-map.org) to locate the hippocampus (memory) and motor cortex (movement).",
+      "Try a classic online Stroop test to experience firsthand how conflicting visual words slow brain processing speed.",
+      "Watch a short video on how silent motor-cortex signals help paralyzed users control a cursor or robotic gripper."
+    ],
+    relatedCareers: ["biomedical-engineer", "clinical-psychologist", "user-researcher"]
+  },
+  {
+    id: "materials-scientist",
+    categoryId: "science",
+    categoryName: "Science & Research",
+    title: "Materials Science & Nanotechnology Researcher",
+    tagline: "Invent stronger composites, longer-lasting batteries, and greener coatings",
+    overview: "Materials scientists engineer matter atom by atom—creating solid-state EV batteries that charge in minutes without catching fire, ultra-light aerospace carbon composites, self-healing concrete, and compostable plant films.",
+    whatTheyDo: "They formulate new alloys, ceramics, or polymer blends, inspect microscopic crystal grain structures, pull samples to the breaking point, and measure heat, light, and electrical conductivity.",
+    dailyResponsibilities: [
+      "Synthesize experimental battery electrolytes, bio-polymers, or carbon composites",
+      "Inspect microscopic structure with scanning electron microscopes and X-ray diffraction",
+      "Test material tensile strength, flexibility, heat tolerance, and corrosion resistance",
+      "Replace scarce or toxic mined elements with abundant, recyclable alternatives"
+    ],
+    education: "Materials Science & Engineering, Chemistry, Physics, or Mechanical/Chemical Engineering.",
+    technicalSkills: ["Polymer & Composite Formulation", "Microscopy & Characterization", "Mechanical & Thermal Testing", "Battery / Solar Materials", "Structure-Property Analysis"],
+    softSkills: ["Tactile Curiosity", "Methodical Experimentation", "Cross-Discipline Curiosity", "Sustainability Mindset"],
+    tools: ["Materials Project Open Database", "ImageJ Microscope Analyzer", "Stress-Strain Testers", "Differential Scanning Calorimetry", "Python / OriginLab"],
+    growthOpportunities: "Crucial to solid-state batteries, next-gen perovskite solar cells, lightweight wind blades, sustainable semiconductors, and space habitats.",
+    learningResources: [
+      "Materials Project (materialsproject.org — Free open crystal & battery database)",
+      "MIT OpenCourseWare Introduction to Solid State Chemistry",
+      "Ainissa Ramirez & Real Engineering Materials Videos (YouTube)"
+    ],
+    beginnerProject: "Explore Materials Project online and design a fair home stress-test comparing tensile bending strength across 4 everyday recycling plastics (PET, HDPE, PP, cardboard).",
+    howToGetStarted: [
+      "Look at the recycling triangle numbers (1–7) on kitchen containers and research why #2 HDPE milk jugs flex while #6 snaps cleanly.",
+      "Watch how crystal grain boundaries turn brittle iron into ultra-tough spring steel through heat treatment.",
+      "Browse materialsproject.org to see scientists screening thousands of battery materials computationally."
+    ],
+    relatedCareers: ["chemical-engineer", "mechanical-engineer", "robotics-research-scientist"]
+  },
+
+  // 20. Psychology, Economics, Industrial Design & Innovation Strategy
+  {
+    id: "clinical-psychologist",
+    categoryId: "psychology",
+    categoryName: "Psychology",
+    title: "Counseling & Behavioral Psychologist",
+    tagline: "Support mental resilience, emotional wellbeing, and healthy behavioral change",
+    overview: "Counseling and behavioral psychologists help students, families, athletes, and communities navigate stress, anxiety, life transitions, and burnout—combining evidence-based therapies with deep human warmth.",
+    whatTheyDo: "They listen without judgment, conduct evidence-based assessments, guide cognitive and behavioral coping tools, and design school or workplace wellbeing workshops.",
+    dailyResponsibilities: [
+      "Conduct compassionate one-on-one counseling sessions and intake reflections",
+      "Teach evidence-based stress regulation, cognitive reframing, and habit-building skills",
+      "Facilitate peer-support circles and mental wellbeing workshops for campuses",
+      "Maintain strict client confidentiality and collaborate with educators or physicians"
+    ],
+    education: "Psychology, Counseling, Behavioral Science, followed by accredited clinical/counseling graduate training & licensure.",
+    technicalSkills: ["Evidence-Based CBT / ACT Frameworks", "Psychological Assessment", "Crisis De-escalation", "Ethics & Confidentiality", "Behavioral Habit Design"],
+    softSkills: ["Non-Judgmental Listening", "Emotional Regulation", "Warm Empathy", "Patience & Trustworthiness"],
+    tools: ["Validated Assessment Scales (GAD-7)", "Journaling & CBT Worksheets", "Secure Telehealth Platforms", "Habit Trackers"],
+    growthOpportunities: "Growing demand in university counseling centers, hospital behavioral health teams, sports psychology, digital mental-health startups, and private practice.",
+    learningResources: [
+      "APA Psychology Topics Hub (Free research summaries)",
+      "Yale 'The Science of Well-Being' by Dr. Laurie Santos (Free to audit)",
+      "Active Minds Campus Peer Wellbeing Guides"
+    ],
+    beginnerProject: "Audit Yale's free 'Science of Well-Being' lectures and track a 14-day sleep, gratitude, and focus habit reflection journal.",
+    howToGetStarted: [
+      "Watch the first module of Yale's Science of Well-Being (free online) to learn why human intuition often mispredicts happiness.",
+      "Practice reflective active listening for 5 minutes with a friend—summarizing what they felt before giving any advice.",
+      "Explore different psychology tracks (Counseling, Educational, Sports, Industrial-Organizational) to see what setting fits you."
+    ],
+    relatedCareers: ["user-researcher", "learning-experience-designer", "neuroscientist"]
+  },
+  {
+    id: "economist",
+    categoryId: "finance",
+    categoryName: "Finance",
+    title: "Applied Economist & Market Strategist",
+    tagline: "Understand incentives, pricing, climate economics, and public prosperity",
+    overview: "Applied economists investigate why housing gets expensive, how green carbon incentives shift industries, what helps small businesses hire, and how nations and startups make sustainable resource choices.",
+    whatTheyDo: "They analyze labor, inflation, and trade data, design A/B incentive experiments, forecast regional trends, and advise clean-energy startups, governments, or policy institutes.",
+    dailyResponsibilities: [
+      "Collect macroeconomic, wage, housing, and pricing datasets cleanly",
+      "Build econometric models distinguishing real cause-and-effect from coincidence",
+      "Evaluate the real-world tradeoffs of rebates, carbon credits, or pricing policies",
+      "Write clear, jargon-free policy briefs with visual charts for decision makers"
+    ],
+    education: "Economics, Quantitative Social Science, Public Policy, Mathematics, or Finance.",
+    technicalSkills: ["Econometrics & Causal Analysis", "Supply-Demand Modeling", "Data Storytelling", "Survey & Policy Evaluation", "Spreadsheet & R Forecasting"],
+    softSkills: ["Critical Reasoning", "Bias Awareness", "Clear Writing for Non-Economists", "Intellectual Honesty"],
+    tools: ["FRED Economic Data (Free)", "Our World in Data", "R / Excel / Python", "Stata", "Datawrapper Charts"],
+    growthOpportunities: "Paths at central banks, clean-energy think tanks, marketplace pricing teams, development NGOs, and municipal strategy departments.",
+    learningResources: [
+      "CORE Econ (core-econ.org — 100% Free modern interactive textbook)",
+      "Our World in Data Interactive Global Charts (Free)",
+      "Planet Money & Freakonomics Podcasts"
+    ],
+    beginnerProject: "Use Our World in Data and FRED to compare solar electricity cost drops vs. coal adoption across 3 countries over 15 years in a 1-page visual brief.",
+    howToGetStarted: [
+      "Read Chapter 1 of CORE Econ (free online) to see how economics connects inequality, climate, and innovation.",
+      "Explore fred.stlouisfed.org or ourworldindata.org and ask 1 curious question about youth wages, rent, or renewable energy.",
+      "Notice an everyday incentive (student transit passes, surge rideshare pricing, deposit bottle returns) and analyze who changes behavior."
+    ],
+    relatedCareers: ["financial-analyst", "policy-analyst", "clean-energy-analyst"]
+  },
+  {
+    id: "industrial-designer",
+    categoryId: "design",
+    categoryName: "Design & Creativity",
+    title: "Industrial & Physical Product Designer",
+    tagline: "Sculpt tactile, ergonomic everyday objects—from bikes to assistive hardware",
+    overview: "Industrial designers shape the physical objects we hold, wear, sit in, and rely on—sketching ergonomic headphones, recyclable water bottles, assistive kitchen grips, medical devices, and sleek robotic shells.",
+    whatTheyDo: "They observe how hands grip real objects, sketch rapid concepts, sculpt foam and clay mockups, model sleek surfaces in 3D CAD, and choose tactile, repairable materials.",
+    dailyResponsibilities: [
+      "Sketch 20+ rapid concept forms on paper and iPad to explore ergonomics and style",
+      "Carve foam, cardboard, or 3D-printed mockups to test real hand feel",
+      "Create surfacing models and CMF specs (Color, Material, Finish) for engineers",
+      "Design products for easy repair, disassembly, and zero-waste packaging"
+    ],
+    education: "Industrial Design, Product Design, Mechanical Design, or strong physical prototyping portfolio.",
+    technicalSkills: ["Form Sketching & Ergonomics", "3D Surface Modeling (Rhino / Fusion)", "Foam & Cardboard Mockups", "Color, Material & Finish (CMF)", "Design for Repairability"],
+    softSkills: ["Tactile Aesthetic Eye", "Observational Empathy", "Openness to Critique", "Hands-On Craft"],
+    tools: ["Rhino 3D / Fusion 360", "KeyShot Rendering", "Procreate / Sketchbook", "Foam Core & Clay", "3D Printers"],
+    growthOpportunities: "Works at hardware startups, medical device studios, furniture & footwear brands, robotics chassis teams, and consumer tech companies.",
+    learningResources: [
+      "ID Sketching Free Perspective & Marker Tutorials (YouTube)",
+      "Render Weekly & Yanko Design Physical Product Breakdowns",
+      "The Design of Everyday Things by Don Norman"
+    ],
+    beginnerProject: "Pick an everyday kitchen peeler or backpack buckle that feels awkward and sculpt a more comfortable cardboard/clay grip prototype.",
+    howToGetStarted: [
+      "Hold 3 pens or water bottles with your eyes closed and notice which grip curves, weight balance, and texture feel best.",
+      "Practice sketching simple cylinders, cubes, and rounded shampoo bottles in 3D perspective for 15 minutes.",
+      "Build a quick corrugated cardboard mockup of a laptop riser or desk organizer using only scissors and tape."
+    ],
+    relatedCareers: ["product-designer", "human-robot-interaction-designer", "mechanical-engineer"]
+  },
+  {
+    id: "research-innovation-strategist",
+    categoryId: "business",
+    categoryName: "Business & Management",
+    title: "Research & Innovation Strategist",
+    tagline: "Turn lab breakthroughs and human insights into real-world ventures",
+    overview: "Research & innovation strategists bridge labs, design studios, and market teams—helping hospitals, universities, climate startups, and tech companies figure out which bold research ideas deserve funding and how to bring them to real users responsibly.",
+    whatTheyDo: "They interview scientists and customers, scan emerging patent and tech horizons, run low-risk pilot experiments, and craft ethical commercialization roadmaps.",
+    dailyResponsibilities: [
+      "Interview researchers, clinicians, and customers to match new discoveries with real pain points",
+      "Map competitive trends across robotics, biotech, clean tech, and regulation",
+      "Design small pilot tests and innovation workshops that prove value cheaply",
+      "Prepare clear strategic recommendations for founders, R&D leads, and boards"
+    ],
+    education: "Business Strategy, Design Strategy, Science/Engineering Management, or interdisciplinary degrees.",
+    technicalSkills: ["Horizon & Trend Scanning", "Design Thinking Facilitation", "Pilot Experiment Design", "R&D Portfolio Prioritization", "Executive Storytelling"],
+    softSkills: ["Connecting Disconnected Dots", "Translator Across Scientists & Business", "Executive Clarity", "Curiosity"],
+    tools: ["Notion / Miro", "Pitch Decks & Briefs", "Patent & Scholar Search", "Airtable", "Figma FigJam"],
+    growthOpportunities: "High-agency roles in corporate R&D labs, university technology-transfer offices, climate/deep-tech venture studios, and innovation consultancies.",
+    learningResources: [
+      "IDEO U Design Thinking & Strategy Guides",
+      "Strategyzer Business Model Canvas & Value Proposition Guides (Free PDFs)",
+      "MIT Technology Review Free Breakthrough Lists"
+    ],
+    beginnerProject: "Pick one recent university invention (like algae bio-leather or solid-state batteries) and fill out a 1-page Strategyzer Value Proposition Canvas showing who needs it first.",
+    howToGetStarted: [
+      "Read Strategyzer's free 1-page Value Proposition Canvas guide to learn how good innovations map directly to customer pains.",
+      "Browse MIT Technology Review's 10 Breakthrough Technologies and pick 1 you think is overhyped vs. 1 that is undervalued.",
+      "Draft a 5-slide innovation pitch showing how a local campus service could run a 2-week low-cost experiment."
+    ],
+    relatedCareers: ["product-manager", "startup-founder", "user-researcher"]
   }
 ];

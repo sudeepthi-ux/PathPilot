@@ -177,9 +177,9 @@ function toSafeUser(user) {
     id: user.id,
     name: user.name,
     email: user.email,
-    university: user.university,
-    major: user.major,
-    gradYear: user.gradYear || '2026',
+    university: user.university || '',
+    major: user.major || '',
+    gradYear: user.gradYear || '',
     targetIndustry: user.targetIndustry || '',
     bio: user.bio || '',
     createdAt: user.createdAt
@@ -190,8 +190,9 @@ function handleRegister(body) {
   const name = String(body.name || '').trim();
   const email = normalizeEmail(body.email);
   const password = String(body.password || '');
-  const university = String(body.university || '').trim() || 'University Student';
-  const major = String(body.major || '').trim() || 'Interdisciplinary Studies';
+  const university = String(body.university || '').trim();
+  const major = String(body.major || '').trim();
+  const gradYear = String(body.gradYear || '').trim();
 
   if (!name) {
     return {
@@ -233,7 +234,9 @@ function handleRegister(body) {
     email,
     university,
     major,
-    gradYear: '2026',
+    gradYear,
+    targetIndustry: '',
+    bio: '',
     passwordHash,
     passwordSalt,
     createdAt: now,

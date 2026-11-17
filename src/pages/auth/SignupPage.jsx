@@ -19,7 +19,7 @@ export const SignupPage = () => {
   const navigate = useNavigate();
 
   if (user && !authLoading) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   // Password strength score (0 to 4)
@@ -58,7 +58,7 @@ export const SignupPage = () => {
     try {
       const normalizedEmail = email.trim().toLowerCase();
       await signup({ name: name.trim(), email: normalizedEmail, password, university, major });
-      navigate('/', { replace: true });
+      navigate('/dashboard', { replace: true });
     } catch (err) {
       setError(err.message || 'Failed to create student account. Please try again.');
     } finally {
@@ -71,7 +71,7 @@ export const SignupPage = () => {
     setLoading(true);
     try {
       await loginWithGoogle();
-      navigate('/', { replace: true });
+      navigate('/dashboard', { replace: true });
     } catch (err) {
       setError(err.message || 'Failed to authenticate via Google.');
     } finally {

@@ -29,6 +29,7 @@ export const LoginPage = () => {
 
   const { user, loading: authLoading, login, loginWithGoogle, loadDemoStudent } = useAuth();
   const navigate = useNavigate();
+  const redirectTarget = location.state?.from?.pathname || '/dashboard';
 
   useEffect(() => {
     if (initialEmail && !email) {
@@ -54,9 +55,9 @@ export const LoginPage = () => {
     );
   }
 
-  // Already logged-in users automatically continue to authenticated application without re-entering credentials
+  // Already logged-in users automatically continue to dashboard or requested page
   if (user && !isRecoveryRedirect) {
-    return <Navigate to="/" replace />;
+    return <Navigate to={redirectTarget} replace />;
   }
 
   const handleSubmit = async (e) => {
@@ -75,7 +76,7 @@ export const LoginPage = () => {
     setLoading(true);
     try {
       await login({ email, password });
-      navigate('/', { replace: true });
+      navigate(redirectTarget, { replace: true });
     } catch (err) {
       setError(err.message || 'Invalid credentials. Please verify your email and password.');
     } finally {
@@ -88,7 +89,7 @@ export const LoginPage = () => {
     setLoading(true);
     try {
       await loginWithGoogle();
-      navigate('/', { replace: true });
+      navigate(redirectTarget, { replace: true });
     } catch (err) {
       setError(err.message || 'Failed to authenticate with Google.');
     } finally {
@@ -98,7 +99,7 @@ export const LoginPage = () => {
 
   const handleQuickDemo = () => {
     loadDemoStudent();
-    navigate('/', { replace: true });
+    navigate(redirectTarget, { replace: true });
   };
 
   return (

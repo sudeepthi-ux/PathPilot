@@ -115,6 +115,14 @@ function formatStudentContextSummary(ctx = {}) {
         .join(', ')}`
     );
   }
+  if (ctx.careerDiscoveryResult) {
+    const cdr = ctx.careerDiscoveryResult;
+    const topMatches = (cdr.matches || [])
+      .slice(0, 3)
+      .map((m) => `${m.career?.title || m.careerId} (${m.score}%)`)
+      .join(', ');
+    parts.push(`Career Discovery Matches: ${topMatches || 'computed'}`);
+  }
   if (Array.isArray(ctx.completedExperimentTitles) && ctx.completedExperimentTitles.length > 0) {
     parts.push(`Completed experiments: ${ctx.completedExperimentTitles.join('; ')}`);
   }
@@ -210,28 +218,58 @@ export function detectMessageLanguage(message = '', preferredLanguage = 'auto', 
   return 'english';
 }
 
+const DISLIKE_CODING_RE =
+  /\b(don'?t\s+like\s+coding|dislike\s+coding|hate\s+coding|no\s+coding|without\s+coding|not\s+coding|not\s+interested\s+in\s+coding|hate\s+programming|dislike\s+programming|don'?t\s+want\s+to\s+code|avoid\s+coding|coding\s+(?:nachadu|radhu|radu|odu|bore|oddu))\b/i;
+
+const DISLIKE_MATH_RE =
+  /\b(don'?t\s+like\s+math|dislike\s+math|hate\s+math|math\s+(?:nachadu|radhu|radu|bhayam|fear))\b/i;
+
 const INTEREST_PATTERNS = [
+  { key: 'robotics', re: /\b(robotics?|robots?|mechatronics|automation|embedded\s*systems?|drones?|autonomous\s*systems?)\b/i },
+  { key: 'mechanical_eng', re: /\b(mechanical|cad|solidworks|machines?|automotive|thermodynamics)\b/i },
+  { key: 'electrical_ece', re: /\b(electrical|electronics|circuits?|chips?|vlsi|semiconductors?|microcontroller|sensors?)\b/i },
+  { key: 'aerospace', re: /\b(aerospace|aviation|aircraft|space|rocket|satellite|aerodynamics)\b/i },
+  { key: 'civil_eng', re: /\b(civil|infrastructure|bridges?|structures?|construction|structural)\b/i },
+  { key: 'quantum_tech', re: /\b(quantum|qubits?|quantum\s*computing)\b/i },
+  { key: 'iot', re: /\b(iot|internet\s*of\s*things|connected\s*devices|smart\s*home)\b/i },
+  { key: 'ar_vr', re: /\b(ar|vr|augmented\s*reality|virtual\s*reality|spatial\s*computing|metaverse)\b/i },
+  { key: 'cloud_infra', re: /\b(cloud|aws|azure|gcp|devops|kubernetes|docker|distributed\s*systems)\b/i },
+  { key: 'blockchain', re: /\b(blockchain|web3|crypto|smart\s*contracts?|ethereum|solidity)\b/i },
+  { key: 'science_research', re: /\b(astrophysics|space\s*science|genetics|dna|neuroscience|brain\s*science|materials?\s*science|physics|chemistry)\b/i },
+  { key: 'psychology', re: /\b(psychology|human\s*behavior|behaviour|mental\s*health|therapy|counseling|cognition)\b/i },
+  { key: 'economics_finance', re: /\b(economics|finance|economist|markets|financial\s*model|macroeconomics|valuation)\b/i },
+  { key: 'industrial_design', re: /\b(industrial\s*design|physical\s*product\s*design|ergonomics|hardware\s*design)\b/i },
   { key: 'design', re: /\b(design|designing|ui|ux|figma|visual|sketch|creative|art|graphic|drawing|interface|wireframe|layouts?)\b/i },
-  { key: 'coding', re: /\b(coding|code|programming|software|developer|web dev|python|javascript|java|frontend|backend|full[- ]?stack|algorithms?)\b/i },
-  { key: 'ai_data', re: /\b(ai|artificial intelligence|machine learning|data|analytics|data science|statistics|models|deep learning|python data)\b/i },
-  { key: 'hardware_ece', re: /\b(ece|electronics|hardware|circuits?|chips?|embedded|robotics|vlsi|iot|sensors?|devices?)\b/i },
-  { key: 'business_pm', re: /\b(business|startup|founder|entrepreneur|product manag|pm\b|mba|marketing|finance|strategy|leadership|management)\b/i },
-  { key: 'biotech_health', re: /\b(bio|biology|biotech|health|healthcare|medicine|medical|doctor|pharma|genetics|clinical)\b/i },
-  { key: 'cybersecurity', re: /\b(cyber|security|ethical hacking|infosec|network security|privacy)\b/i },
-  { key: 'psychology_ux', re: /\b(psychology|human behavior|behaviour|user research|people|mental|counseling|teaching|education)\b/i },
-  { key: 'climate', re: /\b(climate|energy|clean energy|sustainable|sustainability|environment|architecture|green)\b/i }
+  { key: 'coding', re: /\b(coding|code|programming|software|developer|web\s*dev|python|javascript|java|frontend|backend|full[- ]?stack|algorithms?)\b/i },
+  { key: 'ai_data', re: /\b(ai|artificial\s*intelligence|machine\s*learning|data|analytics|data\s*science|statistics|models|deep\s*learning|python\s*data)\b/i },
+  { key: 'business_pm', re: /\b(business|startup|founder|entrepreneur|product\s*manag|pm\b|mba|marketing|strategy|leadership|management)\b/i },
+  { key: 'biotech_health', re: /\b(bio|biology|biotech|health|healthcare|medicine|medical|doctor|pharma|clinical)\b/i },
+  { key: 'cybersecurity', re: /\b(cyber|security|ethical\s*hacking|infosec|network\s*security|privacy)\b/i },
+  { key: 'climate', re: /\b(climate|energy|clean\s*energy|sustainable|sustainability|environment|green)\b/i }
 ];
 
 const CAREER_RECOMMENDATIONS_BY_INTEREST = {
-  design: ['product-designer', 'creative-technologist', 'graphic-designer'],
-  coding: ['software-engineer', 'ai-engineer', 'creative-technologist'],
-  ai_data: ['ai-engineer', 'financial-analyst', 'computational-biologist'],
-  hardware_ece: ['creative-technologist', 'ai-engineer', 'software-engineer'],
-  business_pm: ['product-manager', 'startup-founder', 'digital-marketing-specialist'],
-  biotech_health: ['digital-health-specialist', 'computational-biologist', 'biomedical-scientist'],
-  cybersecurity: ['cybersecurity-analyst', 'software-engineer'],
-  psychology_ux: ['user-researcher', 'learning-experience-designer', 'product-designer'],
-  climate: ['clean-energy-analyst', 'sustainable-architect']
+  robotics: ['robotics-engineer', 'mechatronics-engineer', 'automation-engineer', 'autonomous-systems-engineer', 'drone-systems-engineer'],
+  mechanical_eng: ['mechanical-engineer', 'robotics-engineer', 'industrial-designer'],
+  electrical_ece: ['electronics-engineer', 'electrical-engineer', 'embedded-systems-engineer'],
+  aerospace: ['aerospace-engineer', 'drone-systems-engineer', 'autonomous-systems-engineer'],
+  civil_eng: ['civil-engineer', 'sustainable-architect'],
+  quantum_tech: ['quantum-computing-engineer', 'ai-engineer'],
+  iot: ['iot-systems-engineer', 'embedded-systems-engineer', 'robotics-engineer'],
+  ar_vr: ['ar-vr-developer', 'creative-technologist', 'product-designer'],
+  cloud_infra: ['cloud-architect', 'software-engineer', 'cybersecurity-analyst'],
+  blockchain: ['blockchain-developer', 'software-engineer'],
+  science_research: ['astrophysicist', 'neuroscientist', 'geneticist', 'materials-scientist', 'biotechnologist'],
+  psychology: ['clinical-psychologist', 'user-researcher'],
+  economics_finance: ['economist', 'financial-analyst'],
+  industrial_design: ['industrial-designer', 'product-designer'],
+  design: ['product-designer', 'creative-technologist', 'graphic-designer', 'industrial-designer'],
+  coding: ['software-engineer', 'ai-engineer', 'cloud-architect'],
+  ai_data: ['ai-engineer', 'computational-biologist', 'ai-robotics-specialist'],
+  business_pm: ['product-manager', 'startup-founder', 'digital-marketing-specialist', 'research-innovation-strategist'],
+  biotech_health: ['biotechnologist', 'biomedical-engineer', 'digital-health-specialist', 'computational-biologist'],
+  cybersecurity: ['cybersecurity-analyst', 'cloud-architect'],
+  climate: ['clean-energy-analyst', 'environmental-scientist', 'sustainable-architect']
 };
 
 /**
@@ -244,13 +282,25 @@ export function extractConversationMemory(conversationHistory = [], studentConte
   let lastMentionedInterest = null;
   const studentStatements = [];
   const previousAssistantTexts = new Set();
+  let dislikesCoding = false;
+  let dislikesMath = false;
 
   for (const turn of conversationHistory || []) {
     if (!turn || !turn.text) continue;
     if (turn.role === 'user') {
       studentStatements.push(turn.text);
+      if (DISLIKE_CODING_RE.test(turn.text)) {
+        dislikesCoding = true;
+      }
+      if (DISLIKE_MATH_RE.test(turn.text)) {
+        dislikesMath = true;
+      }
       for (const pat of INTEREST_PATTERNS) {
         if (pat.re.test(turn.text)) {
+          // If student explicitly dislikes coding, never add coding to positive interests
+          if (pat.key === 'coding' && (dislikesCoding || DISLIKE_CODING_RE.test(turn.text))) {
+            continue;
+          }
           mentionedInterests.add(pat.key);
           lastMentionedInterest = pat.key;
         }
@@ -260,13 +310,21 @@ export function extractConversationMemory(conversationHistory = [], studentConte
     }
   }
 
+  // If student ever disliked coding, purge coding from positive interests
+  if (dislikesCoding) {
+    mentionedInterests.delete('coding');
+    if (lastMentionedInterest === 'coding') {
+      lastMentionedInterest = null;
+    }
+  }
+
   // Merge real PathPilot interest assessment if available
   const topInterest = studentContext?.topInterests?.[0] || null;
   if (topInterest?.id === 'design') mentionedInterests.add('design');
-  if (topInterest?.id === 'technology') mentionedInterests.add('coding');
+  if (topInterest?.id === 'technology' && !dislikesCoding) mentionedInterests.add('coding');
   if (topInterest?.id === 'healthcare' || topInterest?.id === 'science') mentionedInterests.add('biotech_health');
   if (topInterest?.id === 'business' || topInterest?.id === 'finance') mentionedInterests.add('business_pm');
-  if (topInterest?.id === 'psychology') mentionedInterests.add('psychology_ux');
+  if (topInterest?.id === 'psychology') mentionedInterests.add('psychology');
 
   const recentAssistant = [...(conversationHistory || [])]
     .reverse()
@@ -277,6 +335,8 @@ export function extractConversationMemory(conversationHistory = [], studentConte
     lastMentionedInterest,
     studentStatements,
     previousAssistantTexts,
+    dislikesCoding,
+    dislikesMath,
     recentAssistant: recentAssistant.toLowerCase(),
     turnCount: studentStatements.length
   };
@@ -320,8 +380,12 @@ async function callServerGemini({
 CRITICAL CONVERSATION RULES:
 - Your name is AIRA and your persona is warm, approachable, supportive, sharp, and honest.
 - Understand the EXACT meaning and intent behind the student's message—never give generic motivational clichés or repeat earlier replies.
-- Use conversation memory: Student previously expressed interests in [${memory.mentionedInterests.join(', ') || 'none mentioned yet'}]. Reference what they told you naturally.
-- Use ONLY verified facts from VERIFIED PATHPILOT DATA below. NEVER invent scores, experiments, or strengths that aren't listed; if missing, ask or suggest exploring together.
+- STRICTLY RESPECT LIKES AND DISLIKES:
+  * If the student states they dislike, hate, or want to avoid coding/programming (e.g., "I don't like coding, but I love robotics"), NEVER say "Since you like coding" and NEVER recommend pure software engineering or web/app coding roles!
+  * Instead, enthusiastically validate their love for robotics and explain the tangible physical & hardware avenues: mechanical CAD design, electronics & sensors, mechatronics, and industrial automation. Ask: "What attracts you most about building robots?"
+  * If they dislike math, suggest fields where heavy calculus is not required (UI/UX design, frontend, product management, biology).
+- Use conversation memory: Student previously expressed interests in [${memory.mentionedInterests.join(', ') || 'none'}], dislikes coding: ${memory.dislikesCoding ? 'YES' : 'No'}. Reference what they told you naturally.
+- Use ONLY verified facts from VERIFIED PATHPILOT DATA below. NEVER invent scores or strengths that aren't listed.
 - Match the student's language naturally:
   * Detected language for this message: "${detectedLang}" (mode hint: "${preferredLanguage}").
   * If "english": respond strictly in natural, conversational English.
@@ -335,13 +399,13 @@ ${contextText}
 ${starterAction ? `ACTIVE QUICK TOPIC: ${starterAction}` : ''}
 
 VALID CAREER IDs:
-product-designer, creative-technologist, graphic-designer, software-engineer, ai-engineer, cybersecurity-analyst, product-manager, startup-founder, financial-analyst, computational-biologist, digital-health-specialist, user-researcher, learning-experience-designer, content-strategist, digital-marketing-specialist, sustainable-architect, tech-policy-counsel, biomedical-scientist, policy-analyst, experience-curator, clean-energy-analyst
+product-designer, creative-technologist, graphic-designer, software-engineer, ai-engineer, cybersecurity-analyst, product-manager, startup-founder, financial-analyst, computational-biologist, digital-health-specialist, user-researcher, learning-experience-designer, content-strategist, digital-marketing-specialist, sustainable-architect, tech-policy-counsel, biomedical-scientist, policy-analyst, experience-curator, clean-energy-analyst, robotics-engineer, automation-engineer, mechatronics-engineer, autonomous-systems-engineer, embedded-systems-engineer, ai-robotics-specialist, drone-systems-engineer, human-robot-interaction-designer, industrial-robotics-specialist, robotics-research-scientist, mechanical-engineer, electrical-engineer, electronics-engineer, civil-engineer, aerospace-engineer, biomedical-engineer, chemical-engineer, quantum-computing-engineer, iot-systems-engineer, ar-vr-developer, cloud-architect, blockchain-developer, astrophysicist, biotechnologist, geneticist, environmental-scientist, neuroscientist, materials-scientist, clinical-psychologist, economist, industrial-designer, research-innovation-strategist
 
 Return strict JSON:
 {
   "text": "AIRA's reply for display & speech.",
   "spokenTextFallback": "If text uses Telugu script, clear phonetic Latin script version for non-Telugu browser TTS; otherwise null.",
-  "emotion": "warm | encouraging | curious | clarifying | thoughtful | serious",
+  "emotion": "warm | encouraging | curious | clarifying | thoughtful | serious | happy | empathetic",
   "recommendedCareerIds": ["0-to-2-career-ids"],
   "followUps": ["2-or-3-relevant-next-student-prompts"]
 }`;
@@ -580,6 +644,74 @@ export function buildMentorFallback({
     );
   }
 
+  // ── 1b. Dislike Coding + Love Robotics / Hardware (CRITICAL REQUIREMENT #4) ──
+  const expressesRobotics =
+    /\b(robotics?|robots?|mechatronics|automation|embedded\s*systems?|drones?|hardware\s*robot)\b/i.test(lower) ||
+    /రోబోటిక్స్/.test(q);
+  const expressesDislikeCoding =
+    memory.dislikesCoding || DISLIKE_CODING_RE.test(lower) || /కోడింగ్ ఇష్టం లేదు/.test(q);
+
+  if (expressesRobotics && expressesDislikeCoding) {
+    if (lang === 'telugu') {
+      return {
+        text: `అది చాలా ఆసక్తికరమైన ఆలోచన${firstName ? ` ${firstName}` : ''}! రోబోటిక్స్ అంటే కేవలం సాఫ్ట్‌వేర్ కోడింగ్ మాత్రమే కాదు—మెకానికల్ డిజైన్ (బాడీ మరియు లింక్స్ తయారు చేయడం), ఎలక్ట్రానిక్స్ & సెన్సార్ సర్క్యూట్లు, మెకాట్రానిక్స్ మరియు ఇండస్ట్రియల్ ఆటోమేషన్ వంటి అనేక రంగాలు ఉన్నాయి. రోబోట్‌లను తయారు చేయడంలో మిమ్మల్ని ఏ అంశం ఎక్కువగా ఆకర్షిస్తోంది?`,
+        spokenTextFallback: `Adi chala interesting point${nameTag}! Robotics ante kevalam software coding matrame kaadu—mechanical design, electronics & sensors, mechatronics mariyu industrial automation lanti chala options unnayi. Robots build cheyadam lo meeku eh part ekkuva ishtam?`,
+        emotion: 'encouraging',
+        language: 'telugu',
+        recommendedCareerIds: ['robotics-engineer', 'mechatronics-engineer'],
+        followUps: ['మెకానికల్ మరియు హార్డ్‌వేర్ డిజైన్ ఇష్టం', 'సెన్సార్లు మరియు ఎలక్ట్రానిక్స్ ఇష్టం', 'మెకాట్రానిక్స్ ఇంజనీర్ ఎలా కావాలి?']
+      };
+    }
+    if (lang === 'tanglish') {
+      return {
+        text: `That's interesting${nameTag}! Robotics has several areas beyond software development, including mechanical design, electronics, mechatronics and industrial automation. What attracts you most about building robots?`,
+        emotion: 'encouraging',
+        language: 'tanglish',
+        recommendedCareerIds: ['robotics-engineer', 'mechatronics-engineer'],
+        followUps: ['Mechanical hardware & CAD design', 'Sensors, circuits & electronics', 'Tell me more about Mechatronics']
+      };
+    }
+    return {
+      text: `That's interesting${nameTag}! Robotics has several areas beyond software development, including mechanical design, electronics, mechatronics and industrial automation. What attracts you most about building robots?`,
+      emotion: 'encouraging',
+      language: 'english',
+      recommendedCareerIds: ['robotics-engineer', 'mechatronics-engineer'],
+      followUps: ['Mechanical hardware & CAD design', 'Sensors, circuits & electronics', 'Tell me more about Mechatronics']
+    };
+  }
+
+  // ── 1c. General Passion for Robotics & Intelligent Systems ──────────────────
+  if (expressesRobotics && !expressesDislikeCoding) {
+    if (lang === 'telugu') {
+      return {
+        text: `రోబోటిక్స్ రంగం అద్భుతమైన భవిష్యత్ ఉన్న ఫీల్డ్${firstName ? ` ${firstName}` : ''}! ఇందులో మెకానికల్ డిజైన్, ఎలక్ట్రానిక్స్, సెన్సార్లు మరియు ఆటోమేషన్ కలిసి ఉంటాయి. రోబోటిక్స్ ఇంజనీర్, మెకాట్రానిక్స్ ఇంజనీర్, లేదా ఆటోమేషన్ ఇంజనీర్ రోల్స్ మీకు చక్కగా సరిపోతాయి. రోబోట్ల ఫిజికల్ బాడీ తయారు చేయడం ఇష్టమా, లేక వాటి ఇంటెలిజెంట్ కంట్రోల్ వైపు ఆసక్తి ఉందా?`,
+        spokenTextFallback: `Robotics field chala exciting field${nameTag}! Deentlo mechanical design, electronics, sensors mariyu automation kalisi untayi. Robotics Engineer leda Mechatronics Engineer roles meeku baga suit avtayi. Physical robot hardware build cheyadam ishtama leda intelligent control side ah?`,
+        emotion: 'encouraging',
+        language: 'telugu',
+        recommendedCareerIds: ['robotics-engineer', 'mechatronics-engineer'],
+        followUps: ['ఫిజికల్ హార్డ్‌వేర్ మరియు మెకానికల్ డిజైన్', 'ఇంటెలిజెంట్ కంట్రోల్ మరియు సెన్సార్లు', 'మెకాట్రానిక్స్ కెరీర్ వివరాలు']
+      };
+    }
+    return {
+      text: `Robotics and intelligent systems are incredible to explore${nameTag}! They bridge mechanical engineering, sensor electronics, mechatronics, and autonomous control. Are you more drawn to the physical mechanical hardware, sensor circuits, or intelligent autonomous programming?`,
+      emotion: 'curious',
+      language: lang === 'tanglish' ? 'tanglish' : 'english',
+      recommendedCareerIds: ['robotics-engineer', 'mechatronics-engineer'],
+      followUps: ['Physical mechanical hardware', 'Sensors, circuits & electronics', 'Autonomous systems & intelligence']
+    };
+  }
+
+  // ── 1d. Dislike Coding in General (Direct to Non-Coding Paths) ───────────────
+  if (expressesDislikeCoding && !expressesRobotics && !memory.mentionedInterests.includes('design')) {
+    return {
+      text: `That is completely fine${nameTag}—you do not have to code to build an extraordinary career! High-impact, high-growth paths without heavy coding include Product (UI/UX) Design, Product Management, Industrial Design, Behavioral Psychology, and Biotechnology. Which of those sound most intriguing to you?`,
+      emotion: 'encouraging',
+      language: lang,
+      recommendedCareerIds: ['product-designer', 'product-manager'],
+      followUps: ['Product (UI/UX) Design', 'Product Management & Strategy', 'What other non-coding fields exist?']
+    };
+  }
+
   // ── 2. Expressing Interest in DESIGN / UI-UX / CREATIVE VISUALS ─────────────
   if (
     (/\b(design|designing|ui|ux|figma|graphic|visual)\b/i.test(lower) || /డిజైన్/.test(q)) &&
@@ -630,6 +762,8 @@ export function buildMentorFallback({
   // ── 3. Expressing Interest in CODING / SOFTWARE ─────────────────────────────
   if (
     (/\b(coding|programming|software|developer|python|javascript|web\s*dev|app\s*dev)\b/i.test(lower) || /కోడింగ్|సాఫ్ట్‌వేర్/.test(q)) &&
+    !expressesDislikeCoding &&
+    !memory.dislikesCoding &&
     !/\b(ece|design vs|math|bhayam|scared|weak)\b/i.test(lower)
   ) {
     if (lang === 'telugu') {
@@ -697,14 +831,26 @@ export function buildMentorFallback({
     if (memory.lastMentionedInterest) {
       const k = memory.lastMentionedInterest;
       const labelMap = {
+        robotics: 'robotics and intelligent autonomous systems',
+        mechanical_eng: 'mechanical and machine design',
+        electrical_ece: 'electronics and circuit engineering',
+        aerospace: 'aerospace, drones, and flight systems',
+        civil_eng: 'civil and structural engineering',
+        quantum_tech: 'quantum computing and advanced physics',
+        iot: 'smart devices and the Internet of Things',
+        ar_vr: 'spatial computing, AR and VR',
+        cloud_infra: 'cloud architecture and DevOps',
+        blockchain: 'decentralized tech and blockchain',
+        science_research: 'scientific research and laboratory discovery',
+        psychology: 'human behavior and cognitive psychology',
+        economics_finance: 'economics and financial analysis',
+        industrial_design: 'industrial and physical product design',
         design: 'designing and creative problem solving',
         coding: 'coding and building software',
         ai_data: 'AI and data patterns',
-        hardware_ece: 'electronics and hardware systems',
         business_pm: 'business, leadership, and product strategy',
         biotech_health: 'healthcare and biology',
         cybersecurity: 'cybersecurity and digital defense',
-        psychology_ux: 'human behavior and psychology',
         climate: 'sustainability and clean energy'
       };
       const label = labelMap[k] || k;
@@ -853,12 +999,14 @@ export function buildMentorFallback({
     const contextTargetLabel =
       contextTarget === 'design'
         ? 'UI/UX & Product Design'
+        : contextTarget === 'robotics'
+        ? 'Robotics & Mechatronics'
         : contextTarget === 'coding'
         ? 'Software & App Development'
         : contextTarget === 'ai_data'
         ? 'AI & Data Analytics'
         : contextTarget === 'hardware_ece'
-        ? 'Embedded Systems & Creative Tech'
+        ? 'Embedded Systems & Electronics'
         : contextTarget;
 
     const latestGap = skillGaps[0];

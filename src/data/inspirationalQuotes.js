@@ -1,9 +1,15 @@
 export const inspirationalQuotes = [
   {
     id: 1,
+    quote: "Your future is not something you find. It's something you create, one discovery at a time.",
+    author: "PathPilot Student Philosophy",
+    category: "Self-Discovery"
+  },
+  {
+    id: 2,
     quote: "Your future begins with understanding yourself.",
     author: "PathPilot Core Manifesto",
-    category: "Self-Knowledge"
+    category: "Clarity"
   },
   {
     id: 2,

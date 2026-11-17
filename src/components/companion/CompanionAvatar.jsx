@@ -54,9 +54,23 @@ function clamp(v, min, max) {
  * - Subtle conversational hand gesture cadence while speaking
  * - Flexible providerComponent hook for external cloud 3D video streaming
  */
+let cachedAiraPortrait = null;
+function getOrCreateAiraPortrait() {
+  if (typeof window === 'undefined') return null;
+  if (!cachedAiraPortrait) {
+    cachedAiraPortrait = new Image();
+    cachedAiraPortrait.crossOrigin = 'anonymous';
+    cachedAiraPortrait.src = AIRA_LANDMARKS.src;
+  }
+  return cachedAiraPortrait;
+}
+if (typeof window !== 'undefined') {
+  getOrCreateAiraPortrait();
+}
+
 export const CompanionAvatar = ({
-  state = 'idle', // 'idle' | 'listening' | 'processing' | 'thinking' | 'speaking' | 'error'
-  emotion = 'warm', // 'warm' | 'curious' | 'encouraging' | 'clarifying' | 'thoughtful' | 'serious'
+  state = 'idle', // 'idle' | 'listening' | 'processing' | 'thinking' | 'speaking' | 'happy' | 'empathetic' | 'error'
+  emotion = 'warm', // 'warm' | 'curious' | 'encouraging' | 'clarifying' | 'thoughtful' | 'serious' | 'happy' | 'excited' | 'empathetic' | 'confused'
   viseme = { openness: 0, width: 0, roundness: 0, shape: 'closed', gestureBeat: 0 },
   micLevel = 0,
   isMuted = false,
@@ -67,7 +81,10 @@ export const CompanionAvatar = ({
   const stageRef = useRef(null);
   const canvasRef = useRef(null);
   const portraitImgRef = useRef(null);
-  const [imageReady, setImageReady] = useState(false);
+  const [imageReady, setImageReady] = useState(() => {
+    const cached = getOrCreateAiraPortrait();
+    return Boolean(cached && cached.complete && cached.naturalWidth > 0);
+  });
   const [showTechInfo, setShowTechInfo] = useState(false);
   const { isDark } = useTheme();
 
@@ -100,21 +117,51 @@ export const CompanionAvatar = ({
     leftBrowY: 0,
     rightBrowY: 0,
     smileLift: 0.4,
-    cheekWarmth: 0.35
+    cheekWarmth: 0.35,
+    eyeBrightness: 1.0
   });
 
-  // Preload high-res 3D human render of AIRA
+  // Preload high-res 3D human render of AIRA with retry & persistent caching
   useEffect(() => {
     let active = true;
-    const img = new Image();
-    img.src = AIRA_LANDMARKS.src;
-    img.onload = () => {
+    const img = getOrCreateAiraPortrait();
+    if (!img) return;
+
+    if (img.complete && img.naturalWidth > 0) {
+      portraitImgRef.current = img;
+      setImageReady(true);
+      return;
+    }
+
+    const handleLoad = () => {
       if (!active) return;
       portraitImgRef.current = img;
       setImageReady(true);
     };
+
+    const handleError = () => {
+      console.warn('[AIRA] Retrying avatar portrait loading...');
+      setTimeout(() => {
+        if (!active) return;
+        const retry = new Image();
+        retry.crossOrigin = 'anonymous';
+        retry.src = `${AIRA_LANDMARKS.src}?retry=${Date.now()}`;
+        retry.onload = () => {
+          if (!active) return;
+          cachedAiraPortrait = retry;
+          portraitImgRef.current = retry;
+          setImageReady(true);
+        };
+      }, 350);
+    };
+
+    img.addEventListener('load', handleLoad, { once: true });
+    img.addEventListener('error', handleError, { once: true });
+
     return () => {
       active = false;
+      img.removeEventListener('load', handleLoad);
+      img.removeEventListener('error', handleError);
     };
   }, []);
 
@@ -235,55 +282,99 @@ export const CompanionAvatar = ({
       a.smoothBeat += (targetBeat - a.smoothBeat) * 0.18;
       a.smoothMic += (targetMic - a.smoothMic) * 0.22;
 
-      // 4b. Calibrated facial micro-expression targets (eyebrows, smile & warmth)
-      let targetLeftBrowY = -0.4;
-      let targetRightBrowY = -0.4;
-      let targetSmileLift = 0.45;
-      let targetCheekWarmth = 0.35;
+      // 4b. Calibrated facial micro-expression targets (eyebrows, smile, warmth & eye brightness)
+      let targetLeftBrowY = -0.6;
+      let targetRightBrowY = -0.6;
+      let targetSmileLift = 0.5;
+      let targetCheekWarmth = 0.38;
+      let targetEyeBrightness = 1.0;
 
-      if (emo === 'curious' || st === 'listening') {
-        targetLeftBrowY = -1.9 - a.smoothMic * 0.6;
-        targetRightBrowY = -1.35 - a.smoothMic * 0.5;
-        targetSmileLift = 0.42;
-        targetCheekWarmth = 0.38;
-      } else if (emo === 'encouraging') {
+      // Determine active expression mode from state & emotion
+      const isHappy = st === 'happy' || emo === 'happy';
+      const isExcited = st === 'excited' || emo === 'excited';
+      const isEmpathetic = st === 'empathetic' || emo === 'empathetic';
+      const isConfused = st === 'confused' || emo === 'confused';
+      const isEncouraging = st === 'encouraging' || emo === 'encouraging';
+      const isThinking = st === 'thinking' || st === 'processing' || emo === 'thoughtful';
+      const isListening = st === 'listening' || emo === 'curious';
+      const isSerious = st === 'error' || emo === 'serious';
+
+      if (isExcited) {
+        // Excited: Brighter eyes, higher eyebrow lift, enthusiastic open smile
+        targetLeftBrowY = -1.6;
+        targetRightBrowY = -1.55;
+        targetSmileLift = 0.92;
+        targetCheekWarmth = 0.72;
+        targetEyeBrightness = 1.35;
+      } else if (isHappy) {
+        // Happy: Warm natural smile, soft cheek warmth, slightly lifted outer brows
+        targetLeftBrowY = -1.2;
+        targetRightBrowY = -1.2;
+        targetSmileLift = 0.82;
+        targetCheekWarmth = 0.65;
+        targetEyeBrightness = 1.25;
+      } else if (isEncouraging) {
+        // Encouraging: Reassuring friendly smile, open eyes, gentle lift
         targetLeftBrowY = -1.3;
         targetRightBrowY = -1.3;
         targetSmileLift = 0.85;
-        targetCheekWarmth = 0.65;
-      } else if (emo === 'clarifying') {
-        targetLeftBrowY = -1.75;
-        targetRightBrowY = -0.55;
-        targetSmileLift = 0.24;
-        targetCheekWarmth = 0.25;
-      } else if (emo === 'thoughtful' || st === 'thinking' || st === 'processing') {
-        targetLeftBrowY = 0.65;
-        targetRightBrowY = 0.85;
-        targetSmileLift = 0.08;
-        targetCheekWarmth = 0.15;
-      } else if (emo === 'serious' || st === 'error') {
-        targetLeftBrowY = 0.95;
+        targetCheekWarmth = 0.62;
+        targetEyeBrightness = 1.2;
+      } else if (isEmpathetic) {
+        // Empathetic: Gentle tilted brow, understanding warm smile, soft compassionate posture
+        targetLeftBrowY = -1.4;
+        targetRightBrowY = -0.65;
+        targetSmileLift = 0.52;
+        targetCheekWarmth = 0.5;
+        targetEyeBrightness = 1.08;
+      } else if (isConfused) {
+        // Confused: Expressive subtle asymmetric eyebrow lift (one up, one down)
+        targetLeftBrowY = -1.85;
         targetRightBrowY = 0.95;
-        targetSmileLift = -0.15;
+        targetSmileLift = 0.18;
+        targetCheekWarmth = 0.22;
+        targetEyeBrightness = 1.1;
+      } else if (isThinking) {
+        // Thinking: Slightly thoughtful expression, furrowed inner brow, upward gaze
+        targetLeftBrowY = -0.75;
+        targetRightBrowY = 0.8;
+        targetSmileLift = 0.12;
+        targetCheekWarmth = 0.18;
+        targetEyeBrightness = 0.95;
+      } else if (isListening) {
+        // Listening: Attentive eyes, attentive brow elevation, relaxed open expression
+        targetLeftBrowY = -1.4 - a.smoothMic * 0.5;
+        targetRightBrowY = -1.1 - a.smoothMic * 0.4;
+        targetSmileLift = 0.44;
+        targetCheekWarmth = 0.42;
+        targetEyeBrightness = 1.18;
+      } else if (isSerious) {
+        // Serious / Error: Focused, attentive, calm
+        targetLeftBrowY = 0.85;
+        targetRightBrowY = 0.85;
+        targetSmileLift = -0.12;
         targetCheekWarmth = 0.1;
+        targetEyeBrightness = 0.9;
       } else {
-        // warm default
-        targetLeftBrowY = -0.8;
-        targetRightBrowY = -0.8;
-        targetSmileLift = 0.62;
-        targetCheekWarmth = 0.48;
+        // Idle / Warm: Relaxed, friendly resting expression
+        targetLeftBrowY = -0.75;
+        targetRightBrowY = -0.75;
+        targetSmileLift = 0.58;
+        targetCheekWarmth = 0.42;
+        targetEyeBrightness = 1.05;
       }
 
       if (st === 'speaking') {
-        const beatLift = a.smoothBeat * 1.15;
+        const beatLift = a.smoothBeat * 0.85;
         targetLeftBrowY -= beatLift;
-        targetRightBrowY -= beatLift * 0.9;
+        targetRightBrowY -= beatLift * 0.75;
       }
 
       a.leftBrowY += (targetLeftBrowY - a.leftBrowY) * 0.12;
       a.rightBrowY += (targetRightBrowY - a.rightBrowY) * 0.12;
       a.smileLift += (targetSmileLift - a.smileLift) * 0.1;
       a.cheekWarmth += (targetCheekWarmth - a.cheekWarmth) * 0.1;
+      a.eyeBrightness += (targetEyeBrightness - a.eyeBrightness) * 0.1;
 
       // 5. Head, breathing & subtle conversational hand targets
       let targetScale = 1.0 + Math.sin(t * 1.4) * 0.0045;
@@ -293,9 +384,9 @@ export const CompanionAvatar = ({
       let targetLhY = Math.sin(t * 1.45) * 1.2;
       let targetRhY = Math.cos(t * 1.45) * 1.2;
 
-      if (st === 'listening') {
+      if (isListening) {
         targetScale = 1.022 + a.smoothMic * 0.01;
-        targetTilt = -0.022 + Math.sin(t * 2.0) * 0.008;
+        targetTilt = -0.024 + Math.sin(t * 2.0) * 0.008;
         targetShiftY = -1.2 + Math.sin(t * 2.1) * 1.4;
         targetRhY = -2.2 - a.smoothMic * 1.8;
       } else if (st === 'processing') {
@@ -304,12 +395,25 @@ export const CompanionAvatar = ({
         targetShiftY = -0.8 + Math.sin(t * 2.4) * 1.2;
         targetShiftX = 1.2;
         targetRhY = -2.6 + Math.sin(t * 2.0) * 1.2;
-      } else if (st === 'thinking') {
+      } else if (isThinking) {
         targetScale = 1.012 + Math.sin(t * 1.2) * 0.003;
-        targetTilt = 0.023 + Math.sin(t * 1.1) * 0.006;
+        targetTilt = 0.025 + Math.sin(t * 1.1) * 0.006;
         targetShiftY = -2.2 + Math.sin(t * 1.2) * 1.0;
         targetShiftX = 2.0;
         targetRhY = -4.2 + Math.sin(t * 1.4) * 1.4;
+      } else if (isConfused) {
+        targetScale = 1.012;
+        targetTilt = 0.034;
+        targetShiftY = -0.6;
+        targetShiftX = 1.4;
+      } else if (isEmpathetic) {
+        targetScale = 1.015;
+        targetTilt = -0.018;
+        targetShiftY = 0.4;
+      } else if (isHappy || isExcited) {
+        targetScale = 1.022 + Math.sin(t * 2.8) * 0.005;
+        targetTilt = -0.012 + Math.sin(t * 2.4) * 0.008;
+        targetShiftY = -1.4 + Math.sin(t * 3.0) * 1.2;
       } else if (st === 'error') {
         targetScale = 1.004;
         targetTilt = -0.014;
@@ -323,8 +427,6 @@ export const CompanionAvatar = ({
         targetShiftX = Math.sin(t * 1.7) * 1.6;
         targetRhY = (-3.6 + Math.sin(t * 3.1) * 2.6) * beatEnergy;
         targetLhY = (-2.6 + Math.cos(t * 2.5) * 2.2) * beatEnergy;
-      } else if (emo === 'curious') {
-        targetTilt += 0.016;
       }
 
       a.smoothScale += (targetScale - a.smoothScale) * 0.095;
@@ -352,7 +454,15 @@ export const CompanionAvatar = ({
       ctx.fillStyle = roomGrad;
       ctx.fillRect(0, 0, cssWidth, cssHeight);
 
-      const img = portraitImgRef.current;
+      let img = portraitImgRef.current;
+      if (!img || !img.complete || img.naturalWidth === 0) {
+        const cached = getOrCreateAiraPortrait();
+        if (cached && cached.complete && cached.naturalWidth > 0) {
+          portraitImgRef.current = cached;
+          img = cached;
+        }
+      }
+
       if (img && img.complete && img.naturalWidth > 0) {
         const imgW = img.naturalWidth;
         const imgH = img.naturalHeight;
@@ -555,124 +665,98 @@ export const CompanionAvatar = ({
           }
         }
 
-        if (st === 'speaking' && mouthOpen > 0.03) {
-          const shapeScaleW =
-            shape === 'round'
-              ? 0.52
-              : shape === 'wide'
-              ? 1.02
-              : shape === 'dental'
-              ? 0.86
-              : shape === 'closed'
-              ? 0.68
-              : 0.78;
-          const baseHalfW =
-            drawW *
-            AIRA_LANDMARKS.mouth.halfWidth *
-            shapeScaleW *
-            clamp(1 + a.smoothWidth * 0.36, 0.54, 1.32);
-          const heightFactor = shape === 'round' ? 4.9 : shape === 'dental' ? 2.8 : shape === 'closed' ? 1.4 : 4.2;
-          const dropPx = mouthOpen * heightFactor;
+        if (st === 'speaking' && mouthOpen > 0.04) {
+          // Subtle, realistic human lip-sync with anatomical proportions
+          const maxAperture = 1.9; // px - sub-millimeter natural opening
+          const shapeScale = shape === 'round' ? 1.55 : shape === 'dental' ? 0.95 : shape === 'closed' ? 0.25 : 1.35;
+          const aperture = clamp(mouthOpen * shapeScale, 0, maxAperture);
 
-          // Sample lower-lip / chin strip from AIRA's face & smoothly displace jaw downward
-          const stripSrcY = imgH * AIRA_LANDMARKS.mouth.y;
-          const stripSrcH = imgH * (AIRA_LANDMARKS.mouth.chinEndY - AIRA_LANDMARKS.mouth.y);
-          const stripSrcX = imgW * (AIRA_LANDMARKS.mouth.x - 0.088);
-          const stripSrcW = imgW * 0.176;
+          const shapeWidth = shape === 'round' ? 0.65 : shape === 'wide' ? 1.08 : shape === 'dental' ? 0.92 : 0.85;
+          const cavityRx =
+            drawW * AIRA_LANDMARKS.mouth.halfWidth * shapeWidth * clamp(1 + a.smoothWidth * 0.25, 0.78, 1.25);
+          const cavityRy = Math.max(0.65, aperture * 0.72);
+          const cavityY = my + aperture * 0.35;
 
-          const stripDstX = drawX + drawW * (AIRA_LANDMARKS.mouth.x - 0.088);
-          const stripDstY = my;
-          const stripDstW = drawW * 0.176;
-          const stripDstH = drawH * (AIRA_LANDMARKS.mouth.chinEndY - AIRA_LANDMARKS.mouth.y);
-
-          // Inner oral cavity shaded neatly between parting lips
+          // 1. Soft natural oral cavity shadow
           ctx.save();
-          const cavityY = my + dropPx * 0.45;
-          const cavityRx = baseHalfW * (shape === 'round' ? 0.72 : 0.86);
-          const cavityRy = Math.max(1.0, dropPx * (shape === 'round' ? 0.82 : 0.72));
-
-          const cavityGrad = ctx.createRadialGradient(mx, cavityY, 0.7, mx, cavityY, Math.max(cavityRx, dropPx));
-          cavityGrad.addColorStop(0, `rgba(38, 12, 14, ${Math.min(0.94, 0.44 + mouthOpen * 0.5)})`);
-          cavityGrad.addColorStop(1, `rgba(104, 44, 42, ${Math.min(0.82, 0.25 + mouthOpen * 0.45)})`);
+          const cavityGrad = ctx.createRadialGradient(mx, cavityY, 0.4, mx, cavityY, cavityRx);
+          cavityGrad.addColorStop(0, `rgba(38, 12, 14, ${Math.min(0.85, 0.38 + mouthOpen * 0.45)})`);
+          cavityGrad.addColorStop(0.7, `rgba(88, 32, 34, ${Math.min(0.65, 0.22 + mouthOpen * 0.35)})`);
+          cavityGrad.addColorStop(1, 'rgba(150, 70, 68, 0.0)');
 
           ctx.beginPath();
-          ctx.ellipse(mx, cavityY, cavityRx, cavityRy, 0, 0, Math.PI * 2);
+          ctx.ellipse(mx, cavityY, cavityRx * 0.78, cavityRy, 0, 0, Math.PI * 2);
           ctx.fillStyle = cavityGrad;
           ctx.fill();
 
-          // Upper teeth highlight on wide / open / dental vowels & consonants
-          if (shape !== 'round' && shape !== 'closed' && dropPx > 1.5) {
+          // 2. Subtle upper teeth hint (warm translucent ivory, never opaque white)
+          if ((shape === 'wide' || shape === 'dental' || (shape === 'open' && aperture > 0.9)) && aperture > 0.7) {
+            const teethGrad = ctx.createLinearGradient(mx, my - 0.2, mx, my + cavityRy * 0.8);
+            teethGrad.addColorStop(0, `rgba(246, 242, 236, ${Math.min(0.48, mouthOpen * 0.45)})`);
+            teethGrad.addColorStop(1, 'rgba(215, 195, 185, 0.05)');
             ctx.beginPath();
             ctx.ellipse(
               mx,
-              my + 0.55,
-              cavityRx * (shape === 'dental' ? 0.82 : 0.68),
-              Math.min(2.3, dropPx * (shape === 'dental' ? 0.48 : 0.34)),
+              my + 0.35,
+              cavityRx * (shape === 'dental' ? 0.72 : 0.58),
+              Math.min(1.15, aperture * 0.35),
               0,
               0,
               Math.PI
             );
-            ctx.fillStyle = `rgba(249, 245, 238, ${Math.min(0.86, mouthOpen * 0.82)})`;
+            ctx.fillStyle = teethGrad;
             ctx.fill();
           }
 
-          // Soft natural upper-lip rim contour during articulation
+          // 3. Soft upper lip contour line
           const [ur, ug, ub] = AIRA_LANDMARKS.mouth.upperRimRgb;
           ctx.beginPath();
-          ctx.moveTo(mx - cavityRx, my + 0.35);
-          ctx.quadraticCurveTo(mx, my - mouthOpen * 0.65, mx + cavityRx, my + 0.35);
-          ctx.strokeStyle = `rgba(${ur}, ${ug}, ${ub}, ${Math.min(0.62, 0.22 + mouthOpen * 0.38)})`;
-          ctx.lineWidth = 1.5;
+          ctx.moveTo(mx - cavityRx * 0.86, my + 0.25);
+          ctx.quadraticCurveTo(mx, my - aperture * 0.25, mx + cavityRx * 0.86, my + 0.25);
+          ctx.strokeStyle = `rgba(${ur}, ${ug}, ${ub}, ${Math.min(0.52, 0.2 + mouthOpen * 0.28)})`;
+          ctx.lineWidth = 1.15;
           ctx.lineCap = 'round';
           ctx.stroke();
-          ctx.restore();
 
-          // Feathered lower-lip & chin skin displacement overlay
-          ctx.save();
-          ctx.beginPath();
-          ctx.ellipse(
-            mx,
-            my + stripDstH * 0.46 + dropPx * 0.52,
-            stripDstW * 0.46,
-            stripDstH * 0.52,
-            0,
-            0,
-            Math.PI * 2
-          );
-          ctx.clip();
-          ctx.drawImage(
-            img,
-            stripSrcX,
-            stripSrcY,
-            stripSrcW,
-            stripSrcH,
-            stripDstX,
-            stripDstY + dropPx,
-            stripDstW,
-            stripDstH
-          );
-          ctx.restore();
-
-          // Soft lower-lip contour highlight matching displaced jaw
+          // 4. Subtle lower lip vermilion flex (preserves chin line and prevents chin tearing)
           const [lr, lg, lb] = AIRA_LANDMARKS.mouth.lowerRimRgb;
+          const lipDrop = aperture * 0.65;
+          const lipSrcY = imgH * (AIRA_LANDMARKS.mouth.y + 0.006);
+          const lipSrcH = imgH * 0.024;
+          const lipSrcX = imgW * (AIRA_LANDMARKS.mouth.x - 0.065);
+          const lipSrcW = imgW * 0.13;
+
+          const lipDstX = drawX + drawW * (AIRA_LANDMARKS.mouth.x - 0.065);
+          const lipDstY = my + lipDrop;
+          const lipDstW = drawW * 0.13;
+          const lipDstH = drawH * 0.024;
+
           ctx.save();
           ctx.beginPath();
-          ctx.moveTo(mx - cavityRx * 0.92, my + dropPx + 0.6);
-          ctx.quadraticCurveTo(mx, my + dropPx + 1.8, mx + cavityRx * 0.92, my + dropPx + 0.6);
-          ctx.strokeStyle = `rgba(${lr}, ${lg}, ${lb}, ${Math.min(0.45, 0.16 + mouthOpen * 0.28)})`;
-          ctx.lineWidth = 1.4;
+          ctx.ellipse(mx, my + lipDrop + 1.2, cavityRx * 0.85, Math.max(1.4, lipDrop + 1.1), 0, 0, Math.PI);
+          ctx.clip();
+          ctx.globalAlpha = 0.88;
+          ctx.drawImage(img, lipSrcX, lipSrcY, lipSrcW, lipSrcH, lipDstX, lipDstY, lipDstW, lipDstH);
+          ctx.restore();
+
+          // Soft lower lip contour highlight
+          ctx.beginPath();
+          ctx.moveTo(mx - cavityRx * 0.82, my + lipDrop + 0.5);
+          ctx.quadraticCurveTo(mx, my + lipDrop + 1.35, mx + cavityRx * 0.82, my + lipDrop + 0.5);
+          ctx.strokeStyle = `rgba(${lr}, ${lg}, ${lb}, ${Math.min(0.42, 0.14 + mouthOpen * 0.25)})`;
+          ctx.lineWidth = 1.15;
           ctx.lineCap = 'round';
           ctx.stroke();
           ctx.restore();
-        } else if (st === 'speaking' && shape === 'closed') {
+        } else if (st === 'speaking' && shape === 'closed' && mouthOpen > 0.02) {
           // Subtle bilabial contact crease on /m/, /b/, /p/ transitions
           const [ur, ug, ub] = AIRA_LANDMARKS.mouth.upperRimRgb;
           ctx.save();
           ctx.beginPath();
-          ctx.moveTo(mx - drawW * 0.032, my + 0.4);
-          ctx.quadraticCurveTo(mx, my + 0.85, mx + drawW * 0.032, my + 0.4);
-          ctx.strokeStyle = `rgba(${ur - 20}, ${ug - 20}, ${ub - 20}, 0.36)`;
-          ctx.lineWidth = 1.35;
+          ctx.moveTo(mx - drawW * 0.028, my + 0.35);
+          ctx.quadraticCurveTo(mx, my + 0.7, mx + drawW * 0.028, my + 0.35);
+          ctx.strokeStyle = `rgba(${ur - 15}, ${ug - 15}, ${ub - 15}, 0.28)`;
+          ctx.lineWidth = 1.1;
           ctx.lineCap = 'round';
           ctx.stroke();
           ctx.restore();
@@ -688,14 +772,15 @@ export const CompanionAvatar = ({
           if (a.blinkProgress < 0.65) {
             ctx.save();
             ctx.beginPath();
+            const eyeBright = clamp(a.eyeBrightness || 1.0, 0.85, 1.4);
             ctx.arc(
               ex - erx * 0.14 + a.gazeX * 1.4,
               ey - ery * 0.18 + a.gazeY * 0.8,
-              Math.max(1.2, erx * 0.095),
+              Math.max(1.2, erx * (eyeBright > 1.2 ? 0.11 : 0.095)),
               0,
               Math.PI * 2
             );
-            ctx.fillStyle = `rgba(255, 250, 242, ${(1 - a.blinkProgress) * 0.42})`;
+            ctx.fillStyle = `rgba(255, 250, 242, ${(1 - a.blinkProgress) * 0.42 * eyeBright})`;
             ctx.fill();
             ctx.restore();
           }
@@ -835,6 +920,26 @@ export const CompanionAvatar = ({
       dot: 'bg-forest-700 animate-pulse',
       icon: Volume2
     },
+    happy: {
+      label: 'AIRA is delighted',
+      dot: 'bg-emerald-600 animate-pulse',
+      icon: Sparkles
+    },
+    empathetic: {
+      label: 'AIRA is listening empathetically',
+      dot: 'bg-teal-600 animate-pulse',
+      icon: Sparkles
+    },
+    confused: {
+      label: 'Clarifying details...',
+      dot: 'bg-amber-600 animate-pulse',
+      icon: Brain
+    },
+    encouraging: {
+      label: 'Encouraging Mentor',
+      dot: 'bg-forest-600 animate-pulse',
+      icon: Sparkles
+    },
     error: {
       label: 'Voice / connection issue',
       dot: 'bg-red-500',
@@ -852,7 +957,11 @@ export const CompanionAvatar = ({
     encouraging: 'Encouraging Mentor',
     clarifying: 'Clear & Supportive',
     thoughtful: 'Thoughtful Listener',
-    serious: 'Calm & Focused'
+    serious: 'Calm & Focused',
+    happy: 'Delighted & Warm',
+    excited: 'Enthusiastic & Inspired',
+    empathetic: 'Empathetic & Caring',
+    confused: 'Curious & Inquiring'
   }[emotion] || 'Personal AI Mentor';
 
   const StateIcon = stateBadgeConfig.icon;
@@ -934,12 +1043,18 @@ export const CompanionAvatar = ({
           <div className="w-full h-full flex items-center justify-center">{providerComponent}</div>
         ) : (
           <>
-            {!imageReady && (
-              <div className="absolute inset-6 rounded-3xl bg-gradient-to-b from-ivory-50 to-sage-100 animate-pulse" />
-            )}
+            {/* Guaranteed fallback image rendered underneath canvas so avatar never flashes or disappears */}
+            <img
+              src={AIRA_LANDMARKS.src}
+              alt="AIRA Avatar"
+              aria-hidden="true"
+              className={`absolute inset-0 w-full h-full object-cover object-top pointer-events-none transition-opacity duration-300 ${
+                imageReady ? 'opacity-0' : 'opacity-100'
+              }`}
+            />
             <canvas
               ref={canvasRef}
-              className="w-full h-full block cursor-default"
+              className="w-full h-full block cursor-default relative z-10"
               role="img"
               aria-label="AIRA, your personal female AI career mentor"
             />

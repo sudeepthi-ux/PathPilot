@@ -8,6 +8,7 @@ import { PublicLandingPage } from './pages/PublicLandingPage';
 import { HomePage } from './pages/HomePage';
 import { CareerLibraryPage } from './pages/CareerLibraryPage';
 import { CareerDetailPage } from './pages/CareerDetailPage';
+import { CareerDiscoveryPage } from './pages/CareerDiscoveryPage';
 import { CareerExperimentsPage } from './pages/CareerExperimentsPage';
 import { CareerExperimentDetailPage } from './pages/CareerExperimentDetailPage';
 import { RecommendationsPage } from './pages/RecommendationsPage';
@@ -88,6 +89,14 @@ export const App = () => {
               element={
                 <ProtectedRoute>
                   <CareerLibraryPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/discover"
+              element={
+                <ProtectedRoute>
+                  <CareerDiscoveryPage />
                 </ProtectedRoute>
               }
             />

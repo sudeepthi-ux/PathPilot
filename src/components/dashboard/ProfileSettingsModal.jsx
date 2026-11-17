@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from '../common/Modal';
 import { Button } from '../common/Button';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth, calculateProfileCompletion } from '../../context/AuthContext';
 import { User, GraduationCap, BookOpen, Calendar, Target, CheckCircle2 } from 'lucide-react';
 
 export const ProfileSettingsModal = ({ isOpen, onClose }) => {
@@ -10,26 +10,45 @@ export const ProfileSettingsModal = ({ isOpen, onClose }) => {
   const [name, setName] = useState(user?.name || '');
   const [university, setUniversity] = useState(user?.university || '');
   const [major, setMajor] = useState(user?.major || '');
-  const [gradYear, setGradYear] = useState(user?.gradYear || '2026');
+  const [gradYear, setGradYear] = useState(user?.gradYear || '');
   const [targetIndustry, setTargetIndustry] = useState(user?.targetIndustry || '');
   const [bio, setBio] = useState(user?.bio || '');
   const [savedSuccess, setSavedSuccess] = useState(false);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    setName(user?.name || '');
+    setUniversity(user?.university || '');
+    setMajor(user?.major || '');
+    setGradYear(user?.gradYear || '');
+    setTargetIndustry(user?.targetIndustry || '');
+    setBio(user?.bio || '');
+  }, [user, isOpen]);
+
+  const livePercent = calculateProfileCompletion({
+    name,
+    university,
+    major,
+    gradYear,
+    targetIndustry,
+    bio
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     updateProfile({
-      name,
-      university,
-      major,
-      gradYear,
-      targetIndustry,
-      bio
+      name: name.trim(),
+      university: university.trim(),
+      major: major.trim(),
+      gradYear: gradYear.trim(),
+      targetIndustry: targetIndustry.trim(),
+      bio: bio.trim()
     });
     setSavedSuccess(true);
     setTimeout(() => {
       setSavedSuccess(false);
       onClose();
-    }, 800);
+    }, 600);
   };
 
   return (
@@ -41,6 +60,22 @@ export const ProfileSettingsModal = ({ isOpen, onClose }) => {
       maxWidth="max-w-xl"
     >
       <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="p-3.5 rounded-2xl bg-ivory-50 border border-ivory-200 space-y-1.5">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-semibold text-charcoal-700">Profile Completion</span>
+            <span className="font-mono font-bold text-forest-800">{livePercent}%</span>
+          </div>
+          <div className="w-full h-1.5 bg-ivory-200 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-accent rounded-full transition-all duration-300"
+              style={{ width: `${livePercent}%` }}
+            />
+          </div>
+          <p className="text-[11px] text-charcoal-500">
+            Calculated from university, major, graduation year, target sector, and bio.
+          </p>
+        </div>
+
         {savedSuccess && (
           <div className="p-3 rounded-2xl bg-forest-100 text-forest-900 text-xs font-semibold flex items-center gap-2 animate-fadeIn">
             <CheckCircle2 className="w-4 h-4 text-forest-700" />

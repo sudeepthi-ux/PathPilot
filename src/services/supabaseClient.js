@@ -97,9 +97,11 @@ export const authService = {
           id: data.user?.id || `user-${Date.now()}`,
           name,
           email,
-          university: university || 'University Student',
-          major: major || 'Interdisciplinary Studies',
-          gradYear: '2026',
+          university: university || '',
+          major: major || '',
+          gradYear: '',
+          targetIndustry: '',
+          bio: '',
           createdAt: data.user?.created_at || new Date().toISOString()
         }
       };
@@ -123,9 +125,11 @@ export const authService = {
           id: data.user.id,
           name: data.user.user_metadata?.full_name || email.split('@')[0],
           email: data.user.email,
-          university: data.user.user_metadata?.university || 'University Student',
-          major: data.user.user_metadata?.major || 'Interdisciplinary Studies',
-          gradYear: '2026',
+          university: data.user.user_metadata?.university || '',
+          major: data.user.user_metadata?.major || '',
+          gradYear: data.user.user_metadata?.gradYear || '',
+          targetIndustry: data.user.user_metadata?.targetIndustry || '',
+          bio: data.user.user_metadata?.bio || '',
           createdAt: data.user.created_at
         }
       };

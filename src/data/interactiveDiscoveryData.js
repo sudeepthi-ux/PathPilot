@@ -1,3 +1,5 @@
+import { allCareers } from './careerLibraryData.js';
+
 // 5-Question Interactive Discovery Data & Dynamic Recommendation Engine
 
 export const discoveryQuestions = [
@@ -7,42 +9,47 @@ export const discoveryQuestions = [
     step: 1,
     category: 'Subjects & Curiosity',
     question: 'What subjects or topics spark your curiosity most?',
-    hint: 'Pick the area you naturally enjoy reading about, watching videos on, or exploring in class.',
+    hint: 'Pick the area you naturally enjoy reading about, tinkering with, or exploring outside homework.',
     options: [
       {
         id: 'tech',
-        label: 'Technology & Coding',
-        desc: 'Software apps, AI tools, websites, and how digital gadgets work under the hood.'
+        label: 'Software, Coding & Computing',
+        desc: 'Apps, websites, cloud software, cybersecurity, and how digital code powers programs.'
+      },
+      {
+        id: 'robotics_eng',
+        label: 'Robotics, Machines & Physical Engineering',
+        desc: 'Robots, drones, electronics, gears, circuits, and how real-world physical machines move.'
       },
       {
         id: 'design',
-        label: 'Visual Arts & Design',
-        desc: 'Graphic layouts, app interfaces, photography, typography, and beautiful visuals.'
-      },
-      {
-        id: 'business',
-        label: 'Business & Startups',
-        desc: 'Entrepreneurship, marketing, launching products, and how companies grow.'
+        label: 'Visual Arts, Product & Spatial Design',
+        desc: 'App interfaces, physical industrial objects, typography, architecture, and creative visuals.'
       },
       {
         id: 'science',
-        label: 'Science & Discovery',
-        desc: 'Biology, physics, chemistry, space, and investigating how the universe works.'
+        label: 'Science, Space & Research',
+        desc: 'Astrophysics, genetics, chemistry, neuroscience, materials, and how nature works.'
+      },
+      {
+        id: 'business',
+        label: 'Business, Economics & Startups',
+        desc: 'Entrepreneurship, innovation strategy, finance, marketing, and how organizations grow.'
       },
       {
         id: 'health',
-        label: 'Healthcare & Medicine',
-        desc: 'Human health, anatomy, clinical care, wellness, and medical technology.'
+        label: 'Healthcare, Bionics & Wellbeing',
+        desc: 'Human health, medical devices, clinical care, biotech, and patient wellbeing.'
       },
       {
         id: 'psychology',
         label: 'Psychology & Human Behavior',
-        desc: 'Understanding why people make decisions, human emotions, and mental habits.'
+        desc: 'Understanding how people think, interact with technology, learn, and make decisions.'
       },
       {
         id: 'media',
-        label: 'Writing, Media & Culture',
-        desc: 'Storytelling, journalism, video production, podcasts, and public communication.'
+        label: 'Writing, Storytelling & Public Policy',
+        desc: 'Journalism, education, civic policy, law, travel culture, and clear communication.'
       }
     ]
   },
@@ -53,37 +60,42 @@ export const discoveryQuestions = [
     step: 2,
     category: 'Daily Activities',
     question: 'What kind of activities do you genuinely enjoy doing?',
-    hint: 'Think about what you lose track of time doing when you have a free afternoon.',
+    hint: 'Think about what absorbs your focus—including whether you prefer hands-on hardware, people, ideas, or pure coding.',
     options: [
       {
         id: 'build',
-        label: 'Building & Creating Things',
-        desc: 'Coding apps, designing graphics, editing videos, or crafting physical prototypes.'
+        label: 'Writing Code & Building Software Apps',
+        desc: 'Programming interactive apps, AI models, digital games, or cloud platforms on a computer.'
+      },
+      {
+        id: 'hardware_hands_on',
+        label: 'Hands-On Hardware, Machines & Prototypes (Less Pure Coding)',
+        desc: 'Wiring sensors, sculpting 3D mechanical parts, testing drones/robots, or lab fabrication without living in pure software code.'
       },
       {
         id: 'solve',
-        label: 'Investigating & Solving Puzzles',
-        desc: 'Debugging tricky errors, analyzing data patterns, and finding the root cause of problems.'
+        label: 'Investigating Mysteries & Analyzing Data',
+        desc: 'Designing experiments, decoding scientific puzzles, auditing systems, and finding root causes.'
       },
       {
         id: 'organize',
-        label: 'Planning & Coordinating Projects',
-        desc: 'Setting up timelines, organizing team work, and making sure big projects finish smoothly.'
+        label: 'Leading Projects, Strategy & Teams',
+        desc: 'Coordinating roadmaps, making financial or product trade-offs, and guiding group momentum.'
       },
       {
         id: 'help',
-        label: 'Helping & Mentoring Others',
-        desc: 'Explaining difficult concepts to classmates, tutoring, listening, and offering support.'
+        label: 'Helping, Teaching & Designing for People',
+        desc: 'Listening to users, mentoring learners, supporting patients, and making tools kinder for humans.'
       },
       {
         id: 'write',
-        label: 'Writing & Communicating Ideas',
-        desc: 'Writing clear articles, crafting presentations, and explaining ideas to an audience.'
+        label: 'Writing, Storytelling & Creative Media',
+        desc: 'Crafting clear articles, brand visuals, policy briefs, or educational experiences.'
       },
       {
         id: 'explore',
-        label: 'Exploring Nature & Sustainability',
-        desc: 'Working on eco-friendly projects, clean energy, and protecting the local environment.'
+        label: 'Fieldwork, Sustainability & Outdoors',
+        desc: 'Restoring ecosystems, studying clean energy, eco-architecture, or cultural field research.'
       }
     ]
   },
@@ -98,33 +110,33 @@ export const discoveryQuestions = [
     options: [
       {
         id: 'quiet',
-        label: 'Quiet, Focused Independence',
-        desc: 'Deep focus on solo projects in a calm environment with minimal interruptions.'
+        label: 'Quiet, Focused Deep Work',
+        desc: 'Uninterrupted concentration in a calm workspace or research lab.'
       },
       {
         id: 'collaborative',
         label: 'Collaborative Team Energy',
-        desc: 'Bouncing ideas off teammates, lively brainstorms, and group problem-solving.'
+        desc: 'Co-designing alongside engineers, doctors, scientists, or creative teammates.'
       },
       {
         id: 'flexible',
         label: 'Flexible Hybrid Balance',
-        desc: 'A comfortable mix of independent heads-down work and collaborative check-ins.'
+        desc: 'A healthy mix of independent solo building and collaborative check-ins.'
       },
       {
         id: 'fast',
-        label: 'Fast-Paced & Experimental',
-        desc: 'Testing ideas quickly, learning through trial and error, and adapting on the fly.'
+        label: 'Fast-Paced Prototyping & Field Testing',
+        desc: 'Iterating quickly, testing live prototypes, and learning through real trials.'
       },
       {
         id: 'structured',
-        label: 'Structured & Methodical',
-        desc: 'Clear goals, organized checklists, and steady, predictable progress without surprises.'
+        label: 'Structured, Safety-Minded & Methodical',
+        desc: 'Clear measurements, rigorous testing checklists, and reliable precision.'
       },
       {
         id: 'craft',
-        label: 'Dedicated Craftsmanship',
-        desc: 'Taking the time to polish details until a piece of work looks and feels exceptional.'
+        label: 'Hands-On Craftsmanship & Precision',
+        desc: 'Refining mechanical joints, visuals, or lab techniques until every detail feels right.'
       }
     ]
   },
@@ -139,407 +151,725 @@ export const discoveryQuestions = [
     options: [
       {
         id: 'create_new',
-        label: 'Creating Something Original',
-        desc: 'Bringing a brand-new idea, invention, or design to life that didn’t exist before.'
+        label: 'Inventing & Building Something Tangible',
+        desc: 'Seeing a robot, device, product, or original design actually work in real life.'
       },
       {
         id: 'help_people',
-        label: 'Helping Real People',
-        desc: 'Knowing that my work makes someone’s daily life noticeably easier, healthier, or better.'
+        label: 'Helping Real People Directly',
+        desc: 'Improving patients’ care, workers’ safety, students’ learning, or human wellbeing.'
       },
       {
         id: 'mastery',
-        label: 'Mastering a Respected Craft',
-        desc: 'Becoming exceptionally skilled at what I do and being known for reliable quality.'
+        label: 'Mastering a Technical or Creative Craft',
+        desc: 'Becoming deeply skilled in hardware, engineering, design, or analytical rigor.'
       },
       {
         id: 'learning',
-        label: 'Continuous Discovery & Curiosity',
-        desc: 'Always learning new things, reading, and exploring ideas outside my comfort zone.'
+        label: 'Discovering Unknowns & Frontier Knowledge',
+        desc: 'Investigating space, human cognition, quantum mechanics, genetics, or robotics R&D.'
       },
       {
         id: 'impact',
-        label: 'Making a Positive Societal Impact',
-        desc: 'Working on causes that protect the environment, advance fairness, and support society.'
+        label: 'Advancing Sustainability, Justice & Safety',
+        desc: 'Solving climate energy challenges, fair policy, ethical AI, or ecosystem protection.'
       },
       {
         id: 'growth',
-        label: 'Growth, Leadership & Independence',
-        desc: 'Building valuable skills that give me high career freedom and leadership opportunities.'
+        label: 'Leading Ventures & High Career Autonomy',
+        desc: 'Guiding product strategy, launching innovations, and steering organizational growth.'
       }
     ]
   },
 
-  // 5. Preferred Future Career Direction
+  // 5. Preferred Future Career Direction (including coding vs. hardware distinction)
   {
     id: 'direction',
     step: 5,
     category: 'Future Direction',
-    question: 'Looking ahead, what type of field sounds most exciting to pursue?',
-    hint: 'Where would you love to see yourself applying your skills in a few years?',
+    question: 'Looking ahead, what direction fits your goals—and your feelings about coding?',
+    hint: 'Choose both the field you want to explore and how much day-to-day software coding you want in your career.',
     options: [
       {
+        id: 'robotics_hardware',
+        label: 'Robotics, Mechatronics & Physical Machines (Hardware Over Pure Coding)',
+        desc: 'Designing robots, drones, automation systems, electronics, or mechanical machines—even if I dislike sitting in pure software code.'
+      },
+      {
         id: 'software',
-        label: 'Software, Coding & AI Systems',
-        desc: 'Building intelligent web apps, mobile tools, algorithms, or secure networks.'
+        label: 'Software Engineering, AI & Digital Infrastructure',
+        desc: 'Building full-stack software apps, cloud systems, cybersecurity defenses, or AI software models.'
       },
       {
         id: 'ux_design',
-        label: 'Design, Interfaces & Experiences',
-        desc: 'Designing clean apps, interactive prototypes, user experiences, and visual branding.'
+        label: 'Digital Interfaces, Physical Industrial Design & HRI',
+        desc: 'Crafting app experiences, ergonomic hardware objects, AR/VR worlds, or human-friendly robot interactions.'
+      },
+      {
+        id: 'deep_science',
+        label: 'Space, Quantum, Genetics & Frontier R&D',
+        desc: 'Pioneering astrophysics, neuroscience, biotechnology, advanced materials, or quantum research labs.'
       },
       {
         id: 'product_mgmt',
-        label: 'Product Leadership & Startups',
-        desc: 'Leading product roadmaps, launching new ventures, and coordinating creative teams.'
+        label: 'Product Leadership, Startups & Innovation Strategy',
+        desc: 'Translating big breakthroughs into real businesses, product roadmaps, and teams.'
       },
       {
         id: 'bio_health',
-        label: 'Healthcare, Wellness & Bio-Tech',
-        desc: 'Advancing medicine, patient wellness, biological research, or digital health tools.'
+        label: 'Healthcare, Bionics & Clinical Wellbeing',
+        desc: 'Advancing biomedical devices, prosthetics, patient care tools, counseling, or genomics.'
       },
       {
         id: 'analytics',
-        label: 'Data, Finance & Strategy',
-        desc: 'Uncovering trends in numbers, economic modeling, market analytics, and strategy.'
+        label: 'Economics, Finance & Strategic Modeling',
+        desc: 'Analyzing economic trends, market strategy, investments, and large-scale resource policies.'
       },
       {
         id: 'sustainability',
-        label: 'Environment, Clean Energy & Architecture',
-        desc: 'Designing sustainable buildings, combating climate change, and green innovation.'
+        label: 'Clean Energy, Environment & Resilient Infrastructure',
+        desc: 'Engineering solar grids, green buildings, bridges, water systems, and climate restoration.'
       },
       {
         id: 'media_culture',
-        label: 'Storytelling, Education & Advocacy',
-        desc: 'Writing impactful media, designing courses, public policy, or civil rights.'
+        label: 'Education, Law, Media & Civic Policy',
+        desc: 'Shaping courses, public policy, digital rights law, creative media, or sustainable travel.'
       }
     ]
   }
 ];
 
-// Profile scoring mappings across PathPilot’s 21 authentic careers
-const careerProfiles = [
-  {
-    id: 'product-designer',
-    title: 'Product (UI/UX) Designer',
-    categoryName: 'Design & Creativity',
-    tagline: 'Design intuitive apps and websites that delight people',
+/**
+ * Alignment & Dislike Profile rules for every career in allCareers.
+ * codingLevel ensures that students who prefer physical hardware/machines, people, design, or science
+ * over pure software programming are NOT pushed into pure software developer roles.
+ */
+const careerScoringProfiles = {
+  // Robotics & Intelligent Systems (10)
+  'robotics-engineer': {
+    subjects: ['robotics_eng', 'science', 'tech'],
+    activities: ['hardware_hands_on', 'build', 'solve'],
+    styles: ['craft', 'fast', 'collaborative', 'flexible'],
+    motivations: ['create_new', 'mastery', 'learning'],
+    directions: ['robotics_hardware', 'deep_science', 'software'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Unites physical mechanisms, sensors, motors, and smart control systems so machines navigate the real world—making hands-on prototyping central rather than pure screen coding.'
+  },
+  'automation-engineer': {
+    subjects: ['robotics_eng', 'business', 'science'],
+    activities: ['hardware_hands_on', 'solve', 'organize'],
+    styles: ['structured', 'craft', 'collaborative'],
+    motivations: ['mastery', 'create_new', 'impact'],
+    directions: ['robotics_hardware', 'sustainability'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Focuses on industrial sensors, conveyor hardware, clean-energy plant controls, and reliable PLC systems—using visual logic and electrical controls instead of traditional app development.'
+  },
+  'mechatronics-engineer': {
+    subjects: ['robotics_eng', 'design', 'science'],
+    activities: ['hardware_hands_on', 'solve'],
+    styles: ['craft', 'flexible', 'fast'],
+    motivations: ['create_new', 'mastery'],
+    directions: ['robotics_hardware', 'ux_design'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Blends 3D mechanical CAD, motors, and circuit prototyping directly at the workbench—an ideal career if you love robotics hardware and tangible machines over pure software coding.'
+  },
+  'autonomous-systems-engineer': {
+    subjects: ['robotics_eng', 'tech', 'science'],
+    activities: ['build', 'solve', 'hardware_hands_on'],
+    styles: ['structured', 'fast', 'quiet'],
+    motivations: ['create_new', 'learning', 'mastery'],
+    directions: ['robotics_hardware', 'software', 'deep_science'],
+    codingLevel: 'hybrid',
+    baseReason: 'Pairs sensors like LiDAR and cameras with onboard navigation planning so rovers, drones, and self-driving vehicles perceive obstacles safely.'
+  },
+  'embedded-systems-engineer': {
+    subjects: ['robotics_eng', 'tech', 'health'],
+    activities: ['hardware_hands_on', 'build', 'solve'],
+    styles: ['quiet', 'structured', 'craft'],
+    motivations: ['mastery', 'create_new'],
+    directions: ['robotics_hardware', 'software'],
+    codingLevel: 'hybrid',
+    baseReason: 'Works right next to circuit boards and microcontrollers using hardware oscilloscopes and compact device firmware inside satellites, wearables, and robots.'
+  },
+  'ai-robotics-specialist': {
+    subjects: ['robotics_eng', 'tech', 'science'],
+    activities: ['build', 'solve'],
+    styles: ['fast', 'quiet', 'collaborative'],
+    motivations: ['learning', 'create_new'],
+    directions: ['robotics_hardware', 'software', 'deep_science'],
+    codingLevel: 'hybrid',
+    baseReason: 'Teaches physical robots how to see objects and grasp unfamiliar shapes through 3D vision and embodied simulation.'
+  },
+  'drone-systems-engineer': {
+    subjects: ['robotics_eng', 'science', 'design'],
+    activities: ['hardware_hands_on', 'explore', 'solve'],
+    styles: ['fast', 'structured', 'craft'],
+    motivations: ['create_new', 'impact', 'mastery'],
+    directions: ['robotics_hardware', 'sustainability'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Combines lightweight airframes, propellers, telemetry tuning, and outdoor flight missions for rescue, mapping, and environmental work.'
+  },
+  'human-robot-interaction-designer': {
+    subjects: ['psychology', 'design', 'robotics_eng'],
+    activities: ['help', 'hardware_hands_on', 'write'],
+    styles: ['collaborative', 'craft', 'flexible'],
+    motivations: ['help_people', 'create_new', 'impact'],
+    directions: ['robotics_hardware', 'ux_design', 'bio_health'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Shapes how humans safely understand, trust, and work alongside physical robots—a standout non-coding path into robotics driven by design and psychology.'
+  },
+  'industrial-robotics-specialist': {
+    subjects: ['robotics_eng', 'business'],
+    activities: ['hardware_hands_on', 'organize', 'solve'],
+    styles: ['structured', 'craft', 'collaborative'],
+    motivations: ['mastery', 'create_new'],
+    directions: ['robotics_hardware'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Commission and customize 6-axis factory arms, grippers, and safe workcells using 3D offline simulation and teach pendants rather than web programming.'
+  },
+  'robotics-research-scientist': {
+    subjects: ['robotics_eng', 'science', 'health'],
+    activities: ['solve', 'hardware_hands_on'],
+    styles: ['quiet', 'craft', 'fast'],
+    motivations: ['learning', 'create_new', 'mastery'],
+    directions: ['deep_science', 'robotics_hardware'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Invents bio-inspired soft robots, flexible grippers, and new mechanical locomotion concepts inside R&D laboratories.'
+  },
+
+  // Engineering (7)
+  'mechanical-engineer': {
+    subjects: ['robotics_eng', 'design', 'science'],
+    activities: ['hardware_hands_on', 'solve'],
+    styles: ['craft', 'structured', 'collaborative'],
+    motivations: ['create_new', 'mastery'],
+    directions: ['robotics_hardware', 'sustainability'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Centers on physical mechanisms, 3D CAD, materials strength, and real-world machine prototyping without software coding requirements.'
+  },
+  'electrical-engineer': {
+    subjects: ['robotics_eng', 'science'],
+    activities: ['hardware_hands_on', 'solve'],
+    styles: ['structured', 'quiet', 'collaborative'],
+    motivations: ['impact', 'mastery', 'create_new'],
+    directions: ['robotics_hardware', 'sustainability'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Engineers high-efficiency EV powertrains, solar microgrids, and electric motors grounded in physics and hardware testing.'
+  },
+  'electronics-engineer': {
+    subjects: ['robotics_eng', 'tech', 'science'],
+    activities: ['hardware_hands_on', 'solve'],
+    styles: ['craft', 'quiet', 'structured'],
+    motivations: ['mastery', 'create_new'],
+    directions: ['robotics_hardware'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Focuses on designing custom circuit boards, tactile sensors, and analog hardware at the workbench.'
+  },
+  'civil-engineer': {
+    subjects: ['robotics_eng', 'design', 'science'],
+    activities: ['explore', 'hardware_hands_on', 'organize'],
+    styles: ['structured', 'collaborative'],
+    motivations: ['impact', 'help_people', 'mastery'],
+    directions: ['sustainability', 'robotics_hardware'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Turns structural math and site engineering into safe bridges, flood resilience, and sustainable civic infrastructure.'
+  },
+  'aerospace-engineer': {
+    subjects: ['robotics_eng', 'science'],
+    activities: ['hardware_hands_on', 'solve'],
+    styles: ['structured', 'craft', 'collaborative'],
+    motivations: ['learning', 'create_new', 'mastery'],
+    directions: ['robotics_hardware', 'deep_science'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Designs spacecraft, CubeSats, aerodynamic wings, and propulsion hardware for aviation and space exploration.'
+  },
+  'biomedical-engineer': {
+    subjects: ['health', 'robotics_eng', 'science'],
+    activities: ['hardware_hands_on', 'help', 'solve'],
+    styles: ['collaborative', 'craft', 'structured'],
+    motivations: ['help_people', 'create_new', 'impact'],
+    directions: ['bio_health', 'robotics_hardware'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Combines medical physiology with physical hardware to build bionic prosthetics and bedside clinical instruments.'
+  },
+  'chemical-engineer': {
+    subjects: ['science', 'robotics_eng'],
+    activities: ['solve', 'explore', 'hardware_hands_on'],
+    styles: ['structured', 'quiet'],
+    motivations: ['impact', 'mastery', 'learning'],
+    directions: ['sustainability', 'deep_science'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Scales laboratory chemistry into clean hydrogen, battery materials, and eco-friendly manufacturing.'
+  },
+
+  // Emerging Technology (5)
+  'quantum-computing-engineer': {
+    subjects: ['science', 'tech'],
+    activities: ['solve', 'build'],
+    styles: ['quiet', 'structured'],
+    motivations: ['learning', 'mastery'],
+    directions: ['deep_science', 'software'],
+    codingLevel: 'hybrid',
+    baseReason: 'Applies physics and linear mathematics to model molecular chemistry and quantum algorithms beyond classical chips.'
+  },
+  'iot-systems-engineer': {
+    subjects: ['robotics_eng', 'tech', 'science'],
+    activities: ['hardware_hands_on', 'build', 'explore'],
+    styles: ['fast', 'flexible', 'craft'],
+    motivations: ['create_new', 'impact'],
+    directions: ['robotics_hardware', 'sustainability', 'software'],
+    codingLevel: 'hybrid',
+    baseReason: 'Connects ultra-low-power field sensors on farms, rivers, and buildings into live environmental alert meshes.'
+  },
+  'ar-vr-developer': {
+    subjects: ['design', 'tech'],
+    activities: ['build', 'hardware_hands_on'],
+    styles: ['craft', 'fast', 'collaborative'],
+    motivations: ['create_new', 'mastery'],
+    directions: ['ux_design', 'software'],
+    codingLevel: 'pure-software',
+    baseReason: 'Builds interactive 3D spatial environments for surgical simulations, design walkthroughs, and creative media.'
+  },
+  'cloud-architect': {
+    subjects: ['tech'],
+    activities: ['organize', 'build', 'solve'],
+    styles: ['structured', 'flexible'],
+    motivations: ['mastery', 'growth'],
+    directions: ['software'],
+    codingLevel: 'pure-software',
+    baseReason: 'Architects resilient, low-emission cloud data center infrastructure that keeps essential applications online.'
+  },
+  'blockchain-developer': {
+    subjects: ['tech', 'business'],
+    activities: ['build', 'solve'],
+    styles: ['quiet', 'structured'],
+    motivations: ['mastery', 'create_new'],
+    directions: ['software'],
+    codingLevel: 'pure-software',
+    baseReason: 'Uses applied cryptography to create tamper-proof digital credentials and privacy-preserving verification tools.'
+  },
+
+  // Existing Core 21 Careers & New Domain Additions
+  'product-designer': {
     subjects: ['design', 'psychology', 'tech'],
-    activities: ['build', 'help', 'solve'],
+    activities: ['help', 'write', 'build'],
     styles: ['craft', 'collaborative', 'flexible'],
     motivations: ['create_new', 'help_people', 'mastery'],
-    directions: ['ux_design', 'software'],
-    baseReason: 'You love visual design and want to build things people enjoy using every day. As a Product Designer, you combine empathy and clean aesthetics to craft intuitive apps and websites.'
+    directions: ['ux_design'],
+    codingLevel: 'non-coding',
+    baseReason: 'Focuses on empathy, sketching, wireframing, and visual craftsmanship—allowing you to shape tech products without writing backend software.'
   },
-  {
-    id: 'software-engineer',
-    title: 'Full-Stack Software Engineer',
-    categoryName: 'Technology',
-    tagline: 'Build web applications and scalable digital tools',
-    subjects: ['tech', 'science'],
+  'creative-technologist': {
+    subjects: ['design', 'tech'],
+    activities: ['build', 'hardware_hands_on'],
+    styles: ['fast', 'craft', 'flexible'],
+    motivations: ['create_new', 'learning'],
+    directions: ['ux_design', 'software'],
+    codingLevel: 'hybrid',
+    baseReason: 'Sits right at the intersection of interactive art, 3D exhibits, and creative experimentation.'
+  },
+  'graphic-designer': {
+    subjects: ['design', 'media'],
+    activities: ['write', 'build'],
+    styles: ['craft', 'quiet', 'flexible'],
+    motivations: ['create_new', 'mastery'],
+    directions: ['ux_design', 'media_culture'],
+    codingLevel: 'non-coding',
+    baseReason: 'Honors visual aesthetics, typography, and brand storytelling with pure artistic craft rather than programming.'
+  },
+  'industrial-designer': {
+    subjects: ['design', 'robotics_eng'],
+    activities: ['hardware_hands_on', 'help'],
+    styles: ['craft', 'collaborative', 'flexible'],
+    motivations: ['create_new', 'mastery', 'help_people'],
+    directions: ['ux_design', 'robotics_hardware'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Sculpts real-world ergonomic objects, bike frames, wearable casings, and robot shells using sketches, clay, and CAD—zero coding required.'
+  },
+  'software-engineer': {
+    subjects: ['tech'],
     activities: ['build', 'solve'],
     styles: ['quiet', 'flexible', 'structured'],
     motivations: ['create_new', 'mastery', 'growth'],
     directions: ['software'],
-    baseReason: 'Your natural curiosity in technology and building makes software engineering a prime path. You turn logic and ideas into functional web apps, tools, and digital platforms.'
+    codingLevel: 'pure-software',
+    baseReason: 'Turns algorithmic logic and programming into full-stack web apps, tools, and scalable digital platforms.'
   },
-  {
-    id: 'ai-engineer',
-    title: 'AI & Machine Learning Specialist',
-    categoryName: 'Technology',
-    tagline: 'Train intelligent systems to solve complex challenges',
+  'ai-engineer': {
     subjects: ['tech', 'science'],
-    activities: ['solve', 'build'],
+    activities: ['build', 'solve'],
     styles: ['quiet', 'fast', 'structured'],
     motivations: ['learning', 'create_new', 'mastery'],
+    directions: ['software', 'deep_science'],
+    codingLevel: 'pure-software',
+    baseReason: 'Teaches machine learning models to detect patterns and solve challenging digital reasoning problems.'
+  },
+  'cybersecurity-analyst': {
+    subjects: ['tech'],
+    activities: ['solve', 'organize'],
+    styles: ['structured', 'quiet'],
+    motivations: ['mastery', 'impact'],
     directions: ['software', 'analytics'],
-    baseReason: 'Ideal for your love of problem-solving and modern tech. You get to teach algorithms to recognize patterns, assist humans, and solve big challenges with data.'
+    codingLevel: 'pure-software',
+    baseReason: 'Protects digital networks, defends user privacy, and investigates software threats systematically.'
   },
-  {
-    id: 'creative-technologist',
-    title: 'Creative Technologist',
-    categoryName: 'Design & Creativity',
-    tagline: 'Combine interactive code with visual art and spatial design',
-    subjects: ['design', 'tech'],
-    activities: ['build', 'explore'],
-    styles: ['fast', 'craft', 'flexible'],
-    motivations: ['create_new', 'learning'],
-    directions: ['ux_design', 'software'],
-    baseReason: 'Sits right at the intersection of creative design and code. You build experimental web prototypes, generative graphics, and interactive digital exhibits.'
-  },
-  {
-    id: 'graphic-designer',
-    title: 'Brand & Visual Designer',
-    categoryName: 'Design & Creativity',
-    tagline: 'Shape visual identities, typography, and memorable brands',
-    subjects: ['design', 'media'],
-    activities: ['build', 'write'],
-    styles: ['craft', 'quiet', 'flexible'],
-    motivations: ['create_new', 'mastery'],
-    directions: ['ux_design', 'media_culture'],
-    baseReason: 'Matches your appreciation for aesthetics and craftsmanship. You create brand identities, typography systems, and visual stories that leave a lasting impression.'
-  },
-  {
-    id: 'product-manager',
-    title: 'Associate Product Manager',
-    categoryName: 'Business & Management',
-    tagline: 'Guide the vision and execution of modern digital products',
+  'product-manager': {
     subjects: ['business', 'tech', 'psychology'],
-    activities: ['organize', 'solve', 'help'],
+    activities: ['organize', 'help', 'solve'],
     styles: ['collaborative', 'flexible', 'fast'],
     motivations: ['growth', 'create_new', 'help_people'],
-    directions: ['product_mgmt', 'software'],
-    baseReason: 'Connects technology with team leadership. You listen to users, decide what features to build next, and bring designers and engineers together to ship great products.'
+    directions: ['product_mgmt'],
+    codingLevel: 'non-coding',
+    baseReason: 'Guides product vision, listens to real users, and leads multidisciplinary design and engineering teams.'
   },
-  {
-    id: 'entrepreneur',
-    title: 'Entrepreneur & Startup Founder',
-    categoryName: 'Business & Management',
-    tagline: 'Turn early concepts into impactful new ventures',
-    subjects: ['business', 'tech', 'design'],
-    activities: ['build', 'organize'],
+  'startup-founder': {
+    subjects: ['business', 'robotics_eng', 'design'],
+    activities: ['organize', 'hardware_hands_on', 'build'],
     styles: ['fast', 'collaborative', 'flexible'],
     motivations: ['growth', 'create_new', 'impact'],
-    directions: ['product_mgmt', 'software'],
-    baseReason: 'Perfect for someone with high initiative who wants to build something original. You validate business ideas, assemble passionate teams, and launch new ventures.'
+    directions: ['product_mgmt', 'robotics_hardware'],
+    codingLevel: 'non-coding',
+    baseReason: 'Empowers you to validate an idea, rally builders, and turn a bold vision into an independent venture.'
   },
-  {
-    id: 'user-researcher',
-    title: 'UX Researcher & Behavioral Scientist',
-    categoryName: 'Psychology',
-    tagline: 'Study human behavior to make digital tools simpler and kinder',
+  'research-innovation-strategist': {
+    subjects: ['business', 'science', 'robotics_eng'],
+    activities: ['organize', 'solve', 'write'],
+    styles: ['collaborative', 'flexible', 'fast'],
+    motivations: ['growth', 'learning', 'create_new'],
+    directions: ['product_mgmt', 'deep_science'],
+    codingLevel: 'non-coding',
+    baseReason: 'Connects lab discoveries in robotics, climate, and biotech with human pain points and practical venture strategy.'
+  },
+  'financial-analyst': {
+    subjects: ['business'],
+    activities: ['solve', 'organize'],
+    styles: ['structured', 'quiet'],
+    motivations: ['growth', 'mastery'],
+    directions: ['analytics', 'product_mgmt'],
+    codingLevel: 'non-coding',
+    baseReason: 'Uses structured market modeling and strategic analysis to help organizations allocate capital wisely.'
+  },
+  'economist': {
+    subjects: ['business', 'media', 'psychology'],
+    activities: ['solve', 'write'],
+    styles: ['quiet', 'structured'],
+    motivations: ['impact', 'learning', 'mastery'],
+    directions: ['analytics', 'media_culture'],
+    codingLevel: 'non-coding',
+    baseReason: 'Studies real-world incentives, wages, pricing, and clean-energy economics to advise policy and industry.'
+  },
+  'computational-biologist': {
+    subjects: ['science', 'health', 'tech'],
+    activities: ['solve', 'build'],
+    styles: ['quiet', 'structured', 'craft'],
+    motivations: ['learning', 'impact', 'mastery'],
+    directions: ['bio_health', 'deep_science'],
+    codingLevel: 'hybrid',
+    baseReason: 'Bridges biology and data science to decode DNA and accelerate life-saving medical discoveries.'
+  },
+  'digital-health-specialist': {
+    subjects: ['health', 'psychology', 'design'],
+    activities: ['help', 'organize'],
+    styles: ['collaborative', 'flexible'],
+    motivations: ['help_people', 'impact'],
+    directions: ['bio_health', 'ux_design'],
+    codingLevel: 'non-coding',
+    baseReason: 'Uses friendly telehealth, wellness programs, and human-centered care workflows to make healthcare easier to reach.'
+  },
+  'user-researcher': {
     subjects: ['psychology', 'design', 'health'],
     activities: ['help', 'solve', 'write'],
     styles: ['collaborative', 'flexible', 'quiet'],
     motivations: ['help_people', 'learning'],
     directions: ['ux_design', 'media_culture'],
-    baseReason: 'Draws on your curiosity about people and empathy. You interview real users, test prototypes, and uncover insights that make technology friendlier for everyone.'
+    codingLevel: 'non-coding',
+    baseReason: 'Applies behavioral psychology and empathetic listening to discover what real humans actually need from tools.'
   },
-  {
-    id: 'computational-biologist',
-    title: 'Computational Biologist',
-    categoryName: 'Science & Research',
-    tagline: 'Decode genetics and living systems using software and data',
-    subjects: ['science', 'tech', 'health'],
-    activities: ['solve', 'build'],
-    styles: ['quiet', 'structured', 'craft'],
-    motivations: ['learning', 'impact', 'mastery'],
-    directions: ['bio_health', 'software'],
-    baseReason: 'Bridges science and computing. You use algorithms and data to understand DNA, disease patterns, and living organisms to advance life-saving scientific cures.'
+  'clinical-psychologist': {
+    subjects: ['psychology', 'health'],
+    activities: ['help', 'solve'],
+    styles: ['quiet', 'collaborative', 'structured'],
+    motivations: ['help_people', 'learning'],
+    directions: ['bio_health', 'media_culture'],
+    codingLevel: 'non-coding',
+    baseReason: 'Supports emotional resilience and mental health through evidence-based counseling and deep human connection.'
   },
-  {
-    id: 'digital-health-innovator',
-    title: 'Digital Health Innovator',
-    categoryName: 'Healthcare',
-    tagline: 'Use technology to make patient care accessible and friendly',
-    subjects: ['health', 'tech', 'psychology'],
-    activities: ['help', 'build', 'organize'],
-    styles: ['collaborative', 'flexible'],
-    motivations: ['help_people', 'impact'],
-    directions: ['bio_health', 'ux_design'],
-    baseReason: 'Combines your desire to help people with modern tools. You design telehealth apps, patient monitoring systems, and digital wellness tools that improve healthcare access.'
+  'learning-experience-designer': {
+    subjects: ['psychology', 'design', 'media'],
+    activities: ['help', 'write'],
+    styles: ['collaborative', 'craft', 'flexible'],
+    motivations: ['help_people', 'learning'],
+    directions: ['media_culture', 'ux_design'],
+    codingLevel: 'non-coding',
+    baseReason: 'Turns confusing ideas into intuitive workshops, visual guides, and joyful learning journeys.'
   },
-  {
-    id: 'financial-analyst',
-    title: 'Financial Analyst',
-    categoryName: 'Finance',
-    tagline: 'Analyze market data, model trends, and guide smart investments',
-    subjects: ['business', 'tech', 'science'],
-    activities: ['solve', 'organize'],
-    styles: ['structured', 'quiet'],
-    motivations: ['growth', 'mastery'],
-    directions: ['analytics', 'product_mgmt'],
-    baseReason: 'Plays to your analytical curiosity. You build economic models, analyze financial trends, and help companies and investors make sound financial choices.'
-  },
-  {
-    id: 'climate-energy-analyst',
-    title: 'Climate & Clean Energy Analyst',
-    categoryName: 'Social Impact & Environment',
-    tagline: 'Accelerate the transition to renewable power and sustainability',
-    subjects: ['science', 'tech', 'business'],
-    activities: ['explore', 'solve'],
-    styles: ['structured', 'flexible'],
-    motivations: ['impact', 'learning'],
-    directions: ['sustainability', 'analytics'],
-    baseReason: 'Aligns with your care for the environment and analytical thinking. You evaluate solar and wind projects, track emissions data, and help communities transition to clean power.'
-  },
-  {
-    id: 'sustainable-architect',
-    title: 'Sustainable Architect',
-    categoryName: 'Architecture & Construction',
-    tagline: 'Design eco-friendly buildings and harmonious physical spaces',
-    subjects: ['design', 'science'],
-    activities: ['build', 'explore'],
-    styles: ['craft', 'collaborative'],
-    motivations: ['impact', 'create_new'],
-    directions: ['sustainability', 'ux_design'],
-    baseReason: 'Combines structural creativity with sustainability. You design modern, energy-efficient buildings and public spaces that harmonize with nature.'
-  },
-  {
-    id: 'content-strategist',
-    title: 'Content & Narrative Strategist',
-    categoryName: 'Media & Communication',
-    tagline: 'Tell engaging stories that connect people with meaningful ideas',
+  'content-strategist': {
     subjects: ['media', 'psychology', 'design'],
     activities: ['write', 'help'],
     styles: ['quiet', 'collaborative', 'flexible'],
     motivations: ['create_new', 'help_people'],
     directions: ['media_culture', 'ux_design'],
-    baseReason: 'Leverages your love for storytelling and clear communication. You write compelling narratives, organize digital content, and help organizations share their message.'
+    codingLevel: 'non-coding',
+    baseReason: 'Elevates clear storytelling, editorial voice, and meaningful public communication.'
   },
-  {
-    id: 'learning-designer',
-    title: 'Learning Experience Designer',
-    categoryName: 'Education',
-    tagline: 'Make complex topics intuitive and exciting for students to learn',
-    subjects: ['psychology', 'design', 'tech'],
-    activities: ['help', 'write', 'build'],
-    styles: ['collaborative', 'craft'],
-    motivations: ['help_people', 'learning'],
-    directions: ['media_culture', 'ux_design'],
-    baseReason: 'Draws on your passion for teaching and creative presentation. You create engaging courses, interactive tutorials, and learning tools that help people master skills.'
-  },
-  {
-    id: 'cybersecurity-analyst',
-    title: 'Cybersecurity Analyst',
-    categoryName: 'Technology',
-    tagline: 'Protect critical data, systems, and user privacy from threats',
-    subjects: ['tech', 'science'],
-    activities: ['solve', 'organize'],
-    styles: ['structured', 'quiet'],
-    motivations: ['mastery', 'impact'],
-    directions: ['software', 'analytics'],
-    baseReason: 'Ideal for those who enjoy detective-style problem solving. You safeguard systems, spot security vulnerabilities, and defend user privacy in the digital age.'
-  },
-  {
-    id: 'growth-marketer',
-    title: 'Growth & Community Marketer',
-    categoryName: 'Marketing',
-    tagline: 'Grow passionate communities and introduce people to great products',
+  'digital-marketing-specialist': {
     subjects: ['business', 'media', 'psychology'],
     activities: ['write', 'organize'],
     styles: ['fast', 'collaborative'],
     motivations: ['growth', 'create_new'],
     directions: ['product_mgmt', 'media_culture'],
-    baseReason: 'Combines creative storytelling with data-driven experiments. You introduce exciting products to students and build lively, engaged user communities.'
+    codingLevel: 'non-coding',
+    baseReason: 'Combines creative storytelling with audience insights to build lively communities around new ideas.'
   },
-  {
-    id: 'biomedical-scientist',
-    title: 'Biomedical Research Scientist',
-    categoryName: 'Science & Research',
-    tagline: 'Conduct laboratory research to discover novel treatments',
+  'sustainable-architect': {
+    subjects: ['design', 'science', 'robotics_eng'],
+    activities: ['hardware_hands_on', 'explore'],
+    styles: ['craft', 'collaborative'],
+    motivations: ['impact', 'create_new'],
+    directions: ['sustainability', 'ux_design'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Shapes daylight-filled, low-carbon buildings and harmonious civic spaces physically.'
+  },
+  'tech-policy-counsel': {
+    subjects: ['media', 'psychology', 'tech'],
+    activities: ['write', 'solve'],
+    styles: ['structured', 'quiet'],
+    motivations: ['impact', 'mastery'],
+    directions: ['media_culture'],
+    codingLevel: 'non-coding',
+    baseReason: 'Protects digital privacy, AI ethics, and civil rights through legal reasoning and advocacy rather than programming.'
+  },
+  'biomedical-scientist': {
     subjects: ['science', 'health'],
     activities: ['solve', 'help'],
     styles: ['structured', 'craft', 'quiet'],
     motivations: ['learning', 'help_people', 'impact'],
-    directions: ['bio_health', 'analytics'],
-    baseReason: 'Deeply honors scientific curiosity. You design laboratory experiments, analyze molecular pathways, and help discover new treatments for human health.'
+    directions: ['bio_health', 'deep_science'],
+    codingLevel: 'non-coding',
+    baseReason: 'Investigates cellular mechanisms in laboratory research to pioneer safer, more effective medicines.'
   },
-  {
-    id: 'public-policy-analyst',
-    title: 'Public Policy & Civic Analyst',
-    categoryName: 'Government Services',
-    tagline: 'Analyze civic issues and shape policies that benefit communities',
-    subjects: ['psychology', 'media', 'business'],
+  'astrophysicist': {
+    subjects: ['science'],
+    activities: ['solve'],
+    styles: ['quiet', 'structured'],
+    motivations: ['learning', 'mastery'],
+    directions: ['deep_science'],
+    codingLevel: 'non-coding',
+    baseReason: 'Decodes starlight, exoplanet transits, and gravitational ripples to uncover how galaxies and universes form.'
+  },
+  'biotechnologist': {
+    subjects: ['science', 'health'],
+    activities: ['hardware_hands_on', 'solve', 'explore'],
+    styles: ['structured', 'craft'],
+    motivations: ['impact', 'create_new', 'learning'],
+    directions: ['deep_science', 'bio_health', 'sustainability'],
+    codingLevel: 'non-coding',
+    baseReason: 'Harnesses living microbes and enzymes in bioreactors to brew medicines and sustainable biodegradable materials.'
+  },
+  'geneticist': {
+    subjects: ['science', 'health'],
+    activities: ['solve', 'help'],
+    styles: ['structured', 'quiet'],
+    motivations: ['learning', 'help_people', 'impact'],
+    directions: ['deep_science', 'bio_health'],
+    codingLevel: 'non-coding',
+    baseReason: 'Studies DNA inheritance and CRISPR gene repair to prevent rare diseases and build climate-resilient crops.'
+  },
+  'environmental-scientist': {
+    subjects: ['science'],
+    activities: ['explore', 'solve'],
+    styles: ['flexible', 'collaborative'],
+    motivations: ['impact', 'learning'],
+    directions: ['sustainability', 'deep_science'],
+    codingLevel: 'non-coding',
+    baseReason: 'Combines outdoor ecological fieldwork with watershed and biodiversity conservation.'
+  },
+  'neuroscientist': {
+    subjects: ['science', 'psychology', 'health'],
+    activities: ['solve', 'help'],
+    styles: ['quiet', 'structured', 'collaborative'],
+    motivations: ['learning', 'help_people'],
+    directions: ['deep_science', 'bio_health'],
+    codingLevel: 'non-coding',
+    baseReason: 'Explores memory, neural signals, and brain-computer interfaces to understand cognition and restore movement.'
+  },
+  'materials-scientist': {
+    subjects: ['science', 'robotics_eng'],
+    activities: ['hardware_hands_on', 'solve'],
+    styles: ['craft', 'structured', 'quiet'],
+    motivations: ['create_new', 'learning', 'impact'],
+    directions: ['deep_science', 'robotics_hardware', 'sustainability'],
+    codingLevel: 'low-code-hardware',
+    baseReason: 'Engineers solid-state batteries, ultra-light composites, and biodegradable films through physical material testing.'
+  },
+  'policy-analyst': {
+    subjects: ['media', 'psychology', 'business'],
     activities: ['write', 'solve', 'help'],
     styles: ['structured', 'collaborative'],
     motivations: ['impact', 'help_people'],
     directions: ['media_culture', 'analytics'],
-    baseReason: 'Driven by social impact and clear analysis. You research community challenges, evaluate laws, and write recommendations that make civic systems fairer.'
+    codingLevel: 'non-coding',
+    baseReason: 'Evaluates community laws and civic evidence to shape fairer public policies.'
   },
-  {
-    id: 'tech-attorney',
-    title: 'Technology & Civil Rights Attorney',
-    categoryName: 'Law',
-    tagline: 'Protect digital privacy, ethical AI, and fair technology rules',
-    subjects: ['tech', 'psychology', 'media'],
-    activities: ['solve', 'write'],
-    styles: ['structured', 'quiet'],
-    motivations: ['impact', 'mastery'],
-    directions: ['media_culture', 'software'],
-    baseReason: 'Brings together logic, writing, and justice. You advocate for fair technology policies, protect digital privacy rights, and ensure ethical technological growth.'
-  },
-  {
-    id: 'sustainable-travel-curator',
-    title: 'Sustainable Travel & Experience Curator',
-    categoryName: 'Hospitality & Tourism',
-    tagline: 'Curate meaningful, culturally respectful travel experiences',
-    subjects: ['media', 'business', 'science'],
+  'experience-curator': {
+    subjects: ['media', 'business'],
     activities: ['organize', 'explore'],
     styles: ['collaborative', 'flexible'],
     motivations: ['impact', 'create_new'],
     directions: ['sustainability', 'media_culture'],
-    baseReason: 'For those who love culture, exploration, and hospitality. You design memorable travel journeys that support local artisans and preserve natural ecosystems.'
+    codingLevel: 'non-coding',
+    baseReason: 'Curates respectful cultural journeys and community hospitality rooted in local artisans and nature.'
+  },
+  'clean-energy-analyst': {
+    subjects: ['science', 'business'],
+    activities: ['explore', 'solve'],
+    styles: ['structured', 'flexible'],
+    motivations: ['impact', 'learning'],
+    directions: ['sustainability', 'analytics'],
+    codingLevel: 'non-coding',
+    baseReason: 'Models solar, wind, and energy storage savings so communities can transition smoothly to clean power.'
   }
-];
+};
 
 /**
- * Calculates top 2–3 career matches based on the student's 5 answers.
- * Dynamically adjusts match percentage and writes a personalized explanation.
+ * Helper to look up readable option label from discoveryQuestions
+ */
+const getOptionLabel = (questionId, optionId) => {
+  const q = discoveryQuestions.find((item) => item.id === questionId);
+  return q?.options.find((opt) => opt.id === optionId)?.label || '';
+};
+
+/**
+ * Evaluates all 5 answers together and computes top career recommendations,
+ * explicitly weighing both interests AND coding/non-coding dislikes.
  */
 export const getCareerMatches = (answers = {}) => {
   const {
-    subject = 'tech',
-    activity = 'build',
-    style = 'flexible',
-    motivation = 'create_new',
-    direction = 'software'
+    subject,
+    activity,
+    style,
+    motivation,
+    direction,
+    codingPreference
   } = answers;
 
-  // Score each career
-  const scored = careerProfiles.map((career) => {
-    let score = 50; // Base score
+  if (!subject || !activity || !style || !motivation || !direction) {
+    return [];
+  }
 
-    // Subject alignment (+15 if primary, +8 if secondary)
-    if (career.subjects[0] === subject) score += 16;
-    else if (career.subjects.includes(subject)) score += 9;
+  // Detect preference for physical hardware / people / research over pure software coding
+  const wantsPureSoftware =
+    codingPreference !== 'dislike_coding' &&
+    (direction === 'software' || (subject === 'tech' && activity === 'build'));
 
-    // Activity alignment (+14)
-    if (career.activities[0] === activity) score += 14;
-    else if (career.activities.includes(activity)) score += 8;
+  const prefersHardwareOverPureCoding =
+    codingPreference === 'dislike_coding' ||
+    activity === 'hardware_hands_on' ||
+    direction === 'robotics_hardware' ||
+    (subject === 'robotics_eng' && direction !== 'software');
 
-    // Direction alignment (+16)
-    if (career.directions[0] === direction) score += 16;
-    else if (career.directions.includes(direction)) score += 8;
+  const avoidsPureCodingGenerally =
+    codingPreference === 'dislike_coding' ||
+    (!wantsPureSoftware && subject !== 'tech');
 
-    // Motivation alignment (+10)
-    if (career.motivations.includes(motivation)) score += 10;
+  const scored = allCareers.map((career) => {
+    const profile = careerScoringProfiles[career.id] || {
+      subjects: [],
+      activities: [],
+      styles: [],
+      motivations: [],
+      directions: [],
+      codingLevel: 'non-coding',
+      baseReason: career.overview
+    };
 
-    // Working style alignment (+8)
-    if (career.styles.includes(style)) score += 8;
+    let score = 46; // Base compatibility score
 
-    // Clamp score between 78% and 98%
-    const matchPercentage = Math.min(98, Math.max(76, score));
+    // 1. Academic / Subject alignment (+18 primary, +10 secondary)
+    if (profile.subjects[0] === subject) score += 18;
+    else if (profile.subjects.includes(subject)) score += 10;
+
+    // 2. Daily Activity & Hands-On Energy alignment (+16 primary, +9 secondary)
+    if (profile.activities[0] === activity) score += 16;
+    else if (profile.activities.includes(activity)) score += 9;
+
+    // 3. Future Direction alignment (+18 primary, +10 secondary)
+    if (profile.directions[0] === direction) score += 18;
+    else if (profile.directions.includes(direction)) score += 10;
+
+    // 4. Motivation alignment (+10)
+    if (profile.motivations[0] === motivation) score += 10;
+    else if (profile.motivations.includes(motivation)) score += 7;
+
+    // 5. Working Style alignment (+8)
+    if (profile.styles.includes(style)) score += 8;
+
+    // 6. Dislike / Coding-vs-Hardware Precision Weighting
+    if (prefersHardwareOverPureCoding) {
+      if (profile.codingLevel === 'pure-software') {
+        score -= 48; // Prevent pure software roles from overriding hardware/robotics choices
+      } else if (profile.codingLevel === 'low-code-hardware') {
+        score += 6; // Elevate hands-on robotics, mechatronics, automation & physical engineering
+      } else if (profile.codingLevel === 'hybrid' && activity === 'hardware_hands_on' && direction === 'robotics_hardware') {
+        score -= 6; // Prefer mechanical/mechatronics/robotics over firmware/ML-heavy robotics when less coding is desired
+      }
+    } else if (avoidsPureCodingGenerally && profile.codingLevel === 'pure-software') {
+      score -= 35; // Penalize software coding roles when user picked design, health, psych, science, business, or media
+    }
+
+    // Extra boost when coding + robotics explicitly combine
+    if (subject === 'robotics_eng' && (activity === 'build' || direction === 'software')) {
+      if (profile.codingLevel === 'hybrid' && career.categoryId === 'robotics') {
+        score += 12;
+      }
+    }
+
+    const rawScore = Math.round(score);
+    const matchPercentage = Math.min(97, Math.max(62, Math.round(35 + (rawScore / 126) * 62)));
 
     return {
-      ...career,
+      career,
+      profile,
+      rawScore,
       matchPercentage
     };
   });
 
-  // Sort descending
-  scored.sort((a, b) => b.matchPercentage - a.matchPercentage);
+  // Sort descending by true unclamped rawScore first so distinct high matches never tie prematurely
+  scored.sort((a, b) => b.rawScore - a.rawScore || b.matchPercentage - a.matchPercentage);
 
-  // Return top 3 matches
-  const topMatches = scored.slice(0, 3).map((match, idx) => {
-    // Generate tailored, personal 2-sentence explanation
-    let personalizedReason = match.baseReason;
+  const subjectLabel = getOptionLabel('subject', subject);
+  const activityLabel = getOptionLabel('activity', activity);
+  const motivationLabel = getOptionLabel('motivation', motivation);
+  const directionLabel = getOptionLabel('direction', direction);
 
-    // Add extra relevance touchpoint if exact subject or direction matches
-    if (idx === 0 && match.directions.includes(direction)) {
-      personalizedReason = `Your ambition for ${discoveryQuestions[4].options.find(o => o.id === direction)?.label || 'this field'} and interest in ${discoveryQuestions[0].options.find(o => o.id === subject)?.label || 'this subject'} makes this an exceptional fit. ${match.baseReason}`;
+  // Return top 4 diverse, rich recommendations
+  return scored.slice(0, 4).map(({ career, profile, rawScore, matchPercentage }, index) => {
+    let why;
+    if (index === 0) {
+      why = `Your strong interest in "${subjectLabel}" combined with "${activityLabel}" and your goal of "${directionLabel}" makes ${career.title} your top alignment. ${profile.baseReason}`;
+    } else if (prefersHardwareOverPureCoding && profile.codingLevel === 'low-code-hardware') {
+      why = `Aligned with your motivation for "${motivationLabel}" and hands-on focus without requiring pure software coding. ${profile.baseReason}`;
+    } else {
+      why = `Matches your interest in "${subjectLabel}" and motivation for "${motivationLabel}". ${profile.baseReason}`;
     }
 
     return {
-      id: match.id,
-      title: match.title,
-      categoryName: match.categoryName,
-      tagline: match.tagline,
-      matchPercentage: `${match.matchPercentage}%`,
-      why: personalizedReason,
-      exploreUrl: `/explore?q=${encodeURIComponent(match.title)}`
+      id: career.id,
+      title: career.title,
+      categoryId: career.categoryId,
+      categoryName: career.categoryName,
+      tagline: career.tagline,
+      overview: career.overview,
+      matchPercentage: `${matchPercentage}%`,
+      rawScore,
+      why,
+      technicalSkills: career.technicalSkills || [],
+      softSkills: career.softSkills || [],
+      learningPath: career.howToGetStarted || [],
+      beginnerProject: career.beginnerProject || '',
+      exploreUrl: `/careers/${career.id}`,
+      roadmapUrl: `/roadmap?career=${career.id}`
     };
   });
-
-  return topMatches;
 };

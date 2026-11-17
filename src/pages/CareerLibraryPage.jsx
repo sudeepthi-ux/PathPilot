@@ -30,9 +30,13 @@ export const CareerLibraryPage = () => {
         const query = searchQuery.toLowerCase();
         const matchesTitle = career.title.toLowerCase().includes(query);
         const matchesTagline = career.tagline.toLowerCase().includes(query);
+        const matchesOverview = (career.overview || '').toLowerCase().includes(query);
         const matchesCategory = career.categoryName.toLowerCase().includes(query);
-        const matchesSkills = (career.technicalSkills || []).concat(career.softSkills || []).some(s => s.toLowerCase().includes(query));
-        if (!matchesTitle && !matchesTagline && !matchesCategory && !matchesSkills) {
+        const matchesSkillsAndTools = (career.technicalSkills || [])
+          .concat(career.softSkills || [])
+          .concat(career.tools || [])
+          .some((item) => item.toLowerCase().includes(query));
+        if (!matchesTitle && !matchesTagline && !matchesOverview && !matchesCategory && !matchesSkillsAndTools) {
           return false;
         }
       }
@@ -50,13 +54,13 @@ export const CareerLibraryPage = () => {
             Career Discovery Library
           </span>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-charcoal-900 leading-tight">
-            Explore 15 Career Fields <br />
+            Explore {careerLibraryCategories.length} Career Fields <br />
             <span className="font-serif italic font-normal text-forest-800">
               in simple, plain language.
             </span>
           </h1>
           <p className="text-sm sm:text-base text-charcoal-600 leading-relaxed">
-            Browse through real professions across design, science, technology, public service, and the arts. Learn what people actually do, the tools they use, and beginner projects you can try.
+            Browse through {allCareers.length}+ real professions across robotics, core engineering, emerging tech, science, design, healthcare, and public service. Learn what people actually do, the tools they use, and beginner projects you can try.
           </p>
         </div>
 
@@ -70,7 +74,7 @@ export const CareerLibraryPage = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search careers by name or skill (e.g. 'Product Designer', 'Python', 'Biology', 'Architecture')..."
+              placeholder="Search careers by name, field, or tool (e.g. 'Robotics Engineer', 'Mechatronics', 'Astrophysics', 'Product Designer')..."
               className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-ivory-50 border border-ivory-200 text-xs text-charcoal-900 focus:outline-none focus:ring-1 focus:ring-forest-800"
             />
           </div>
